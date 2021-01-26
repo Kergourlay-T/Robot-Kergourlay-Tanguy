@@ -1,0 +1,70 @@
+Microchip Technology Inc, v1.60 (B)
+
+Tool Name:
+  c:\program files\microchip\xc16\v1.60\bin\bin\..\bin/elf-ld.exe
+
+Command:
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.00 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.01 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.02 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.03 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.04 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.05 \
+  -TC:\\Users\\TP-EO-1\\AppData\\Local\\Temp\\tmp00002234.06 \
+  -p33EP512GM306 \
+  --mdfp=C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/dsPIC33E-GM-GP-MC-GU-MU_DFP/1.2.58/xc16 \
+  -o \
+  dist/default/debug/Robot-Kergourlay-Daillan.X.debug.elf \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/.. \
+  -LC:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/dsPIC33E-GM-GP-MC-GU-MU_DFP/1.2.58/xc16/bin/../support/PIC24E/gld \
+  -LC:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/dsPIC33E-GM-GP-MC-GU-MU_DFP/1.2.58/xc16/bin/../support/dsPIC33E/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../lib \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/PIC24E/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/PIC24F/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/PIC24H/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/dsPIC30F/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/dsPIC33C/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/dsPIC33E/gld \
+  -Lc:/program files/microchip/xc16/v1.60/bin/bin/../../support/dsPIC33F/gld \
+  build/default/debug/ChipConfig.o \
+  build/default/debug/IO.o \
+  build/default/debug/main.o \
+  build/default/debug/ChipConfig.o \
+  build/default/debug/IO.o \
+  --local-stack \
+  --defsym=__MPLAB_BUILD=1 \
+  --defsym=__MPLAB_DEBUG=1 \
+  --defsym=__DEBUG=1 \
+  --defsym=__MPLAB_DEBUGGER_ICD3=1 \
+  -Tp33EP512GM306.gld.07 \
+  --stack=16 \
+  --check-sections \
+  --data-init \
+  --pack-data \
+  --handles \
+  --isr \
+  --no-gc-sections \
+  --fill-upper=0 \
+  --stackguard=16 \
+  --no-force-link \
+  --smart-io \
+  -Map=dist/default/debug/Robot-Kergourlay-Daillan.X.debug.map \
+  --report-mem \
+  --memorysummary \
+  dist/default/debug/memoryfile.xml \
+  -start-group \
+  --library=lega-pic30-elf \
+  --library=m-elf \
+  --library=lega-c-elf \
+  -end-group \
+
+
+Optional library libp33EP512GM306.a not found
+Archive member included because of file (symbol)
+
+c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                              (__resetPRI)
+c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extended.o)
+                              c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o) (__data_init_extended)
+c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normalep.Leo)
+                              (__crt_start_mode_normal)
