@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/debug/Robot-Kergourlay-Daillan.X.debug.elf">
+  <executable name="dist/default/production/Robot-Kergourlay-Daillan.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>49152</length>
-      <used>128</used>
-      <free>49024</free>
+      <used>36</used>
+      <free>49116</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>524514</length>
-      <used>3855</used>
-      <free>520659</free>
+      <used>3225</used>
+      <free>521289</free>
     </memory>
   </executable>
 </project>
