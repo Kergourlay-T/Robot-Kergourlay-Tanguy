@@ -14,6 +14,8 @@ typedef struct robotStateBITS {
             float distanceTelemetreDroit;
             float distanceTelemetreGauche;
             float distanceTelemetreCentre;
+            float distanceTelemetreDroitExtremite;
+            float distanceTelemetreGaucheExtremite;
         };
     };
 } ROBOT_STATE_BITS;
