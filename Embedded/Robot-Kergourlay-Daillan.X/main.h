@@ -2,6 +2,7 @@
 #define	MAIN_H
 
 #define FCY 40000000
+#define distanceTelemetre 6.5
 
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1

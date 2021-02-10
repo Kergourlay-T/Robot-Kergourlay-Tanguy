@@ -5,7 +5,7 @@
 #include "ADC.h"
 #include "main.h"
 
-unsigned char toggle = 0;
+
 unsigned long timestamp = 0;
 
 
@@ -32,7 +32,6 @@ void InitTimer23(void) {
 
 void __attribute__((interrupt, no_auto_psv))_T3Interrupt(void) {
     IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
-    OperatingSystemLoop();
 }
 
 // Initialisation d'un timer 16 bits
@@ -79,8 +78,8 @@ void InitTimer1(float freq) {
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
-    PWMUpdateSpeed();
     ADC1StartConversionSequence();
+    PWMUpdateSpeed();
 }
 
 
@@ -100,16 +99,16 @@ void InitTimer4(float freq) {
         if(FCY /freq / 64 > 65535)
         {
          T4CONbits.TCKPS = 0b11; //11 = 1:256 prescaler value
-         PR1 = (int)(FCY / freq / 256);
+         PR4 = (int)(FCY / freq / 256);
          }
          else
-         PR1 = (int)(FCY / freq / 64);
+         PR4 = (int)(FCY / freq / 64);
            }
          else
-         PR1 = (int)(FCY / freq / 8);
+         PR4 = (int)(FCY / freq / 8);
         }
     else
-    PR1 = (int)(FCY / freq);
+    PR4 = (int)(FCY / freq);
     
     // Prescaler
     // 11 = 1:256 prescale value
@@ -129,5 +128,6 @@ void InitTimer4(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp += 1;
+    OperatingSystemLoop();
 }
 
