@@ -28,11 +28,9 @@ int main(void) {
     /***************************************************************************************************/
     //Initialisation des timers
     /****************************************************************************************************/
- 
     InitTimer23();
     InitTimer1(50);
     InitTimer4(1000);
-
 
     /***************************************************************************************************/
     //Initialisation du PWM
@@ -43,9 +41,7 @@ int main(void) {
     //Initialisation du ADC
     /****************************************************************************************************/
     InitADC1();
-
     unsigned int* result;
-
 
     /****************************************************************************************************/
     // Boucle Principale
@@ -99,100 +95,97 @@ int main(void) {
             }
 
 //            //Telemetre droit extremite
-//            angleTelemetreDroitExtremite = acosf( (robotState.distanceTelemetreDroit^2 + 
-//                    distanceTelemetre^2 -robotState.distanceTelemetreDroitExtremite^2) 
-//                    / (2 * robotState.distanceTelemetreDroit * distanceTelemetre) );
-//
+//            
+//            //calcul angle beta par la loi cosinus 
+//            angleTelemetreDroitExtremite = acosf( ( pow(robotState.distanceTelemetreDroit,2) + pow(distanceTelemetre,2)
+//                    - pow(robotState.distanceTelemetreDroitExtremite,2))
+//                    / (2 * robotState.distanceTelemetreDroit * distanceTelemetre));
+//            //calcul des coordonnées du croisement entre télémètres droit et droit extrémité 
 //            xCoordonneePointDroitExtremite = cos(angleTelemetreDroitExtremite)*(xCoordonneeTelemetreDroit - xCoordonneeTelemetreDroitExtremite)
 //                    + sin(angleTelemetreDroitExtremite)*(yCoordonneeTelemetreDroit - yCoordonneeTelemetreDroitExtremite);
 //            yCoordonneePointDroitExtremite = -sin(angleTelemetreDroitExtremite)*(xCoordonneeTelemetreDroit - xCoordonneeTelemetreDroitExtremite)
 //                    + cos(angleTelemetreDroitExtremite)*(yCoordonneeTelemetreDroit - yCoordonneeTelemetreDroitExtremite);
-//            distanceCentreDroitExtremite = sqrt((xCoordonneePointDroitExtremite - xCoordonneeCentreRobot)^2 +
-//                    (yCoordonneePointDroitExtremite - yCoordonneeCentreRobot)^2);
-//
-//            distanceReferencePointDroitExtremite = sqrt((xCoordonneePointDroitExtremite - xCoordonneeReferenceDroit)^2 +
-//                    (yCoordonneePointDroitExtremite - yCoordonneeReferenceDroit)^2);
-//            angleReferenceDroitExtremite = acosf((distanceCentreDroitExtremite^2 + distanceReferencePointDroitExtremite^2 -
-//                    DistanceReferenceCentreRobot^2) / (2 * distanceCentreDroitExtremite * distanceReferencePointDroitExtremite));
+//            //calcul distance entre le centre du robot et point de croisement des télémètres
+//            distanceCentreDroitExtremite = sqrtf( pow(xCoordonneePointDroitExtremite - xCoordonneeCentreRobot,2) +
+//                    pow(yCoordonneePointDroitExtremite - yCoordonneeCentreRobot,2) );
+//            //calcul distance entre repère critique droit et croisement des télémètres
+//            distanceReferencePointDroitExtremite = sqrtf( pow(xCoordonneePointDroitExtremite - xCoordonneeReferenceDroit, 2) +
+//                    pow(yCoordonneePointDroitExtremite - yCoordonneeReferenceDroit,2));
+//            //détermination de l'angle entre repère critique droit et croisement des télémètres
+//            angleReferenceDroitExtremite = acosf( (pow(distanceCentreDroitExtremite,2) + pow(distanceReferencePointDroitExtremite,2) -
+//                    pow(DistanceReferenceCentreRobot,2)) / (2 * distanceCentreDroitExtremite * distanceReferencePointDroitExtremite));
 //
 //
 //            //Telemetre droit
-//            angleTelemetreDroit = acosf((robotState.distanceTelemetreCentre^2 + distanceTelemetre^2 -
-//                    robotState.distanceTelemetreDroit^2) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
-//
+//            
+//            //calcul angle beta par la loi cosinus 
+//            angleTelemetreDroit = acosf( (pow(robotState.distanceTelemetreCentre,2) + pow(distanceTelemetre,2) -
+//                    pow(robotState.distanceTelemetreDroit,2)) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
+//            //calcul des coordonnées du croisement entre télémètres droit et centre
 //            xCoordonneePointDroit = cos(angleTelemetreDroit)*(xCoordonneeTelemetreCentre - xCoordonneeTelemetreDroit)
 //                    + sin(angleTelemetreDroit)*(yCoordonneeTelemetreCentre - yCoordonneeTelemetreDroit);
 //            yCoordonneePointDroit = -sin(angleTelemetreDroit)*(xCoordonneeTelemetreCentre - xCoordonneeTelemetreDroit)
 //                    + cos(angleTelemetreDroit)*(yCoordonneeTelemetreCentre - yCoordonneeTelemetreDroit);
-//
-//            distanceCentreDroit = sqrt((xCoordonneePointDroit - xCoordonneeCentreRobot)^2 +
-//                    (yCoordonneePointDroit - yCoordonneeCentreRobot)^2);
-//
-//            distanceReferencePointDroit = sqrt((xCoordonneePointDroit - xCoordonneeReferenceDroit)^2 +
+//            //calcul distance entre le centre du robot et point de croisement des télémètres
+//            distanceCentreDroit = sqrtf( pow(xCoordonneePointDroit - xCoordonneeCentreRobot,2) +
+//                    pow(yCoordonneePointDroit - yCoordonneeCentreRobot,2) );
+//            //calcul distance entre repère critique droit et croisement des télémètres
+//            distanceReferencePointDroit = sqrtf( pow(xCoordonneePointDroit - xCoordonneeReferenceDroit,2) +
 //                    (yCoordonneePointDroit - yCoordonneeReferenceDroit)^2);
-//            angleReferenceDroit = acosf((distanceCentreDroit^2 + distanceReferencePointDroit^2 -
-//                    DistanceReferenceCritiqueCentreRobot^2) / (2 * distanceCentreDroit * distanceReferencePointDroit));
+//            //détermination de l'angle entre repère critique droit et croisement des télémètres
+//            angleReferenceDroit = acosf( ( pow(distanceCentreDroit,2) + pow(distanceReferencePointDroit,2) -
+//                    pow(DistanceReferenceCritiqueCentreRobot,2) ) / (2 * distanceCentreDroit * distanceReferencePointDroit));
 //
 //
 //
 //            //Telemetre gauche extremite
-//            angleTelemetreGaucheExtremite = acosf((robotState.distanceTelemetreGauche^2 + distanceTelemetre^2 -
-//                    robotState.distanceTelemetreGaucheExtremite^2) / (2 * robotState.distanceTelemetreGauche * distanceTelemetre));
-//
+//            
+//            //calcul angle beta par la loi cosinus 
+//            angleTelemetreGaucheExtremite = acosf( (pow(robotState.distanceTelemetreGauche,2) + pow(distanceTelemetre,2) -
+//                    pow(robotState.distanceTelemetreGaucheExtremite,2) ) / (2 * robotState.distanceTelemetreGauche * distanceTelemetre));
+//            //calcul des coordonnées du croisement entre télémètres gauche et gauche extrémit
 //            xCoordonneePointGaucheExtremite = cos(angleTelemetreGaucheExtremite)*(xCoordonneeTelemetreGauche - xCoordonneeTelemetreGaucheExtremite)
 //                    + sin(angleTelemetreGaucheExtremite)*(yCoordonneeTelemetreGauche - yCoordonneeTelemetreGaucheExtremite);
 //            yCoordonneePointGaucheExtremite = -sin(angleTelemetreGaucheExtremite)*(xCoordonneeTelemetreGauche - xCoordonneeTelemetreGaucheExtremite)
 //                    + cos(angleTelemetreGaucheExtremite)*(yCoordonneeTelemetreGauche - yCoordonneeTelemetreGaucheExtremite);
-//            distanceCentreGaucheExtremite = sqrt((xCoordonneePointGaucheExtremite - xCoordonneeCentreRobot)^2 +
-//                    (yCoordonneePointGaucheExtremite - yCoordonneeCentreRobot)^2);
-//
-//            distanceReferencePointGaucheExtremite = sqrt((xCoordonneePointGaucheExtremite - xCoordonneeReferenceGauche)^2 +
-//                    (yCoordonneePointGaucheExtremite - yCoordonneeReferenceGauche)^2);
-//            angleReferenceGaucheExtremite = acosf((distanceCentreGaucheExtremite^2 + distanceReferencePointGaucheExtremite^2 -
-//                    DistanceReferenceCentreRobot^2) / (2 * distanceCentreGaucheExtremite * distanceReferencePointGaucheExtremite));
+//            //calcul distance entre le centre du robot et point de croisement des télémètres
+//            distanceCentreGaucheExtremite = sqrtf( pow(xCoordonneePointGaucheExtremite - xCoordonneeCentreRobot,2) +
+//                    pow(yCoordonneePointGaucheExtremite - yCoordonneeCentreRobot,2));
+//            //calcul distance entre repère gauche et croisement des télémètres
+//            distanceReferencePointGaucheExtremite = sqrtf( pow(xCoordonneePointGaucheExtremite - xCoordonneeReferenceGauche,2) +
+//                    pow(yCoordonneePointGaucheExtremite - yCoordonneeReferenceGauche,2));
+//            //détermination de l'angle entre repère gauche et croisement des télémètres
+//            angleReferenceGaucheExtremite = acosf( (pow(distanceCentreGaucheExtremite,2) + pow(distanceReferencePointGaucheExtremite,2) -
+//                    pow(DistanceReferenceCentreRobot,2) ) / (2 * distanceCentreGaucheExtremite * distanceReferencePointGaucheExtremite));
 //
 //
 //            //Telemetre gauche
-//            angleTelemetreGauche = acosf((robotState.distanceTelemetreCentre^2 + distanceTelemetre^2 -
-//                    robotState.distanceTelemetreGauche^2) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
-//
+//            
+//            //calcul angle beta par la loi cosinus 
+//            angleTelemetreGauche = acosf( (pow(robotState.distanceTelemetreCentre,2) + pow(distanceTelemetre,2) -
+//                    pwo(robotState.distanceTelemetreGauche,2)) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
+//             //calcul des coordonnées du croisement entre télémètres gauche et centre
 //            xCoordonneePointGauche = cos(angleTelemetreGauche)*(xCoordonneeTelemetreCentre - xCoordonneeTelemetreGauche)
 //                    + sin(angleTelemetreGauche)*(yCoordonneeTelemetreCentre - yCoordonneeTelemetreGauche);
 //            yCoordonneePointGauche = -sin(angleTelemetreGauche)*(xCoordonneeTelemetreCentre - xCoordonneeTelemetreGauche)
 //                    + cos(angleTelemetreGauche)*(yCoordonneeTelemetreCentre - yCoordonneeTelemetreGauche);
-//
-//            distanceCentreGauche = sqrt((xCoordonneePointGauche - xCoordonneeCentreRobot)^2 +
-//                    (yCoordonneePointGauche - yCoordonneeCentreRobot)^2);
-//
-//            distanceReferencePointGauche = sqrt((xCoordonneePointGauche - xCoordonneeReferenceGauche)^2 +
-//                    (yCoordonneePointGauche - yCoordonneeReferenceGauche)^2);
-//            angleReferenceGauche = acosf((distanceCentreGauche^2 + distanceReferencePointGauche^2 -
-//                    DistanceReferenceCritiqueCentreRobot^2) / (2 * distanceCentreGauche * distanceReferencePointGauche));
-//
-//
-//            if (((angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90))
-//                    && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90));
-//            if ((angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
-//                    && ((angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)));
-//            if ((distanceCentreDroit < 30 && angleReferenceDroit < 90) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)
-//                    || (robotState.distanceTelemetreCentre < 20));
-
-
+//            //calcul distance entre le centre du robot et point de croisement des télémètres
+//            distanceCentreGauche = sqrt( pow(xCoordonneePointGauche - xCoordonneeCentreRobot,2) +
+//                    pow(yCoordonneePointGauche - yCoordonneeCentreRobot,2));
+//            //calcul distance entre repère critique gauche et croisement des télémètres
+//            distanceReferencePointGauche = sqrt( pow(xCoordonneePointGauche - xCoordonneeReferenceGauche,2) +
+//                    pow(yCoordonneePointGauche - yCoordonneeReferenceGauche,2);
+//            //détermination de l'angle entre repère critique gauche et croisement des télémètres
+//            angleReferenceGauche = acosf( (pow(distanceCentreGauche,2) + pow(distanceReferencePointGauche,2) -
+//                    pow(DistanceReferenceCritiqueCentreRobot,2)) / (2 * distanceCentreGauche * distanceReferencePointGauche));
         }
-
-        //520 à 540 20cm
-        //280 à 300 40cm
     }
 } // fin main
-
-
 
 
 /***************************************************************************************************/
 //Déclaration OperatingSystemLoop
 /****************************************************************************************************/
-
-
 unsigned char stateRobot;
 
 void OperatingSystemLoop(void) {
@@ -209,8 +202,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
         case STATE_AVANCE_EN_COURS:
@@ -218,7 +211,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             break;
@@ -228,7 +221,7 @@ void OperatingSystemLoop(void) {
 
         case STATE_TOURNE_DROITE:
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_DROITE_EN_COURS:
@@ -236,8 +229,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_GAUCHE:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-15, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS:
@@ -245,8 +238,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_DROITE:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS:
@@ -259,6 +252,9 @@ void OperatingSystemLoop(void) {
     }
 }
 
+/***************************************************************************************************/
+//Déclaration SetNextRobotStateInAutomaticMode
+/****************************************************************************************************/
 unsigned char nextStateRobot = 0;
 
 void SetNextRobotStateInAutomaticMode() {
@@ -277,10 +273,20 @@ void SetNextRobotStateInAutomaticMode() {
         positionObstacle = OBSTACLE_EN_FACE;
     else if (robotState.distanceTelemetreDroit > 30 &&
             robotState.distanceTelemetreCentre > 20 &&
-            robotState.distanceTelemetreGauche > 30) //pas d?obstacle
+            robotState.distanceTelemetreGauche > 30) //pas d'obstacle
         positionObstacle = PAS_D_OBSTACLE;
 
-    //Détermination de l?état à venir du robot
+//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
+//    if (((angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90))
+//            && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90));
+//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
+//    if ((angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
+//            && ((angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)));
+//    //fait demi-tour si les deux angles critiques sont inférieurs à 90°
+//    if ((distanceCentreDroit < 30 && angleReferenceDroit < 90) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)
+//            || (robotState.distanceTelemetreCentre < 20));
+
+    //Détermination de l'état à venir du robot
     if (positionObstacle == PAS_D_OBSTACLE) {
         nextStateRobot = STATE_AVANCE;
     } else if (positionObstacle == OBSTACLE_A_DROITE) {
@@ -291,7 +297,7 @@ void SetNextRobotStateInAutomaticMode() {
         nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
     }
 
-    //Si l?on n?est pas dans la transition de l?étape en cours
+    //Si l'on n'est pas dans la transition de l'étape en cours
     if (nextStateRobot != stateRobot - 1) {
         stateRobot = nextStateRobot;
     }

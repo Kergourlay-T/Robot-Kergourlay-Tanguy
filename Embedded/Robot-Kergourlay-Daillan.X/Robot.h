@@ -2,9 +2,7 @@
 #define ROBOT_H
 
 typedef struct robotStateBITS {
-
     union {
-
         struct {
             unsigned char taskEnCours;
             float vitesseGaucheConsigne;

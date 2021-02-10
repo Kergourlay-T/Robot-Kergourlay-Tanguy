@@ -1,10 +1,3 @@
-/* 
- * File:   PWM.h
- * Author: TP-EO-1
- *
- * Created on 1 février 2021, 14:01
- */
-
 #ifndef PWM_H
 #define	PWM_H
 
@@ -15,7 +8,7 @@
 void InitPWM(void);
 //void PWMSetSpeed(float vitesseEnPourcents, int moteur);
 void PWMSetSpeedConsigne(float vitesseEnPourcents, int moteur);
-void PWMUpdateSpeed(void);        
-        
+void PWMUpdateSpeed(void);
+
 #endif	/* PWM_H */
 
