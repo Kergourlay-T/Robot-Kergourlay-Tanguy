@@ -30,16 +30,16 @@ extern volatile ROBOT_STATE_BITS robotState;
 //float DistanceReferenceCentreRobot = 30;
 //float DistanceReferenceCritiqueCentreRobot = 10;
 //
-//float xCoordonneeTelemetreCentre;
-//float yCoordonneeTelemetreCentre;
-//float xCoordonneeTelemetreDroit;
-//float yCoordonneeTelemetreDroit;
-//float xCoordonneeTelemetreGauche;
-//float yCoordonneeTelemetreGauche;
-//float xCoordonneeTelemetreDroitExtremite;
-//float yCoordonneeTelemetreDroitExtremite;
-//float xCoordonneeTelemetreGaucheExtremite;
-//float yCoordonneeTelemetreGaucheExtremite;
+//float xCoordonneeTelemetreCentre=0;
+//float yCoordonneeTelemetreCentre=0;
+//float xCoordonneeTelemetreDroit= 12,287; // cos(75)*15
+//float yCoordonneeTelemetreDroit= 14,489; //sin(75)*15
+//float xCoordonneeTelemetreGauche = -12,287 // -cos(75)*15;
+//float yCoordonneeTelemetreGauche = -14,489 //-sin(75)*15;
+//float xCoordonneeTelemetreDroitExtremite = 12,287; //cos(35)*15;
+//float yCoordonneeTelemetreDroitExtremite = 8,603; //sin(35)*15;
+//float xCoordonneeTelemetreGaucheExtremite = -12,287; //-cos(35)*15;
+//float yCoordonneeTelemetreGaucheExtremite = -8,603; //-sin(35)*15;
 //
 //float xCoordonneePointGauche;
 //float yCoordonneePointGauche;

@@ -202,8 +202,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
         case STATE_AVANCE_EN_COURS:
@@ -211,7 +211,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             break;
@@ -221,7 +221,7 @@ void OperatingSystemLoop(void) {
 
         case STATE_TOURNE_DROITE:
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_DROITE_EN_COURS:
@@ -272,20 +272,30 @@ void SetNextRobotStateInAutomaticMode() {
     else if (robotState.distanceTelemetreCentre < 20) //Obstacle en face
         positionObstacle = OBSTACLE_EN_FACE;
     else if (robotState.distanceTelemetreDroit > 30 &&
+            
             robotState.distanceTelemetreCentre > 20 &&
             robotState.distanceTelemetreGauche > 30) //pas d'obstacle
         positionObstacle = PAS_D_OBSTACLE;
 
-//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
-//    if (((angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90))
-//            && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90));
-//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
-//    if ((angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
-//            && ((angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)));
 //    //fait demi-tour si les deux angles critiques sont inférieurs à 90°
 //    if ((distanceCentreDroit < 30 && angleReferenceDroit < 90) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)
-//            || (robotState.distanceTelemetreCentre < 20));
-
+//            || (robotState.distanceTelemetreCentre < 20)){
+//        positionObstacle = OBSTACLE_A_DROITE;
+//    }
+//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
+//    else if (((angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90))
+//            && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90)){
+//          positionObstacle = OBSTACLE_A_GAUCHE;
+//    }
+//    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
+//    else if ((angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
+//            && ((angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90))){
+//        positionObstacle = OBSTACLE_EN_FACE;
+//    }
+//    else if{
+//        positionObstacle = PAS_D_OBSTACLE;
+//    }
+    
     //Détermination de l'état à venir du robot
     if (positionObstacle == PAS_D_OBSTACLE) {
         nextStateRobot = STATE_AVANCE;
@@ -294,7 +304,7 @@ void SetNextRobotStateInAutomaticMode() {
     } else if (positionObstacle == OBSTACLE_A_GAUCHE) {
         nextStateRobot = STATE_TOURNE_DROITE;
     } else if (positionObstacle == OBSTACLE_EN_FACE) {
-        nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+        nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
     }
 
     //Si l'on n'est pas dans la transition de l'étape en cours
