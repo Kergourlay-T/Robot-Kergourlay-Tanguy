@@ -27,6 +27,8 @@
 #define OBSTACLE_EN_FACE 3
 
 
+
+
 void OperatingSystemLoop(void);
 void SetNextRobotStateInAutomaticMode(void);
 

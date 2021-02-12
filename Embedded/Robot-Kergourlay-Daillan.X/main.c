@@ -10,6 +10,57 @@
 #include "ADC.h"
 #include "main.h"
 
+
+//float xCoordonneeCentreRobot=0;
+//float yCoordonneeCentreRobot=0;
+//
+//float xCoordonneeReferenceGauche = -30;
+//float yCoordonneeReferenceGauche = 0;
+//float xCoordonneeReferenceDroit = 30;
+//float yCoordonneeReferenceDroit = 0;
+//
+//float DistanceReferenceCentreRobot = 30;
+//float DistanceReferenceCritiqueCentreRobot = 10;
+//
+//float xCoordonneeTelemetreCentre=0;
+//float yCoordonneeTelemetreCentre=0;
+//float xCoordonneeTelemetreDroit= 12.287; // cos(75)*15
+//float yCoordonneeTelemetreDroit= 14.489; //sin(75)*15
+//float xCoordonneeTelemetreGauche = 12.287; // -cos(75)*15;
+//float yCoordonneeTelemetreGauche = 14.489; //-sin(75)*15;
+//float xCoordonneeTelemetreDroitExtremite = 12.287; //cos(35)*15;
+//float yCoordonneeTelemetreDroitExtremite = 8.603; //sin(35)*15;
+//float xCoordonneeTelemetreGaucheExtremite = 12.287; //-cos(35)*15;
+//float yCoordonneeTelemetreGaucheExtremite = 8.603; //-sin(35)*15;
+//
+//float xCoordonneePointGauche;
+//float yCoordonneePointGauche;
+//float xCoordonneePointDroit;
+//float yCoordonneePointDroit;
+//float xCoordonneePointGaucheExtremite;
+//float yCoordonneePointGaucheExtremite;
+//float xCoordonneePointDroitExtremite;
+//float yCoordonneePointDroitExtremite;
+//
+//float distanceCentreDroitExtremite;
+//float distanceCentreDroit;
+//float distanceCentreGaucheExtremite;
+//float distanceCentreGauche;
+//
+//float distanceReferencePointDroitExtremite;
+//float distanceReferencePointDroit;
+//float distanceReferencePointGaucheExtremite;
+//float distanceReferencePointGauche;
+//
+//float angleTelemetreDroitExtremite;
+//float angleTelemetreDroit;
+//float angleTelemetreGaucheExtremite;
+//float angleTelemetreGauche;
+//float angleReferenceDroitExtremite; 
+//float angleReferenceDroit; 
+//float  angleReferenceGaucheExtremite;
+//float angleReferenceGauche;
+
 int main(void) {
     /***************************************************************************************************/
     //Initialisation de l'oscillateur
@@ -88,7 +139,7 @@ int main(void) {
 
             volts = ((float) result[3])*3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGaucheExtremite = 34 / volts - 5;
-            if (robotState.distanceTelemetreGaucheExtremite < 10) {
+            if (robotState.distanceTelemetreGaucheExtremite < 60) {
                 LED_BLANCHE = 1;
             } else {
                 LED_BLANCHE = 0;
@@ -97,23 +148,23 @@ int main(void) {
 //            //Telemetre droit extremite
 //            
 //            //calcul angle beta par la loi cosinus 
-//            angleTelemetreDroitExtremite = acosf( ( pow(robotState.distanceTelemetreDroit,2) + pow(distanceTelemetre,2)
-//                    - pow(robotState.distanceTelemetreDroitExtremite,2))
-//                    / (2 * robotState.distanceTelemetreDroit * distanceTelemetre));
+//            angleTelemetreDroitExtremite = ( abs( ( pow(robotState.distanceTelemetreDroit,2) + pow(distanceTelemetre,2)
+//                    - pow(robotState.distanceTelemetreDroitExtremite,2) ) 
+//                    / (2 * robotState.distanceTelemetreDroit * distanceTelemetre)  ));
 //            //calcul des coordonnées du croisement entre télémètres droit et droit extrémité 
 //            xCoordonneePointDroitExtremite = cos(angleTelemetreDroitExtremite)*(xCoordonneeTelemetreDroit - xCoordonneeTelemetreDroitExtremite)
 //                    + sin(angleTelemetreDroitExtremite)*(yCoordonneeTelemetreDroit - yCoordonneeTelemetreDroitExtremite);
 //            yCoordonneePointDroitExtremite = -sin(angleTelemetreDroitExtremite)*(xCoordonneeTelemetreDroit - xCoordonneeTelemetreDroitExtremite)
 //                    + cos(angleTelemetreDroitExtremite)*(yCoordonneeTelemetreDroit - yCoordonneeTelemetreDroitExtremite);
 //            //calcul distance entre le centre du robot et point de croisement des télémètres
-//            distanceCentreDroitExtremite = sqrtf( pow(xCoordonneePointDroitExtremite - xCoordonneeCentreRobot,2) +
-//                    pow(yCoordonneePointDroitExtremite - yCoordonneeCentreRobot,2) );
+//            distanceCentreDroitExtremite = sqrtf( abs( pow(xCoordonneePointDroitExtremite - xCoordonneeCentreRobot,2) +
+//                    pow(yCoordonneePointDroitExtremite - yCoordonneeCentreRobot,2) ) );
 //            //calcul distance entre repère critique droit et croisement des télémètres
 //            distanceReferencePointDroitExtremite = sqrtf( pow(xCoordonneePointDroitExtremite - xCoordonneeReferenceDroit, 2) +
 //                    pow(yCoordonneePointDroitExtremite - yCoordonneeReferenceDroit,2));
 //            //détermination de l'angle entre repère critique droit et croisement des télémètres
-//            angleReferenceDroitExtremite = acosf( (pow(distanceCentreDroitExtremite,2) + pow(distanceReferencePointDroitExtremite,2) -
-//                    pow(DistanceReferenceCentreRobot,2)) / (2 * distanceCentreDroitExtremite * distanceReferencePointDroitExtremite));
+//            angleReferenceDroitExtremite = acosf( abs( (pow(distanceCentreDroitExtremite,2) + pow(distanceReferencePointDroitExtremite,2) -
+//                    pow(DistanceReferenceCentreRobot,2)) ) / (2 * distanceCentreDroitExtremite * distanceReferencePointDroitExtremite));
 //
 //
 //            //Telemetre droit
@@ -131,7 +182,7 @@ int main(void) {
 //                    pow(yCoordonneePointDroit - yCoordonneeCentreRobot,2) );
 //            //calcul distance entre repère critique droit et croisement des télémètres
 //            distanceReferencePointDroit = sqrtf( pow(xCoordonneePointDroit - xCoordonneeReferenceDroit,2) +
-//                    (yCoordonneePointDroit - yCoordonneeReferenceDroit)^2);
+//                    pow(yCoordonneePointDroit - yCoordonneeReferenceDroit,2));
 //            //détermination de l'angle entre repère critique droit et croisement des télémètres
 //            angleReferenceDroit = acosf( ( pow(distanceCentreDroit,2) + pow(distanceReferencePointDroit,2) -
 //                    pow(DistanceReferenceCritiqueCentreRobot,2) ) / (2 * distanceCentreDroit * distanceReferencePointDroit));
@@ -163,7 +214,7 @@ int main(void) {
 //            
 //            //calcul angle beta par la loi cosinus 
 //            angleTelemetreGauche = acosf( (pow(robotState.distanceTelemetreCentre,2) + pow(distanceTelemetre,2) -
-//                    pwo(robotState.distanceTelemetreGauche,2)) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
+//                    pow(robotState.distanceTelemetreGauche,2)) / (2 * robotState.distanceTelemetreCentre * distanceTelemetre));
 //             //calcul des coordonnées du croisement entre télémètres gauche et centre
 //            xCoordonneePointGauche = cos(angleTelemetreGauche)*(xCoordonneeTelemetreCentre - xCoordonneeTelemetreGauche)
 //                    + sin(angleTelemetreGauche)*(yCoordonneeTelemetreCentre - yCoordonneeTelemetreGauche);
@@ -174,7 +225,7 @@ int main(void) {
 //                    pow(yCoordonneePointGauche - yCoordonneeCentreRobot,2));
 //            //calcul distance entre repère critique gauche et croisement des télémètres
 //            distanceReferencePointGauche = sqrt( pow(xCoordonneePointGauche - xCoordonneeReferenceGauche,2) +
-//                    pow(yCoordonneePointGauche - yCoordonneeReferenceGauche,2);
+//                    pow(yCoordonneePointGauche - yCoordonneeReferenceGauche,2) );
 //            //détermination de l'angle entre repère critique gauche et croisement des télémètres
 //            angleReferenceGauche = acosf( (pow(distanceCentreGauche,2) + pow(distanceReferencePointGauche,2) -
 //                    pow(DistanceReferenceCritiqueCentreRobot,2)) / (2 * distanceCentreGauche * distanceReferencePointGauche));
@@ -202,7 +253,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(16 , MOTEUR_DROIT);
             PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
@@ -278,21 +329,25 @@ void SetNextRobotStateInAutomaticMode() {
         positionObstacle = PAS_D_OBSTACLE;
 
 //    //fait demi-tour si les deux angles critiques sont inférieurs à 90°
-//    if ((distanceCentreDroit < 30 && angleReferenceDroit < 90) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)
-//            || (robotState.distanceTelemetreCentre < 20)){
-//        positionObstacle = OBSTACLE_A_DROITE;
+//    if ( (distanceCentreDroit < 30 && angleReferenceDroit < 90) || (distanceCentreGauche < 30 && angleReferenceGauche < 90)
+//            || (robotState.distanceTelemetreCentre < 20) )
+//    {
+//        positionObstacle = OBSTACLE_EN_FACE;
 //    }
 //    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
-//    else if (((angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90))
-//            && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90)){
+//    else if ( ( (angleReferenceDroitExtremite < 90 && distanceCentreDroitExtremite < 30) || (distanceCentreDroit < 30 && angleReferenceDroit < 90) )
+//            && (angleReferenceGaucheExtremite > 90 && distanceCentreGaucheExtremite > 30) && (distanceCentreGauche > 30 && angleReferenceGauche > 90) )
+//    {
 //          positionObstacle = OBSTACLE_A_GAUCHE;
 //    }
 //    //tourne à gauche si l'angle entre l'obstacle et l'un des repères est inférieur à 90°
-//    else if ((angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
-//            && ((angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90))){
-//        positionObstacle = OBSTACLE_EN_FACE;
+//    else if ( (angleReferenceDroitExtremite > 90 && distanceCentreDroitExtremite > 30) && (distanceCentreDroit > 30 && angleReferenceDroit > 90)
+//            && ( (angleReferenceGaucheExtremite < 90 && distanceCentreGaucheExtremite < 30) || (distanceCentreGauche < 30 && angleReferenceGauche < 90) ) )
+//    {
+//        positionObstacle = OBSTACLE_A_DROITE;
 //    }
-//    else if{
+//    else
+//    {
 //        positionObstacle = PAS_D_OBSTACLE;
 //    }
     
