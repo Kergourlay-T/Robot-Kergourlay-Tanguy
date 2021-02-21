@@ -5,9 +5,7 @@
 #include "ADC.h"
 #include "main.h"
 
-
 unsigned long timestamp = 0;
-
 
 // Initialisation d'un timer 32 bits
 void InitTimer23(void) {
