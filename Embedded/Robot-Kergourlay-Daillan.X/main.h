@@ -2,6 +2,8 @@
 #define	MAIN_H
 
 #define FCY 40000000
+#define distanceEntreRoues 1
+#define vitesseMaximale 2
 
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1
@@ -24,12 +26,19 @@
 #define STATE_COULOIR_A_GAUCHE 18
 #define STATE_COULOIR_A_GAUCHE_EN_COURS 19
 
+#define STATE_TOURNE_GAUCHE_LEGER 20
+#define STATE_TOURNE_GAUCHE_LEGER_EN_COURS 21
+#define STATE_TOURNE_DROITE_LEGER 22
+#define STATE_TOURNE_DROITE_LEGER_EN_COURS 23
+
 #define PAS_D_OBSTACLE 0
 #define OBSTACLE_A_GAUCHE 1
 #define OBSTACLE_A_DROITE 2
 #define OBSTACLE_EN_FACE 3
 #define COULOIR_A_DROITE 4
 #define COULOIR_A_GAUCHE 5
+#define OBSTACLE_A_GAUCHE_LEGER 6
+#define OBSTACLE_A_DROITE_LEGER 7
 
 
 void OperatingSystemLoop(void);

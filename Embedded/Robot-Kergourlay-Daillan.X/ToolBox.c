@@ -22,10 +22,10 @@ float Min(float value, float value2) {
 }
 
 float MinDistance(float *value) {
-    int min = value[0];
+    float min = value[0];
     int i;
     for (i = 0; i < 5; i++) {
-        if (value[i] < min;) {
+        if (value[i] < min) {
             min = value[i];
         }
     }
@@ -38,9 +38,5 @@ float LimitToInterval(float value, float lowLimit, float highLimit) {
     else if (value < lowLimit)
         value = lowLimit;
     return value;
-}
-
-double racine_cubique(double x) {
-    return pow(x, 1.0 / 3.0);
 }
 
