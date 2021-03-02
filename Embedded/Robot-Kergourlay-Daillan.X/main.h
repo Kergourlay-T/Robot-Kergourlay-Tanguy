@@ -2,6 +2,8 @@
 #define	MAIN_H
 
 #define FCY 40000000
+#define distanceEntreRoues 1 
+#define vitesseMaximale 2
 
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1
