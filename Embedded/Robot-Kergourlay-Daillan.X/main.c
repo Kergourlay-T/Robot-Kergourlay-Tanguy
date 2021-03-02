@@ -217,8 +217,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_DROITE_LEGER:
-            vitesseDroiteCalcul = robotState.vitesseAdapteeMetre - (PI * distanceEntreRoues * 18 / 360);
-            vitesseGaucheCalcul = robotState.vitesseAdapteeMetre + (PI * distanceEntreRoues * 18 / 360);
+            vitesseDroiteCalcul = robotState.vitesseAdapteeMetre - (PI * distanceEntreRoues * 25 / 360);
+            vitesseGaucheCalcul = robotState.vitesseAdapteeMetre + (PI * distanceEntreRoues * 25 / 360);
             vitesseDroiteCalcul = (100 * vitesseDroiteCalcul) / vitesseMaximale;
             vitesseGaucheCalcul = (100 * vitesseGaucheCalcul) / vitesseMaximale;
             PWMSetSpeedConsigne(vitesseDroiteCalcul, MOTEUR_DROIT);
@@ -234,8 +234,8 @@ void OperatingSystemLoop(void) {
 
 
         case STATE_TOURNE_GAUCHE_LEGER:
-            vitesseDroiteCalcul = robotState.vitesseAdapteeMetre + (PI * distanceEntreRoues * 18 / 360);
-            vitesseGaucheCalcul = robotState.vitesseAdapteeMetre - (PI * distanceEntreRoues * 18 / 360);
+            vitesseDroiteCalcul = robotState.vitesseAdapteeMetre + (PI * distanceEntreRoues * 25 / 360);
+            vitesseGaucheCalcul = robotState.vitesseAdapteeMetre - (PI * distanceEntreRoues * 25 / 360);
             vitesseDroiteCalcul = (100 * vitesseDroiteCalcul) / vitesseMaximale;
             vitesseGaucheCalcul = (100 * vitesseGaucheCalcul) / vitesseMaximale;
             PWMSetSpeedConsigne(vitesseDroiteCalcul, MOTEUR_DROIT);
@@ -379,7 +379,8 @@ void SetNextRobotStateInAutomaticMode() {
     } else if (positionObstacle == OBSTACLE_A_GAUCHE_LEGER) {
         nextStateRobot = STATE_TOURNE_GAUCHE_LEGER;
     } 
-
+    // obstacle à venir ?
+    
     //Si l'on n'est pas dans la transition de l'étape en cours
     if (nextStateRobot != stateRobot - 1) {
         stateRobot = nextStateRobot;
