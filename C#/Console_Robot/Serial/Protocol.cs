@@ -12,19 +12,43 @@ namespace Console_Robot.Serial
         public const ushort MAX_MSG_LENGTH = 255;
         public enum Functions : ushort
         {
-            SET_LED = 0x0020,
-            GET_IR = 0x0030,
-            SET_MOTOR = 0x0040,
-            GET_STATE = 0x0050,
-            SET_STATE = 0x0051,
-            GET_POSITION = 0x0061,
-            SET_RESET_POSITION = 0x0062,
-            SET_POSITION = 0x0063,
-            GET_TEXT = 0x0080,
-            GET_ASSERV_POLAR_PARAM = 0x0090,
-            SET_ASSERV_PARAM = 0x0091
+            LED_PROTOCOL = 0x0020,
+            TELEMETER_PROTOCOL= 0x0030,
+            MOTOR_PORTOCOL = 0x0040,
+            STATE_PROTOCOL = 0x0050,
+            SET_ROBOT_STATE = 0x0051,
+            SET_ROBOT_MANUAL_CONTROL = 0x0052,
+            POSITION_DATA = 0x0061,
+            MESSAGE_PROTOCOL = 0x0080,
         }
 
+        public static short CheckFunctionLenght(ushort msgFunction)
+        {
+            switch (msgFunction)
+            {
+                // -2               : UNKNOW
+                // -1               : UNLIMITED 
+                // [0:MAX_LENGHT]   : FIXED
+                case (ushort)Functions.LED_PROTOCOL:
+                    return 2;
+                case (ushort)Functions.TELEMETER_PROTOCOL:
+                    return 3;
+                case (ushort)Functions.MOTOR_PORTOCOL:
+                    return 2;
+                case (ushort)Functions.MESSAGE_PROTOCOL:
+                    return -1;
+                case (ushort)Functions.STATE_PROTOCOL:
+                    return 5;
+                case (ushort)Functions.SET_ROBOT_STATE:
+                    return 1;
+                case (ushort)Functions.SET_ROBOT_MANUAL_CONTROL:
+                    return 1;
+                case (ushort)Functions.POSITION_DATA:
+                    return 24;
+                default:
+                    return -2;
+            }
+        }
 
     }
 }

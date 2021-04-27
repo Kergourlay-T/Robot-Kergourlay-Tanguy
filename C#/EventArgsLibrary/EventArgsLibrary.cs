@@ -4,6 +4,48 @@ namespace EventArgsLibrary
 {
     public class MessageByteArgs : EventArgs
     {
+        public MessageByteArgs(ushort msgFunction_a, ushort msgPayloadLength_a, byte[] msgPayload_a, byte checksum_a)
+        {
+            msgFunction = msgFunction_a;
+            msgPayloadLength = msgPayloadLength_a;
+            msgPayload = msgPayload_a;
+            checksum = checksum_a;
+            ConvertUshortToByte();
+        }
+        private void ConvertUshortToByte()
+        {
+            functionMSB = (byte)(msgFunction >> 0);
+            functionLSB = (byte)(msgFunction >> 8);
+
+            payloadMSB = (byte)(msgPayloadLength >> 0);
+            payloadLSB = (byte)(msgPayloadLength >> 8);
+        }
+        public MessageByteArgs(byte SOF_a, byte functionMSB_a, byte functionLSB_a, byte payloadMSB_a, byte payloadLSB_a, byte[] msgPayload_a, byte checksum_a)
+        {
+            SOF = SOF_a;
+            functionMSB = functionMSB_a;
+            functionLSB = functionLSB_a;
+            payloadMSB = payloadMSB_a;
+            payloadLSB = payloadLSB_a;
+            msgPayload = msgPayload_a;
+            checksum = checksum_a;
+            ConvertByteToUshort();
+        }
+        private void ConvertByteToUshort()
+        {
+            msgFunction = (ushort)(functionMSB << 8 + functionLSB << 0);
+            msgPayloadLength = (ushort)(payloadMSB << 8 + payloadLSB << 0);
+        }
+        public byte SOF { get; set; }
+        public byte functionMSB { get; set; }
+        public byte functionLSB { get; set; }
+        public byte payloadMSB { get; set; }
+        public byte payloadLSB { get; set; }
+        public ushort msgFunction { get; set; }
+        public ushort msgPayloadLength { get; set; }
+        public byte[] msgPayload { get; set; }
+        public byte checksum { get; set; }
+
 
     }
 
@@ -29,9 +71,19 @@ namespace EventArgsLibrary
         public byte rightMotorSpeed { get; set; }
     }
 
-    public class SetStateArgs : EventArgs
+    public class StateMessageArgs : EventArgs
     {
-
+        public StateMessageArgs(ushort state_a)
+        {
+            state = state_a;
+        }
+        public StateMessageArgs(ushort state_a, uint time_a)
+        {
+            state = state_a;
+            time = time_a;
+        }
+        public ushort state { get; set; }
+        public uint time { get; set; }
     }
 
     public class IRMessageArgs : EventArgs
