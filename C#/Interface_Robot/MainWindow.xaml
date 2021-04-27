@@ -1,0 +1,53 @@
+﻿<Window x:Class="Interface_Robot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interface_Robot"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="#FFFBFBFB" OpacityMask="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="Réception" Grid.Column="1" Header="Reception" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" >
+            <TextBox x:Name="TextBoxReception" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"  />
+        </GroupBox>
+        <GroupBox x:Name="Emission" Header="Emission" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+            <TextBox x:Name="TextBoxEmission"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  TextWrapping="Wrap" KeyUp="TextBoxEmission_KeyUp"/>
+        </GroupBox>
+        <GroupBox Header="Instructions" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Stretch" Width="350">
+            <TextBox Name="TextBoxInstructions" HorizontalAlignment="Stretch"  Grid.Row="1"  TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+        </GroupBox>
+        <Button x:Name="ButtonClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Row="1" Grid.Column="1" Click="ButtonClear_Click"/>
+        <Button x:Name="ButtonTest" Content="Test" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Row="1" Grid.Column="1" Click="ButtonTest_Click"/>
+        <CheckBox Name="CheckBoxModeControl"  Content="Mode Auto" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="80" IsChecked="True"/>
+        <GroupBox Header="LEDs" HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Stretch" Width="120">
+            <StackPanel>
+                <CheckBox Name="CheckBoxLED1"  Content="LED1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
+                <CheckBox Name="CheckBoxLED2" Content="LED2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="80"/>
+                <CheckBox Name="CheckBoxLED3" Content="LED3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Télémètres IR" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Stretch" Width="120">
+            <TextBox Name="TextBoxIR" HorizontalAlignment="Stretch"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+        </GroupBox>
+        <GroupBox Header="Moteurs" HorizontalAlignment="Right"  Grid.Row="2" VerticalAlignment="Stretch" Width="120">
+            <TextBox Name="TextBoxMoteurs"  HorizontalAlignment="Stretch"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" />
+        </GroupBox>
+        <GroupBox Header="RobotState" HorizontalAlignment="Left"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" Width="180">
+            <TextBox Name="TextBoxRobotState"  HorizontalAlignment="Stretch"  Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" />
+        </GroupBox>
+        <GroupBox Header="Position Data" HorizontalAlignment="Right"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" Width="180">
+            <TextBox Name="TextBoxPositionData" HorizontalAlignment="Stretch"  Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+        </GroupBox>
+
+    </Grid>
+</Window>

@@ -1,12 +1,12 @@
-//Partie PWM
 #include <xc.h> // library xc.h inclut tous les uC
 #include "IO.h"
 #include "PWM.h"
 #include "Robot.h"
-#include "ToolBox.h"
+#include "Utilities.h"
+#include "UART_Protocol.h"
+#include "SendMessage.h"
 
-#define PWMPER 40.0
-float acceleration = 10;
+float acceleration = 30;
 
 void InitPWM(void) {
     PTCON2bits.PCLKDIV = 0b000; //Divide by 1
@@ -28,45 +28,39 @@ void InitPWM(void) {
     PTCONbits.PTEN = 1;
 }
 
-
-// void PWMSetSpeed(float vitesseEnPourcents, int moteur) 
-//{ 
-//  if(!moteur){ 
-//     robotState.vitesseDroiteCommandeCourante = vitesseEnPourcents; 
-//  if (robotState.vitesseDroiteCommandeCourante < 0) 
-// {
-//  MOTEUR_DROIT_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//MOTEUR_DROIT_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//MOTEUR_DROIT_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//} 
-//else 
-//{ 
-//  MOTEUR_DROIT_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//  MOTEUR_DROIT_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//  MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//} 
-//MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante*PWMPER); 
-//} 
-//else{ 
-//  robotState.vitesseGaucheCommandeCourante = vitesseEnPourcents; 
-// if (robotState.vitesseGaucheCommandeCourante > 0) 
-//{ 
-//   MOTEUR_GAUCHE_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//  MOTEUR_GAUCHE_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//  MOTEUR_GAUCHE_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//} 
-//else 
-//{ 
-//MOTEUR_GAUCHE_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//} 
-//MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante*PWMPER); 
-//}    
-// } 
+//void PWMSetSpeed(float vitesseEnPourcents, int moteur) {
+//    if (!moteur) {
+//        robotState.vitesseDroiteCommandeCourante = vitesseEnPourcents;
+//        if (robotState.vitesseDroiteCommandeCourante < 0) {
+//            MOTEUR_DROIT_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
+//            MOTEUR_DROIT_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
+//            MOTEUR_DROIT_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
+//        }
+//        else {
+//            MOTEUR_DROIT_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
+//            MOTEUR_DROIT_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
+//            MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
+//        }
+//        MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
+//    }
+//    else {
+//        robotState.vitesseGaucheCommandeCourante = vitesseEnPourcents;
+//        if (robotState.vitesseGaucheCommandeCourante > 0) {
+//            MOTEUR_GAUCHE_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
+//            MOTEUR_GAUCHE_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
+//            MOTEUR_GAUCHE_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
+//        }
+//        else {
+//            MOTEUR_GAUCHE_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
+//            MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
+//            MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
+//        }
+//        MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
+//    }
+//}
 
 void PWMSetSpeedConsigne(float vitesseEnPourcents, int moteur) {
-    if (moteur == 0) {
+    if (!moteur) {
         robotState.vitesseDroiteConsigne = -vitesseEnPourcents;
     } else {
         robotState.vitesseGaucheConsigne = vitesseEnPourcents;
@@ -97,6 +91,7 @@ void PWMUpdateSpeed() {
         MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
     }
     MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante) * PWMPER;
+    robotState.vitesseDroiteErreure = robotState.vitesseDroiteConsigne - robotState.vitesseDroiteCommandeCourante;
 
     if (robotState.vitesseGaucheCommandeCourante < robotState.vitesseGaucheConsigne)
         robotState.vitesseGaucheCommandeCourante = Min(
@@ -116,5 +111,43 @@ void PWMUpdateSpeed() {
         MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin
         MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
     }
-    MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante) * PWMPER;
+    MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante) * PWMPER;  
+    robotState.vitesseGaucheErreure = robotState.vitesseGaucheConsigne - robotState.vitesseGaucheCommandeCourante;
 }
+
+void SendSpeed() {
+    unsigned char SpeedInfo[24];
+    getBytesFromFloat(SpeedInfo, 0, (float) (robotState.vitesseDroiteConsigne));
+    getBytesFromFloat(SpeedInfo, 4, (float) (robotState.vitesseDroiteCommandeCourante));
+    getBytesFromFloat(SpeedInfo, 8, (float) (robotState.vitesseDroiteErreure));
+    getBytesFromFloat(SpeedInfo, 12, (float) (robotState.vitesseGaucheConsigne));
+    getBytesFromFloat(SpeedInfo, 8, (float) (robotState.vitesseGaucheCommandeCourante));
+    getBytesFromFloat(SpeedInfo, 12, (float) (robotState.vitesseGaucheErreure));
+    UartEncodeAndSendMessage(MOTORS_PROTOCOL, 24, SpeedInfo);
+}
+
+
+/*
+void PWMSetSpeedConsignePolaire() {
+    // CorrectionAngulaire
+    double erreurVitesseAngulaire;
+    double sortieCorrecteurAngulaire;
+    double correctionVitesseAngulaire;
+    double correctionVitesseAngulairePourcent =
+            correctionVitesseAngulaire * COEFF_VITESSE_ANGULAIRE_PERCENT;
+    // CorrectionéLinaire
+    double erreurVitesseLineaire;
+    double sortieCorrecteurLineaire;
+    double correctionVitesseLineaire;
+    double correctionVitesseLineairePourcent =
+            correctionVitesseLineaire * COEFF_VITESSE_LINEAIRE_PERCENT;
+    //Génération des consignes droite et gauche
+    robotState.vitesseDroiteConsigne = correctionVitesseLineairePourcent
+            + correctionVitesseAngulairePourcent;
+    robotState.vitesseDroiteConsigne = LimitToInterval(
+            robotState.vitesseDroiteConsigne, -100, 100);
+    robotState.vitesseGaucheConsigne = correctionVitesseLineairePourcent
+            - correctionVitesseAngulairePourcent;
+    robotState.vitesseGaucheConsigne = LimitToInterval(
+            robotState.vitesseGaucheConsigne, -100, 100);
+}*/

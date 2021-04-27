@@ -1,19 +1,17 @@
 #include <xc.h>
 #include "adc.h"
 
-
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[5];
 unsigned char ADCConversionFinishedFlag;
 
 /****************************************************************************************************/
 // Configuration ADC
-
 /****************************************************************************************************/
 void InitADC1(void) {
     //cf. ADC Reference Manual page 47
-
     //Configuration en mode 12 bits mono canal ADC avec conversions successives sur 4 entrées
+    
     /************************************************************/
     //AD1CON1
     /************************************************************/
@@ -32,8 +30,6 @@ void InitADC1(void) {
     AD1CON2bits.SMPI = 4; // 2+1 conversions successives avant interrupt
     AD1CON2bits.ALTS = 0;
     AD1CON2bits.BUFM = 0;
-
-
 
     /************************************************************/
     //AD1CON3

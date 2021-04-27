@@ -1,5 +1,6 @@
 build/default/debug/main.o: main.c ChipConfig.h IO.h timer.h PWM.h \
- Robot.h ADC.h main.h ToolBox.h
+ Robot.h ADC.h main.h Utilities.h UART.h CB_TX1.h CB_RX1.h \
+ UART_Protocol.h QEI.h RobotControlState.h
 
 ChipConfig.h:
 
@@ -15,4 +16,16 @@ ADC.h:
 
 main.h:
 
-ToolBox.h:
+Utilities.h:
+
+UART.h:
+
+CB_TX1.h:
+
+CB_RX1.h:
+
+UART_Protocol.h:
+
+QEI.h:
+
+RobotControlState.h:

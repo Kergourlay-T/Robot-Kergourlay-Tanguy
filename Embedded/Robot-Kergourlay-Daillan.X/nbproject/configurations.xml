@@ -8,10 +8,17 @@
       <itemPath>IO.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>Robot.h</itemPath>
-      <itemPath>ToolBox.h</itemPath>
       <itemPath>PWM.h</itemPath>
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
+      <itemPath>UART.h</itemPath>
+      <itemPath>CB_TX1.h</itemPath>
+      <itemPath>CB_RX1.h</itemPath>
+      <itemPath>UART_Protocol.h</itemPath>
+      <itemPath>QEI.h</itemPath>
+      <itemPath>Utilities.h</itemPath>
+      <itemPath>SendMessage.h</itemPath>
+      <itemPath>RobotControlState.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -25,9 +32,16 @@
       <itemPath>IO.c</itemPath>
       <itemPath>timer.c</itemPath>
       <itemPath>Robot.c</itemPath>
-      <itemPath>ToolBox.c</itemPath>
       <itemPath>PWM.c</itemPath>
       <itemPath>ADC.c</itemPath>
+      <itemPath>UART.c</itemPath>
+      <itemPath>CB_TX1.c</itemPath>
+      <itemPath>CB_RX1.c</itemPath>
+      <itemPath>UART_Protocol.c</itemPath>
+      <itemPath>QEI.c</itemPath>
+      <itemPath>Utilities.c</itemPath>
+      <itemPath>SendMessage.c</itemPath>
+      <itemPath>RobotControlState.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -233,7 +247,7 @@
         <property key="OUTPUT COMPARE 8" value="true"/>
         <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
         <property key="PTG" value="true"/>
-        <property key="PWM" value="false"/>
+        <property key="PWM" value="true"/>
         <property key="REAL TIME CLOCK AND CALENDAR" value="true"/>
         <property key="SPI 1" value="true"/>
         <property key="SPI 2" value="true"/>
@@ -384,6 +398,9 @@
                   value="Press to select which tool pack to use"/>
         <property key="voltagevalue" value="3.25"/>
       </ICD4Tool>
+      <Simulator>
+        <property key="W0400_PWM_PWM_FASTER_THAN_FOSC" value="report"/>
+      </Simulator>
     </conf>
   </confs>
 </configurationDescriptor>
