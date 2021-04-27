@@ -45,8 +45,6 @@ namespace EventArgsLibrary
         public ushort msgPayloadLength { get; set; }
         public byte[] msgPayload { get; set; }
         public byte checksum { get; set; }
-
-
     }
 
     public class LEDMessageArgs : EventArgs
@@ -127,4 +125,4 @@ namespace EventArgsLibrary
         public string Text { get; set; }
     }
 
-}
+}//End EventArgsLibrary

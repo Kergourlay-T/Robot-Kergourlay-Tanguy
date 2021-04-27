@@ -15,6 +15,9 @@ namespace Console_Robot.Serial
             OnMessageDecoderCreated();
         }
 
+        /***************************************************************************************************/
+        //  Declaration of ByteReceived
+        /****************************************************************************************************/
         private enum State
         {
             Waiting,
@@ -76,11 +79,11 @@ namespace Console_Robot.Serial
                     break;
 
                 case State.PayloadLengthMSB:
-                    OnFunctionMSBReceived(b);
+                    OnPayloadLenghtMSBReceived(b);
                     break;
 
                 case State.PayloadLengthLSB:
-                    OnFunctionLSBReceived(b);
+                    OnPayloadLenghtLSBReceived(b);
                     break;
 
                 case State.Payload:
@@ -98,9 +101,13 @@ namespace Console_Robot.Serial
         }
 
         #region Event
+        /***************************************************************************************************/
+        //  Declaration of events
+        /****************************************************************************************************/
+
+        //Events related to the execution of ByteReceived function
         public event EventHandler<EventArgs> OnMessageDecoderCreatedEvent;
         public event EventHandler<DecodeByteArgs> OnSOFByteReceivedEvent;
-        public event EventHandler<DecodeByteArgs> OnUnknowByteReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnFunctionMSBByteReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnFunctionLSBByteReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnPayloadLenghtMSBByteReceivedEvent;
@@ -110,11 +117,18 @@ namespace Console_Robot.Serial
         public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
         public event EventHandler<MessageByteArgs> OnCorrectChecksumReceivedEvent;
         public event EventHandler<MessageByteArgs> OnWrongChecksumReceivedEvent;
-        public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
+
+        //Events related to errors that can occur on ByteReceived function
+        public event EventHandler<DecodeByteArgs> OnUnknowByteReceivedEvent;
         public event EventHandler<EventArgs> OnUnknowFunctionEvent;
-        public event EventHandler<EventArgs> OnWrongLenghtFunctionEvent;
+        public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
+        public event EventHandler<EventArgs> OnWrongLenghtEvent;
 
+        /***************************************************************************************************/
+        //  Declaration of event-related functions
+        /****************************************************************************************************/
 
+        #region Execution
         public virtual void OnMessageDecoderCreated()
         {
             OnMessageDecoderCreatedEvent?.Invoke(this, new EventArgs());
@@ -123,10 +137,6 @@ namespace Console_Robot.Serial
         {
             actualState = State.FunctionMSB;
             OnSOFByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-        }
-        public virtual void OnUnknowByteReceived(byte e)
-        {
-            OnUnknowByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
         public virtual void OnFunctionMSBReceived(byte e)
         {
@@ -140,24 +150,50 @@ namespace Console_Robot.Serial
             functionLSB = e;
             msgFunction += (ushort)(e << 0);
             OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-
-
+            if(Protocol.CheckFunctionLenght(msgFunction) != -2)
+            {
+                actualState = State.PayloadLengthMSB;
+            }
+            else
+            {
+                actualState = State.Waiting;
+                OnUnknowFunction();
+            }
         }
-        public virtual void OnPayloadLenghtMSBReceided(byte e)
+        public virtual void OnPayloadLenghtMSBReceived(byte e)
         {
             payloadLenghtMSB = e;
             msgPayloadLenght = (ushort)(e << 8);
             actualState = State.PayloadLengthLSB;
             OnPayloadLenghtMSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-        public virtual void OnPayloadLenghtLSBReceided(byte e)
+        public virtual void OnPayloadLenghtLSBReceived(byte e)
         {
             payloadLenghtLSB = e;
             msgPayloadLenght += (ushort)(e << 0);
             actualState = State.Waiting;
-            OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));        
-
-
+            OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
+            if (msgPayloadLenght <= Protocol.MAX_MSG_LENGTH)
+            {
+                short PayloadLengthTest = Protocol.CheckFunctionLenght(msgFunction);
+                if( PayloadLengthTest != -1)
+                {
+                    if(PayloadLengthTest == -1 || PayloadLengthTest == msgPayloadLenght)
+                    {
+                        actualState = State.CheckSum;
+                        msgPayloadIndex = 0;
+                        byte[] msgPayload = new byte[msgPayloadLenght];
+                    }
+                    else
+                    {
+                        OnWrongLenght();
+                    }
+                }
+            }
+            else
+            {
+                OnOverLenghtMessage();
+            }
         }
         public virtual void OnPayloadByteReceived (byte e)
         {
@@ -196,6 +232,31 @@ namespace Console_Robot.Serial
         {
             OnWrongChecksumReceivedEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
+
+        #endregion //Endregion Execution
+
+        #region Errors
+        public virtual void OnUnknowByteReceived(byte e)
+        {
+            OnUnknowByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
+        }
+        public virtual void OnOverLenghtMessage()
+        {
+            OnOverLenghtMessageEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnWrongLenght()
+        {
+            OnWrongLenghtEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnUnknowFunction()
+        {
+            OnUnknowFunctionEvent?.Invoke(this, new EventArgs());
+        }
+        #endregion //EndRegion Errors
+
+        /***************************************************************************************************/
+        //  Declaration of MsgDecoder specific overloads
+        /****************************************************************************************************/
         public class DecodeByteArgs : EventArgs
         {
             public DecodeByteArgs (byte b_a)
@@ -212,7 +273,8 @@ namespace Console_Robot.Serial
             }
             public byte[] payload { get; set; }
         }
-        #endregion
+
+        #endregion //Endregion Event
 
     }//End Class MsgDecoder
 }//End namespace Console_Robot.Serial
