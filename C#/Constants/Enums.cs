@@ -8,10 +8,6 @@ namespace Constants
 {
     public class Enums
     {
-        public Enums()
-        {
-
-        }
 
         public enum Functions : ushort
         {
@@ -23,6 +19,12 @@ namespace Constants
             SET_ROBOT_MANUAL_CONTROL = 0x0052,
             POSITION_DATA = 0x0061,
             MESSAGE_PROTOCOL = 0x0080,
+        }
+
+        public enum SerialFormat 
+        {
+            serial = "SERIAL",
+
         }
     }
 
