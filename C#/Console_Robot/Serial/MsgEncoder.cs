@@ -33,7 +33,7 @@ namespace Console_Robot.Serial
                 byte checksum = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
                 msg[msg.Length - 1] = checksum;
 
-                if(Serial.serialPort != null)
+                if(Serial.serialPort!= null)
                 {
                     Serial.serialPort.WWrite(msg, 0, msg.Length);
                     OnSendMessage(msgFunction, msgPayloadLength, msgPayload, checksum);
