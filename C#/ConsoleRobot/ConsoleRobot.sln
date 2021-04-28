@@ -9,6 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventArgsLibrary", "..\Even
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedSerialPort", "..\ExtendedSerialPort\ExtendedSerialPort.csproj", "{21AC599E-E3D5-4181-AA0F-7C2E00CCA016}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageDecoder", "..\MessageDecoder\MessageDecoder.csproj", "{9F9ADACE-2793-4065-B700-532D15837EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageEncoder", "..\MessageEncoder\MessageEncoder.csproj", "{08FA698E-E151-4E75-AC61-CF9E072F8EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageGenerator", "..\MessageGenerator\MessageGenerator.csproj", "{7D0CDE19-54C1-45E2-82C4-006F718415AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageProcessor", "..\MessageProcessor\MessageProcessor.csproj", "{C234A9FA-28F9-444C-8043-F82A6EEA87F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "..\Constants\Constants.csproj", "{F2455BD4-D923-48BC-B1D3-F498CFC84B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +37,26 @@ Global
 		{21AC599E-E3D5-4181-AA0F-7C2E00CCA016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21AC599E-E3D5-4181-AA0F-7C2E00CCA016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21AC599E-E3D5-4181-AA0F-7C2E00CCA016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F9ADACE-2793-4065-B700-532D15837EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9ADACE-2793-4065-B700-532D15837EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9ADACE-2793-4065-B700-532D15837EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9ADACE-2793-4065-B700-532D15837EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FA698E-E151-4E75-AC61-CF9E072F8EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FA698E-E151-4E75-AC61-CF9E072F8EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FA698E-E151-4E75-AC61-CF9E072F8EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FA698E-E151-4E75-AC61-CF9E072F8EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0CDE19-54C1-45E2-82C4-006F718415AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0CDE19-54C1-45E2-82C4-006F718415AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0CDE19-54C1-45E2-82C4-006F718415AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0CDE19-54C1-45E2-82C4-006F718415AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
