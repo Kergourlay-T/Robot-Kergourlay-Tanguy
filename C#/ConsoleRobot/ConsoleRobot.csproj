@@ -55,11 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Serial\MsgDecoder.cs" />
-    <Compile Include="Serial\MsgEncoder.cs" />
-    <Compile Include="Serial\MsgGenerator.cs" />
-    <Compile Include="Serial\MsgProcessor.cs" />
-    <Compile Include="Serial\Protocol.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
