@@ -19,17 +19,17 @@ namespace MessageProcessor
         {
             switch (e.msgFunction)
             {
-                case (ushort)Constants.Enums.Functions.LED_PROTOCOL:
+                case (ushort)Enums.Functions.LED_PROTOCOL:
                     OnIRMessageReceived(e);
                     break;
 
-                case (ushort)Constants.Enums.Functions.STATE_PROTOCOL:
+                case (ushort)Enums.Functions.STATE_PROTOCOL:
                     OnStateMessageReceived(e);
                     break;
-                case (ushort)Constants.Enums.Functions.POSITION_DATA:
+                case (ushort)Enums.Functions.POSITION_DATA:
                     OnPositionMessageReceived(e);
                     break;
-                case (ushort)Constants.Enums.Functions.TEXT_PROTOCOL:
+                case (ushort)Enums.Functions.TEXT_PROTOCOL:
                     OnTextMessageReceived(e);
                     break;
                 default:
@@ -37,10 +37,10 @@ namespace MessageProcessor
                     break;
             }
         }
-
         #region Event
 
         public event EventHandler<EventArgs> OnMessageProcessorCreatedEvent;
+        public event EventHandler<LEDMessageArgs> OnLEDMessageReceivedEvent;
         public event EventHandler<IRMessageArgs> OnIRMessageReceivedEvent;
         public event EventHandler<MotorMessageArgs> OnMotorMessageReceivedEvent;
         public event EventHandler<StateMessageArgs> OnStateMessageReceivedEvent;
@@ -48,10 +48,15 @@ namespace MessageProcessor
         public event EventHandler<TextMessageArgs> OnTextMessageReceivedEvent;
         public event EventHandler<MessageByteArgs> OnUnknowFunctionReceivedEvent;
 
-
         public virtual void OnMessageProcessorCreated()
         {
             OnMessageProcessorCreatedEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnLEDMessageReceived(MessageByteArgs e)
+        {
+            ushort nbLed = Convert.ToUInt16(e.msgPayload[0]);
+            bool stateLed = Convert.ToBoolean(e.msgPayload[1]);
+            OnLEDMessageReceivedEvent?.Invoke(this, new LEDMessageArgs(nbLed, stateLed);
         }
 
         public virtual void OnIRMessageReceived(MessageByteArgs e)

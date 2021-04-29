@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Ports;
+using System.Management;
 using EventArgsLibrary;
 using ExtendedSerialPort;
+using MessageDecoder;
+using MessageEncoder;
+using MessageGenerator;
+using MessageProcessor;
 
 namespace Serial
 {
@@ -13,19 +19,19 @@ namespace Serial
         #region Attributes
         public static ReliableSerialPort serialPort;
 
-        public static MessageDecoder.MsgDecoder msgDecoder;
-        public static MessageEncoder.MsgEncoder msgENcoder;
-        public static MessageGenerator.MsgGenerator msgGenerator;
-        public static MessageProcessor.MsgProcessor msgProcessor; 
+        public static MsgDecoder msgDecoder;
+        public static MsgEncoder msgEncoder;
+        public static MsgGenerator msgGenerator;
+        public static MsgProcessor msgProcessor; 
         #endregion
 
         #region Constructor 
         public Serial()
         {
-            MessageDecoder.MsgDecoder msgDecoder = new MessageDecoder.MsgDecoder();
-            MessageEncoder.MsgEncoder msgENcoder = new MessageEncoder.MsgEncoder();
-            MessageGenerator.MsgGenerator msgGenerator = new MessageGenerator.MsgGenerator();
-            MessageProcessor.MsgProcessor msgProcessor = new MessageProcessor.MsgProcessor();
+            MsgDecoder msgDecoder = new MsgDecoder();
+            MsgEncoder msgENcoder = new MsgEncoder();
+            MsgGenerator msgGenerator = new MsgGenerator();
+            MsgProcessor msgProcessor = new MsgProcessor();
         }
         #endregion
 
@@ -37,12 +43,12 @@ namespace Serial
             do
             {
                 i++;
-                OnNewSerialAttempt(i);
+                OnNewCOMAttempt(i);
                 string AvailableCOM = GetSerialPort();
 
                 if (AvailableCOM != "")
                 {
-                    OnSerialAvailable(COM);
+                    OnCOMAvailable(AvailableCOM);
                 }
                 else
                 {
@@ -50,7 +56,7 @@ namespace Serial
                 }
                 
 
-            } while ( serialPort == null && i < trial_max);
+            } while (serialPort == null && i < trial_max);
             return (serialPort != null);
         }
 
@@ -60,19 +66,49 @@ namespace Serial
         {
             try
             {
-
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity");
+                OnCOMAvailableList();
+                string AvailableCOM = "";
+                foreach (ManagementObject queryObj in searcher.Get())
+                {
+                    if (queryObj != null && queryObj["Caption"] != null)
+                    {
+                        if (queryObj["Caption"].ToString().Contains("(COM"))
+                        {
+                            string queryString = queryObj["Caption"].ToString();
+                            string[] queryStringArray = queryString.Split(' ');
+                            string COM_Name = queryStringArray[queryStringArray.Length - 1]; // Get (COMx)
+                            string COM_Description = queryString.Remove(queryString.IndexOf(COM_Name) - 1);
+                            COM_Name = COM_Name.Remove(COM_Name.Length - 1).Remove(0, 1); // Remove ( ) From COM
+                            if (COM_Description == "USB Serial Port")
+                            {
+                                AvailableCOM = COM_Name;
+                                OnCorrectCOMAvailable(COM_Name);
+                            }
+                            else
+                            {
+                                OnWrongCOMAvailable(COM_Name);
+                            }
+                        }
+                    }
+                }
+                return (AvailableCOM);
+            }
+            catch (ManagementException)
+            {
+                OnErrorWhileAttemptingCOM();
+                return "";
             }
         }
-
 
         #region Event
         public event EventHandler<COMEventArgs> OnSerialConnectedEvent;
         public event EventHandler<EventArgs> OnAutoConnectionLaunchedEvent;
-        public event EventHandler<AttemptsEventArgs> OnNewSerialAttemptEvent;
-        public event EventHandler<EventArgs> OnSerialAvailableListEvent;
+        public event EventHandler<AttemptsEventArgs> OnNewCOMAttemptEvent;
+        public event EventHandler<EventArgs> OnCOMAvailableListEvent;
         public event EventHandler<COMEventArgs> OnWrongCOMAvailableEvent;
         public event EventHandler<COMEventArgs> OnCorrectCOMAvailableEvent;
-        public event EventHandler<COMEventArgs> OnSerialAvailableEvent;
+        public event EventHandler<COMEventArgs> OnCOMAvailableEvent;
         public event EventHandler<EventArgs> OnNoConnectionAvailablEvent;
         public event EventHandler<EventArgs> OnErrorWhileWhileAttemptingCOMEvent;
 
@@ -95,13 +131,13 @@ namespace Serial
         {
             OnAutoConnectionLaunchedEvent?.Invoke(this, new EventArgs());
         }
-        public virtual void OnNewSerialAttempt(byte attempt)
+        public virtual void OnNewCOMAttempt(byte attempt)
         {
-            OnNewSerialAttemptEvent?.Invoke(this, new AttemptsEventArgs(attempt));
+            OnNewCOMAttemptEvent?.Invoke(this, new AttemptsEventArgs(attempt));
         }
-        public virtual void OnSerialAvailableList(string COM)
+        public virtual void OnCOMAvailableList()
         {
-            OnSerialAvailableListEvent?.Invoke(this, new COMEventArgs(COM));
+            OnCOMAvailableListEvent?.Invoke(this, new EventArgs());
         }
         public virtual void OnWrongCOMAvailable(string COM)
         {
@@ -111,20 +147,20 @@ namespace Serial
         {
             OnCorrectCOMAvailableEvent?.Invoke(this, new COMEventArgs(COM));
         }
-        public virtual void OnSerialAvailable(string COM)
+        public virtual void OnCOMAvailable(string COM)
         {
             OnSerialAutoConnected(COM);
-            OnSerialAvailableEvent?.Invoke(this, new COMEventArgs(COM));
+            OnCOMAvailableEvent?.Invoke(this, new COMEventArgs(COM));
         }
         public virtual void OnNoConnectionAvailable()
         {
             OnNoConnectionAvailablEvent?.Invoke(this, new EventArgs());
         }
-        public virtual void OnErrorWhileWhileAttemptingCOM()
+        public virtual void OnErrorWhileAttemptingCOM()
         {
             OnErrorWhileWhileAttemptingCOMEvent?.Invoke(this, new EventArgs());
         }
         #endregion
 
-    }
-}
+    }//End class Serial
+}//End Serial

@@ -116,13 +116,14 @@ namespace MessageDecoder
         public event EventHandler<DecodePayloadArgs> OnPayloadReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
         public event EventHandler<MessageByteArgs> OnCorrectChecksumReceivedEvent;
-        public event EventHandler<MessageByteArgs> OnWrongChecksumReceivedEvent;
+       
 
         //Events related to errors that can occur on ByteReceived function
         public event EventHandler<DecodeByteArgs> OnUnknowByteReceivedEvent;
         public event EventHandler<EventArgs> OnUnknowFunctionEvent;
         public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
         public event EventHandler<EventArgs> OnWrongLenghtEvent;
+        public event EventHandler<MessageByteArgs> OnWrongChecksumReceivedEvent;
 
         /***************************************************************************************************/
         //  Declaration of event-related functions
@@ -228,10 +229,6 @@ namespace MessageDecoder
         {
             OnCorrectChecksumReceivedEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
-        public virtual void OnWrongChecksumReceived()
-        {
-            OnWrongChecksumReceivedEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
-        }
 
         #endregion //Endregion Execution
 
@@ -251,6 +248,10 @@ namespace MessageDecoder
         public virtual void OnUnknowFunction()
         {
             OnUnknowFunctionEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnWrongChecksumReceived()
+        {
+            OnWrongChecksumReceivedEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
         #endregion //EndRegion Errors
 

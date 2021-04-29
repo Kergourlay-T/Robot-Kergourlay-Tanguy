@@ -10,16 +10,13 @@ namespace ConsoleRobot
     class ConsoleFormat
     {
 
-        private static long message_received_index = 0;
-        private static long message_sender_index = 0;
+        private static long hex_received_index = 0;
+        private static long hex_sender_index = 0;
 
         #region General Method
         static public void ConsoleTitleFormat(string title, bool isCorrect)
         {
-            if (Console.CursorLeft != 0)
-            {
-                Console.WriteLine();
-            }
+            ResetConsoleCursorAndConsoleColor();
             Console.Write("[");
             if (isCorrect)
             {
@@ -33,8 +30,6 @@ namespace ConsoleRobot
             Console.ResetColor();
             Console.Write("] ");
         }
-        #endregion
-
         static public void ConsoleInformationFormat(string format, string message, bool isCorrect = true)
         {
             ConsoleTitleFormat(format, isCorrect);
@@ -45,7 +40,15 @@ namespace ConsoleRobot
             Console.ForegroundColor = color;
             Console.Write("   -" + message);
         }
-
+        static public void ResetConsoleCursorAndConsoleColor()
+        {
+            if (Console.CursorLeft != 0)
+            {
+                Console.WriteLine();
+            }
+            Console.ResetColor();
+        }
+        #endregion
 
         #region Serial Init
         static public void PrintMessageDecoderCreated(object sender, EventArgs e)
@@ -69,7 +72,7 @@ namespace ConsoleRobot
         }
         #endregion
 
-        #region Serial
+        #region Serial Viewer
         static public void PrintAutoConnectionStarted(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "Auto-connection started", true);
@@ -108,28 +111,28 @@ namespace ConsoleRobot
         }
         #endregion
 
-        #region Decoder : Reconstruct Message
+        #region Hex Decoder
         static public void PrintDecoderUnknowByte(object sender, DecodeByteArgs e)
         {
+            ResetConsoleCursorAndConsoleColor();
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("0x" + e.b.ToString("X2") + " ");
-            Console.ResetColor();
         }
         static public void PrintDecoderSOF(object sender, DecodeByteArgs e)
         {
-            Console.WriteLine();
-            Console.ResetColor();
-            Console.Write(message_received_index++ + " : ");
+            ResetConsoleCursorAndConsoleColor();
+            Console.Write(hex_received_index++ + " : ");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("0x" + e.b.ToString("2X") + " ");
-            Console.ResetColor();
         }
 
         static public void PrintDecoderFunctionMSB(object sender, DecodeByteArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("0x" + e.b.ToString("2X") + " ");
+            // /!\ Don't use ResetCursorAndConsoleColor(), the following functions follow each other
             Console.ResetColor();
+
         }
         static public void PrintDecoderFunctionLSB(object sender, DecodeByteArgs e)
         {
@@ -150,57 +153,59 @@ namespace ConsoleRobot
             Console.Write("0x" + e.b.ToString("2X") + " ");
             Console.ResetColor();
         }
-        static public void PrintDecoderRigthChecksum(object sender, DecodeByteArgs e)
+        static public void PrintDecoderPayloadByte(object sender, DecodeByteArgs e)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("0x" + e.b.ToString("2X") + " ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
             Console.ResetColor();
         }
-        static public void PrintDecoderWrongChecksum(object sender, DecodeByteArgs e)
+        static public void PrintDecoderRigthChecksum(object sender, MessageByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("0x" + e.checksum.ToString("2X") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintDecoderWrongChecksum(object sender, MessageByteArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("0x" + e.b.ToString("2X") + " ");
+            Console.Write("0x" + e.checksum.ToString("2X") + " ");
             Console.ResetColor();
         }
 
         #endregion
 
-        #region Deocder Errors 
+        #region Hex Decoder Errors 
         static public void PrintUnknowFunctionWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : A UNKNOW FUNCTION HAS BEEN RECEIVED");
-            Console.ResetColor();
+            Console.Write("\n /!\\ WARNING : A UNKNOW FUNCTION HAS BEEN RECEIVED /!\\");
         }
         static public void PrintOverLengthWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : A MESSAGE HAS EXCEDED THE MAX LENGTH");
-            Console.ResetColor();
+            Console.Write("\n /!\\ WARNING : A MESSAGE HAS EXCEDED THE MAX LENGTH /!\\");
         }
         static public void PrintWrongPayloadLengthWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : THE PAYLOAD LENGTH IS INAPPROPIATE FOR THIS FUNCTION");
-            Console.ResetColor();
+            Console.Write("\n /!\\ WARNING : THE PAYLOAD LENGTH IS INAPPROPIATE FOR THIS FUNCTION /!\\");
         }
         static public void PrintWrongChecksumWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : A MESSAGE HAS BEEN CORRUPTED");
-            Console.ResetColor();
+            Console.Write("\n /!\\ WARNING : A MESSAGE HAS BEEN CORRUPTED /!\\");
         }
         #endregion
 
-        #region Encoder : Construct Message
+        #region Hex Encoder
         static public void PrintEncoderSendMessage(object sender, MessageByteArgs e)
         {
-            Console.ResetColor();
-            Console.Write(message_received_index++ + " : ");
+            ResetConsoleCursorAndConsoleColor();
+            Console.Write(hex_received_index++ + " : ");
             Console.ForegroundColor = ConsoleColor.Black;
 
             Console.BackgroundColor = ConsoleColor.Magenta;
@@ -216,38 +221,37 @@ namespace ConsoleRobot
             }
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Write("0x" + e.checksum.ToString("2X"));
-            Console.ResetColor();
         }
         #endregion
 
-        #region Encoder Errors
+        #region Hex Encoder Errors
         static public void PrintSerialDisconnectedWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : MESSAGE CAN'T BE SEND BECAUSE SERAIL IS DISCONNECTED");
+            Console.Write("\n /!\\ WARNING : MESSAGE CAN'T BE SEND BECAUSE SERAIL IS DISCONNECTED /!\\");
             Console.ResetColor();
         }
-        static public void PrintUknowFunctionSendhWarning(object sender, EventArgs e)
+        static public void PrintUnknowFunctionSendWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : AN UNKNOW FUNCTION WAS TRIED TO BE SENT");
+            Console.Write("\n /!\\ WARNING : AN UNKNOW FUNCTION WAS TRIED TO BE SENT /!\\");
             Console.ResetColor();
         }
-        static public void PrintWrongPayloadLengthSendhWarning(object sender, EventArgs e)
+        static public void PrintWrongPayloadLengthSendWarning(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            ResetConsoleCursorAndConsoleColor();
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("WARNING : A WRONG PAYLOAD LENGTH WAS TRIED TO BE SENT");
+            Console.Write("\n /!\\ WARNING : A WRONG PAYLOAD LENGTH WAS TRIED TO BE SENT /!\\");
             Console.ResetColor();
         }
         #endregion
 
-        #region Processor
+        #region Hex Processor
         static public void PrintProcessorIRMessageReceived(object sender, IRMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.IR, "IR received :", true);
             ConsoleListFormat("left IR   : " + e.leftIR);
             ConsoleListFormat("center IR : " + e.centerIR);
@@ -256,14 +260,14 @@ namespace ConsoleRobot
 
         static public void PrintProcessorLEDMessageReceived(object sender, LEDMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.LED, "LED" + e.LEDNumber + "state received", true);
             ConsoleListFormat("LED" + e.LEDNumber + "State : " + e.LEDState);
         }
 
         static public void PrintProcessorMotorSpeedMessageReceived(object sender, MotorMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MOTOR, "motor speed :", true);
             ConsoleListFormat("left motor speed : " + e.leftMotorSpeed);
             ConsoleListFormat("rigth motor speed : " + e.rightMotorSpeed);
@@ -271,20 +275,20 @@ namespace ConsoleRobot
 
         static public void PrintProcessorTextMessageReceived(object sender, TextMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.TEXT, "text received :", true);
             ConsoleListFormat(e.text);
         }
 
-        static public void PrintprocessorStateMessageReceived(object sender, StateMessageArgs e)
+        static public void PrintProcessorStateMessageReceived(object sender, StateMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.STATE_ROBOT, "Actual State: " + e.state + " - " + e.time, true);
         }
 
         static public void PrintProcessorPositionDateMessageReceived(object sender, PositionMessageArgs e)
         {
-            Console.ResetColor();
+            ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.POSITIONDATA, "Actual Position :", true);
             ConsoleListFormat("timestamp : " + e.timestamp);
             ConsoleListFormat("psotion x : " + e.xPos);
