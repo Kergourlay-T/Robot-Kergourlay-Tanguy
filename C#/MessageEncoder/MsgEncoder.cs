@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Constants;
+using EventArgsLibrary;
+
 namespace MessageEncoder
 {
     public class MsgEncoder
@@ -15,14 +18,20 @@ namespace MessageEncoder
 
         public bool UartEncodeAndSendMessage(ushort msgFunction, byte[] msgPayload)
         {
-            short msgPayloadLengthTest = Protocol.CheckFunctionLenght(msgFunction);
+            short msgPayloadLengthTest;
             ushort msgPayloadLength = (ushort)msgPayload.Length;
-            if (msgPayloadLengthTest != -2)
+            if (Dictionary.CheckPayloadLengthAssoicatedToFunction.TryGetValue(msgFunction, out msgPayloadLengthTest))
             {
+                msgPayloadLengthTest = Dictionary.CheckPayloadLengthAssoicatedToFunction[msgFunction];
+               
                 if (msgPayloadLengthTest != -1)
                 {
                     msgPayloadLength = (ushort)msgPayloadLengthTest;
                 }
+            }
+            else
+            {
+                OnUnknowFunctionSent();
             }
 
             if (msgPayloadLength == msgPayload.Length)
@@ -33,6 +42,7 @@ namespace MessageEncoder
 
                 if (Serial.serialPort != null)
                 {
+
                     Serial.serialPort.WWrite(msg, 0, msg.Length);
                     OnSendMessage(msgFunction, msgPayloadLength, msgPayload, checksum);
                     return true;
@@ -45,10 +55,6 @@ namespace MessageEncoder
             else
             {
                 OnWrongPayloadSend();
-            }
-            if (msgPayloadLengthTest == -2)
-            {
-                OnUnknowFunctionSent();
             }
             return false;
         }
@@ -65,7 +71,7 @@ namespace MessageEncoder
 
             byte[] msg = new byte[6 + msgPayload.Length];
             ushort i;
-            msg[0] = Protocol.SOF;
+            msg[0] = Constants.Consts.SOF;
             msg[1] = functionMSB;
             msg[2] = functionMSB;
             msg[3] = payloadLenghtMSB;
@@ -94,8 +100,7 @@ namespace MessageEncoder
         public event EventHandler<MessageByteArgs> OnSendMessageEvent;
         public event EventHandler<LEDMessageArgs> OnSetLEDStateEvent;
         public event EventHandler<MotorMessageArgs> OnMotorSetSpeedEvent;
-        public event EventHandler<SetStateArgs> OnSetStateEvent;
-
+        public event EventHandler<StateMessageArgs> OnSetStateEvent;
 
         public event EventHandler<EventArgs> OnSerialDeconnectedEvent;
         public event EventHandler<EventArgs> OnWrongPayloadSendEvent;
@@ -109,16 +114,16 @@ namespace MessageEncoder
 
         public virtual void OnSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload, byte checksum)
         {
-            OnSendMessageEvent?.Invoke(this, new MessageByteArgs());
+            OnSendMessageEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLength, msgPayload, checksum));
             switch (msgFunction)
             {
-                case (ushort)Protocol.Functions.LED_PROTOCOL:
+                case (ushort)Enums.Functions.LED_PROTOCOL:
                     OnSetLEDState(msgPayload[0], msgPayload[1] == 0x00 ? false : true);
                     break;
-                case (ushort)Protocol.Functions.MOTOR_PORTOCOL:
+                case (ushort)Enums.Functions.MOTOR_PORTOCOL:
                     OnMotorSetSpeed(msgPayload[0], msgPayload[1]);
                     break;
-                case (ushort)Protocol.Functions.SET_ROBOT_STATE:
+                case (ushort)Enums.Functions.SET_ROBOT_STATE:
                     OnSetState(msgPayload[0]);
                     break;
             }
@@ -134,17 +139,19 @@ namespace MessageEncoder
         }
         public virtual void OnSetState(byte State)
         {
-            OnMotorSetSpeedEvent?.Invoke(this, new SetStateArgs(State));
+            OnSetStateEvent?.Invoke(this, new StateMessageArgs(State));
         }
 
         public virtual void OnSerialDeconnected()
         {
             OnSerialDeconnectedEvent?.Invoke(this, new EventArgs());
         }
+
         public virtual void OnWrongPayloadSend()
         {
             OnWrongPayloadSendEvent?.Invoke(this, new EventArgs());
         }
+
         public virtual void OnUnknowFunctionSent()
         {
             OnUnknowFunctionSentEvent?.Invoke(this, new EventArgs());

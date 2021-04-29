@@ -118,7 +118,7 @@ namespace EventArgsLibrary
 
     public class TextMessageArgs : EventArgs
     {
-        TextMessageArgs(string text_a)
+        public TextMessageArgs(string text_a)
         {
             text = text_a;
         }

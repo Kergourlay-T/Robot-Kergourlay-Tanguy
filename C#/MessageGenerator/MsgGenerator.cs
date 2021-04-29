@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace MessageGenerator
 {
     public class MsgGenerator
@@ -22,7 +24,7 @@ namespace MessageGenerator
         public void GenerateMessageLEDSetStateConsigneToRobot(ushort numberLED, bool LEDState)
         {
             byte[] payload = new byte[] { (byte)numberLED, (byte)(LEDState ? 0x00 : 0x01) };
-            Serial.MsgEncoder.UartEcodeAndSendMessage((ushort)Protocol.Functions.LED_PROTOCOL, payload);
+            MessageEncoder.MsgEncoder.UartEncodeAndSendMessage((ushort)Constants.Enums.Functions.LED_PROTOCOL, payload);
         }
 
         public void GenerateMessageMotorSetSpeedToRobot(byte leftMotorSpeed, byte rigthMotorSpeed)
@@ -44,13 +46,13 @@ namespace MessageGenerator
             {
                 payload[1] = (byte)((rigthMotorSpeed > 0) ? 100 : -100);
             }
-            Serial.MsgEncoder.UartEcodeAndSendMessage((ushort)Protocol.Functions.MOTOR_PORTOCOL, payload);
+            MessageEncoder.MsgEncoder.UartEncodeAndSendMessage((ushort)Constants.Enums.Functions.MOTOR_PORTOCOL, payload);
         }
 
         public void GenerateMessageSetStateRobot(byte StateRobot)
         {
             byte[] payload = new byte[] { (byte)StateRobot };
-            Serial.MsgEncoder.UartEcodeAndSendMessage((ushort)Protocol.Functions.SET_ROBOT_STATE, payload);
+            MessageEncoder.MsgEncoder.UartEncodeAndSendMessage((ushort)Constants.Enums.Functions.SET_ROBOT_STATE, payload);
         }
 
     }//End MsgGenerator

@@ -9,20 +9,6 @@ namespace Console_Robot
 {
     class ConsoleFormat
     {
-        static public class ConsoleTitleFormatConst
-        {
-            public const string decoder = "DECODER";
-            public const string encoder = "ENCODER";
-            public const string generator = "GENERATOR";
-            public const string processor = "PROCESSOR";
-            public const string serial = "SERIAL";
-            public const string IR = "IR";
-            public const string motor = "MOTOR";
-            public const string stateRobot = "STATEROBOT";
-            public const string text = "TEXT";
-            public const string LED = "LED";
-            public const string positionData = "POSITION DATA";
-        }
 
         private static long message_received_index = 0;
         private static long message_sender_index = 0;
@@ -64,41 +50,41 @@ namespace Console_Robot
         #region Serial Init
         static public void PrintMessageDecoderCreated(object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.decoder, "Message Decoder is launched", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.DECODER, "Message Decoder is launched", true);
         }
-
+   
         static public void PrintMessageEncoderCreated(object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.encoder, "Message Encoder is launched", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.ENCODER, "Message Encoder is launched", true);
         }
 
         static public void PrintMessageProcessorCreated(object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.processor, "Message Processor is launched", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.PROCESSOR, "Message Processor is launched", true);
         }
 
         static public void PrintMessageGeneratorCreated(object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.generator, "Message Generator is launched", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.GENERATOR, "Message Generator is launched", true);
         }
         #endregion
 
         #region Serial
         static public void PrintAutoConnectionStarted (object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "Auto-connection started", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "Auto-connection started", true);
         }
         static public void PrintListOfAvailableCOM (object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "List of COM availables :", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "List of COM availables :", true);
         }
         static public void PrintAvailableCOM (object sender, COMEventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "- COM " + e.COM);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "- COM " + e.COM);
         }
         static public void PrintSerialAttemptConnectionToCOM(object sender, AttemptsEventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "Attempt #" + e.attempts, true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "Attempt #" + e.attempts, true);
         }
         static public void PrintRigthCOM(object sender, COMEventArgs e)
         {
@@ -110,15 +96,15 @@ namespace Console_Robot
         }
         static public void PrintNoConnectionAvailableToCOM (object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "No connection enable", false);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "No connection enable", false);
         }
         static public void PrintConnectionAvailableToCOM (object sender, COMEventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "COM available : "+e.COM , true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "COM available : "+e.COM , true);
         }
         static public void PrintErrorWhileAttemptingCOM (object sender, EventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.serial, "ERROR while attempting COM", false);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "ERROR while attempting COM", false);
         }
         #endregion
 
@@ -262,7 +248,7 @@ namespace Console_Robot
         static public void PrintProcessorIRMessageReceived (object sender, IRMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.IR, "IR received :", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.IR, "IR received :", true);
             ConsoleListFormat("left IR   : " + e.leftIR);
             ConsoleListFormat("center IR : " + e.centerIR);
             ConsoleListFormat("rigth IR  : " + e.rigthIR);
@@ -271,14 +257,14 @@ namespace Console_Robot
         static public void PrintProcessorLEDMessageReceived (object sender, LEDMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.LED, "LED"+ e.LEDNumber + "state received", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.LED, "LED"+ e.LEDNumber + "state received", true);
             ConsoleListFormat("LED"+ e.LEDNumber + "State : " + e.LEDState);
         }
 
         static public void PrintProcessorMotorSpeedMessageReceived (object sender, MotorMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.motor, "motor speed :", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MOTOR, "motor speed :", true);
             ConsoleListFormat("left motor speed : " + e.leftMotorSpeed);
             ConsoleListFormat("rigth motor speed : " + e.rightMotorSpeed);
         }
@@ -286,20 +272,20 @@ namespace Console_Robot
         static public void PrintProcessorTextMessageReceived (object sender, TextMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.text, "text received :", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.TEXT, "text received :", true);
             ConsoleListFormat(e.text);
         }
 
         static public void PrintprocessorStateMessageReceived (object sender, StateMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.stateRobot, "Actual State: " + e.state + " - " + e.time, true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.STATE_ROBOT, "Actual State: " + e.state + " - " + e.time, true);
         }
 
         static public void PrintProcessorPositionDateMessageReceived (object sender, PositionMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(ConsoleTitleFormatConst.positionData, "Actual Position :", true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.POSITIONDATA, "Actual Position :", true);
             ConsoleListFormat("timestamp : " + e.timestamp);
             ConsoleListFormat("psotion x : " + e.xPos);
             ConsoleListFormat("psotion y : " + e.yPos); 

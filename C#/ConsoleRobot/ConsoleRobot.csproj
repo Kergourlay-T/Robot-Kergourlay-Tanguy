@@ -70,6 +70,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Constants\Constants.csproj">
+      <Project>{f2455bd4-d923-48bc-b1d3-f498cfc84b14}</Project>
+      <Name>Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventArgsLibrary\EventArgsLibrary.csproj">
       <Project>{d00792ad-6cd8-48c3-ab62-ffb5525443a3}</Project>
       <Name>EventArgsLibrary</Name>
@@ -103,6 +108,22 @@
     <ProjectReference Include="..\ExtendedSerialPort\ExtendedSerialPort.csproj">
       <Project>{21ac599e-e3d5-4181-aa0f-7c2e00cca016}</Project>
       <Name>ExtendedSerialPort</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageDecoder\MessageDecoder.csproj">
+      <Project>{9f9adace-2793-4065-b700-532d15837ea8}</Project>
+      <Name>MessageDecoder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageEncoder\MessageEncoder.csproj">
+      <Project>{08fa698e-e151-4e75-ac61-cf9e072f8ea4}</Project>
+      <Name>MessageEncoder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageGenerator\MessageGenerator.csproj">
+      <Project>{7d0cde19-54c1-45e2-82c4-006f718415ad}</Project>
+      <Name>MessageGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageProcessor\MessageProcessor.csproj">
+      <Project>{c234a9fa-28f9-444c-8043-f82a6eea87f2}</Project>
+      <Name>MessageProcessor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

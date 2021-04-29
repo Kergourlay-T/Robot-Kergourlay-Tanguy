@@ -40,7 +40,7 @@ namespace MessageDecoder
         private static byte[] msgPayload;
         private static byte msgChecksum;
 
-        private static int msgPayloadIndex = 0;
+        private static int msg_payload_index = 0;
         private static byte CalculateChecksum()
         {
             byte checksum = Constants.Consts.SOF;
@@ -150,7 +150,7 @@ namespace MessageDecoder
             functionLSB = e;
             msgFunction += (ushort)(e << 0);
             OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (Protocol.CheckFunctionLenght(msgFunction) != -2)
+            if (Dictionary.CheckPayloadLengthAssoicatedToFunction[msgFunction] != -2)
             {
                 actualState = State.PayloadLengthMSB;
             }
@@ -173,15 +173,15 @@ namespace MessageDecoder
             msgPayloadLenght += (ushort)(e << 0);
             actualState = State.Waiting;
             OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (msgPayloadLenght <= Protocol.MAX_MSG_LENGTH)
+            if (msgPayloadLenght <= Constants.Consts.MAX_MSG_LENGTH)
             {
-                short PayloadLengthTest = Protocol.CheckFunctionLenght(msgFunction);
+                short PayloadLengthTest = Dictionary.CheckPayloadLengthAssoicatedToFunction[msgFunction];
                 if (PayloadLengthTest != -1)
                 {
                     if (PayloadLengthTest == -1 || PayloadLengthTest == msgPayloadLenght)
                     {
                         actualState = State.CheckSum;
-                        msgPayloadIndex = 0;
+                        msg_payload_index = 0;
                         byte[] msgPayload = new byte[msgPayloadLenght];
                     }
                     else
@@ -197,9 +197,9 @@ namespace MessageDecoder
         }
         public virtual void OnPayloadByteReceived(byte e)
         {
-            msgPayload[msgPayloadIndex] = e;
-            msgPayloadIndex++;
-            if (msgPayloadIndex == msgPayloadLenght)
+            msgPayload[msg_payload_index] = e;
+            msg_payload_index++;
+            if (msg_payload_index == msgPayloadLenght)
             {
                 OnPayloadReceived(msgPayload);
             }
