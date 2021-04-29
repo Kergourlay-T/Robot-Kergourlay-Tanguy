@@ -8,21 +8,18 @@ namespace Constants
 {
     public class Dictionary
     {
-        public Dictionary()
-        {
-
-        }
 
         public static Dictionary<ushort, short> CheckPayloadLengthAssoicatedToFunction = new Dictionary<ushort, short>()
         {
-            {Enums.Functions.LED_PROTOCOL, 2 },
-            {Enums.Functions.TELEMETER_PROTOCOL,3},
-            {Enums.Functions.MOTOR_PROTOCOL, 2 },
-            {Enums.Functions.MESSAGE_PROTOCOL, -1 },
-            {Enums.Functions.STATE_PROTOCOL, 1 },
-            {Enums.Functions.SET_ROBOT_STATE,1 },
-            {Enums.Functions.SET_ROBOT_MANUAL_CONTROL,1 },
-            {Enums.Functions.POSITION_DATA, 24 }
+            {Enums.Functions.LED_PROTOCOL , 2 }
+            //{Enums.Functions, 2 },
+            //{Enums.Functions.TELEMETER_PROTOCOL,3},
+            //{Enums.Functions.MOTOR_PROTOCOL, 2 },
+            //{Enums.Functions.MESSAGE_PROTOCOL, -1 },
+            //{Enums.Functions.STATE_PROTOCOL, 1 },
+            //{Enums.Functions.SET_ROBOT_STATE,1 },
+            //{Enums.Functions.SET_ROBOT_MANUAL_CONTROL,1 },
+            //{Enums.Functions.POSITION_DATA, 24 }
         };
     }//End Dictionary
 

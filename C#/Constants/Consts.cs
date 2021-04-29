@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Constants
 {
-    public const byte SOF = 0xFE;
-    public const ushort MAX_MSG_LENGTH = 255;
+    public class Consts
+    {
+        public const byte SOF = 0xFE;
+        public const ushort MAX_MSG_LENGTH = 255;
+    }
+
 }

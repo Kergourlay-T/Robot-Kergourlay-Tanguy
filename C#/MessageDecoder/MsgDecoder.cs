@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventArgsLibrary;
+using Constants;
 
 namespace MessageDecoder
 {
@@ -41,7 +43,7 @@ namespace MessageDecoder
         private static int msgPayloadIndex = 0;
         private static byte CalculateChecksum()
         {
-            byte checksum = Protocol.SOF;
+            byte checksum = Constants.Consts.SOF;
             checksum ^= functionMSB;
             checksum ^= functionLSB;
             checksum ^= payloadLenghtMSB;
@@ -58,7 +60,7 @@ namespace MessageDecoder
             switch (actualState)
             {
                 case State.Waiting:
-                    if (b == Protocol.SOF)
+                    if (b == Constants.Consts.SOF)
                     {
                         OnSOFReceived(b);
                     }
@@ -252,26 +254,7 @@ namespace MessageDecoder
         }
         #endregion //EndRegion Errors
 
-        /***************************************************************************************************/
-        //  Declaration of MsgDecoder specific overloads
-        /****************************************************************************************************/
-        public class DecodeByteArgs : EventArgs
-        {
-            public DecodeByteArgs(byte b_a)
-            {
-                b = b_a;
-            }
-            public byte b { get; set; }
-        }
-        public class DecodePayloadArgs : EventArgs
-        {
-            public DecodePayloadArgs(byte[] payload_a)
-            {
-                payload = payload_a;
-            }
-            public byte[] payload { get; set; }
-        }
-
         #endregion //Endregion Event
+
     }//End MsgDecoder
 }//End MessageDecoder

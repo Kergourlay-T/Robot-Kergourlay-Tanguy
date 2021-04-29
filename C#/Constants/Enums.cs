@@ -18,7 +18,7 @@ namespace Constants
             SET_ROBOT_STATE = 0x0051,
             SET_ROBOT_MANUAL_CONTROL = 0x0052,
             POSITION_DATA = 0x0061,
-            MESSAGE_PROTOCOL = 0x0080,
+            TEXT_PROTOCOL = 0x0080,
         }
 
         public enum SerialFormat 

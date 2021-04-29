@@ -118,11 +118,54 @@ namespace EventArgsLibrary
 
     public class TextMessageArgs : EventArgs
     {
-        TextMessageArgs(string Text_a)
+        TextMessageArgs(string text_a)
         {
-            Text = Text_a;
+            text = text_a;
         }
-        public string Text { get; set; }
+        public string text { get; set; }
     }
+
+    /***************************************************************************************************/
+    //  Declaration of MsgDecoder specific overloads
+    /****************************************************************************************************/
+    public class DecodeByteArgs : EventArgs
+    {
+        public DecodeByteArgs(byte b_a)
+        {
+            b = b_a;
+        }
+        public byte b { get; set; }
+    }
+    public class DecodePayloadArgs : EventArgs
+    {
+        public DecodePayloadArgs(byte[] payload_a)
+        {
+            payload = payload_a;
+        }
+        public byte[] payload { get; set; }
+    }
+
+
+    #region Serial Events
+    public class AttemptsEventArgs : EventArgs
+    {
+        public byte attempts { get; set; }
+
+        public AttemptsEventArgs(byte attempts_a)
+        {
+            attempts = attempts_a;
+        }
+    }
+
+    public class COMEventArgs : EventArgs
+    {
+        public string COM { get; set; }
+        public COMEventArgs(string COM_a)
+        {
+            COM = COM_a;
+        }
+
+    }
+    #endregion
 
 }//End EventArgsLibrary

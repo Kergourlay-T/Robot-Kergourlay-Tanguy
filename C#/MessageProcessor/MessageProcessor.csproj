@@ -44,5 +44,15 @@
     <Compile Include="MsgProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Constants\Constants.csproj">
+      <Project>{f2455bd4-d923-48bc-b1d3-f498cfc84b14}</Project>
+      <Name>Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventArgsLibrary\EventArgsLibrary.csproj">
+      <Project>{d00792ad-6cd8-48c3-ab62-ffb5525443a3}</Project>
+      <Name>EventArgsLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
