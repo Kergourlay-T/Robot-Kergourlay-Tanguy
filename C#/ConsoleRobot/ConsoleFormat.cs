@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EventArgsLibrary;
 
-namespace Console_Robot
+namespace ConsoleRobot
 {
     class ConsoleFormat
     {
@@ -52,7 +52,7 @@ namespace Console_Robot
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.DECODER, "Message Decoder is launched", true);
         }
-   
+
         static public void PrintMessageEncoderCreated(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.ENCODER, "Message Encoder is launched", true);
@@ -70,15 +70,15 @@ namespace Console_Robot
         #endregion
 
         #region Serial
-        static public void PrintAutoConnectionStarted (object sender, EventArgs e)
+        static public void PrintAutoConnectionStarted(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "Auto-connection started", true);
         }
-        static public void PrintListOfAvailableCOM (object sender, EventArgs e)
+        static public void PrintListOfAvailableCOM(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "List of COM availables :", true);
         }
-        static public void PrintAvailableCOM (object sender, COMEventArgs e)
+        static public void PrintAvailableCOM(object sender, COMEventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "- COM " + e.COM);
         }
@@ -90,19 +90,19 @@ namespace Console_Robot
         {
             ConsoleListFormat(e.COM, ConsoleColor.Green);
         }
-        static public void PrintWrongCOM (object sender, COMEventArgs e)
+        static public void PrintWrongCOM(object sender, COMEventArgs e)
         {
             ConsoleListFormat(e.COM, ConsoleColor.Red);
         }
-        static public void PrintNoConnectionAvailableToCOM (object sender, EventArgs e)
+        static public void PrintNoConnectionAvailableToCOM(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "No connection enable", false);
         }
-        static public void PrintConnectionAvailableToCOM (object sender, COMEventArgs e)
+        static public void PrintConnectionAvailableToCOM(object sender, COMEventArgs e)
         {
-            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "COM available : "+e.COM , true);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "COM available : " + e.COM, true);
         }
-        static public void PrintErrorWhileAttemptingCOM (object sender, EventArgs e)
+        static public void PrintErrorWhileAttemptingCOM(object sender, EventArgs e)
         {
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.SERIAL, "ERROR while attempting COM", false);
         }
@@ -173,7 +173,7 @@ namespace Console_Robot
             Console.Write("WARNING : A UNKNOW FUNCTION HAS BEEN RECEIVED");
             Console.ResetColor();
         }
-        static public void PrintOverLengthWarning (object sender, EventArgs e)
+        static public void PrintOverLengthWarning(object sender, EventArgs e)
         {
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Red;
@@ -187,7 +187,7 @@ namespace Console_Robot
             Console.Write("WARNING : THE PAYLOAD LENGTH IS INAPPROPIATE FOR THIS FUNCTION");
             Console.ResetColor();
         }
-        static public void PrintWrongChecksumWarning (object sender, EventArgs e)
+        static public void PrintWrongChecksumWarning(object sender, EventArgs e)
         {
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Red;
@@ -245,7 +245,7 @@ namespace Console_Robot
         #endregion
 
         #region Processor
-        static public void PrintProcessorIRMessageReceived (object sender, IRMessageArgs e)
+        static public void PrintProcessorIRMessageReceived(object sender, IRMessageArgs e)
         {
             Console.ResetColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.IR, "IR received :", true);
@@ -254,14 +254,14 @@ namespace Console_Robot
             ConsoleListFormat("rigth IR  : " + e.rigthIR);
         }
 
-        static public void PrintProcessorLEDMessageReceived (object sender, LEDMessageArgs e)
+        static public void PrintProcessorLEDMessageReceived(object sender, LEDMessageArgs e)
         {
             Console.ResetColor();
-            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.LED, "LED"+ e.LEDNumber + "state received", true);
-            ConsoleListFormat("LED"+ e.LEDNumber + "State : " + e.LEDState);
+            ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.LED, "LED" + e.LEDNumber + "state received", true);
+            ConsoleListFormat("LED" + e.LEDNumber + "State : " + e.LEDState);
         }
 
-        static public void PrintProcessorMotorSpeedMessageReceived (object sender, MotorMessageArgs e)
+        static public void PrintProcessorMotorSpeedMessageReceived(object sender, MotorMessageArgs e)
         {
             Console.ResetColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MOTOR, "motor speed :", true);
@@ -269,33 +269,31 @@ namespace Console_Robot
             ConsoleListFormat("rigth motor speed : " + e.rightMotorSpeed);
         }
 
-        static public void PrintProcessorTextMessageReceived (object sender, TextMessageArgs e)
+        static public void PrintProcessorTextMessageReceived(object sender, TextMessageArgs e)
         {
             Console.ResetColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.TEXT, "text received :", true);
             ConsoleListFormat(e.text);
         }
 
-        static public void PrintprocessorStateMessageReceived (object sender, StateMessageArgs e)
+        static public void PrintprocessorStateMessageReceived(object sender, StateMessageArgs e)
         {
             Console.ResetColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.STATE_ROBOT, "Actual State: " + e.state + " - " + e.time, true);
         }
 
-        static public void PrintProcessorPositionDateMessageReceived (object sender, PositionMessageArgs e)
+        static public void PrintProcessorPositionDateMessageReceived(object sender, PositionMessageArgs e)
         {
             Console.ResetColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.POSITIONDATA, "Actual Position :", true);
             ConsoleListFormat("timestamp : " + e.timestamp);
             ConsoleListFormat("psotion x : " + e.xPos);
-            ConsoleListFormat("psotion y : " + e.yPos); 
+            ConsoleListFormat("psotion y : " + e.yPos);
             ConsoleListFormat("angle radiant : " + e.angleRadiant);
             ConsoleListFormat("linear speed : " + e.linearSpeed);
             ConsoleListFormat("angular speed : " + e.angularSpeed);
         }
         #endregion
-
-
 
     }
 }

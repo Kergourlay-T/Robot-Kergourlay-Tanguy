@@ -4,17 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Constants;
-using EventArgsLibrary;
-using MessageDecoder;
-using MessageEncoder;
-using MessageGenerator;
-using MessageProcessor;
-
-
-namespace Console_Robot
+namespace ConsoleRobot
 {
-    class Program
+    public class Program
     {
+
     }
 }

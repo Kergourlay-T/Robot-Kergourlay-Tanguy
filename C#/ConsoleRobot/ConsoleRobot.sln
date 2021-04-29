@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRobot", "ConsoleRobot.csproj", "{2F64AE07-EE70-41F0-9F4A-2C929878C75E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRobot", "ConsoleRobot.csproj", "{4C5FDC33-D80D-48E2-BFA5-0BB383C44CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "..\Constants\Constants.csproj", "{F2455BD4-D923-48BC-B1D3-F498CFC84B14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventArgsLibrary", "..\EventArgsLibrary\EventArgsLibrary.csproj", "{D00792AD-6CD8-48C3-AB62-FFB5525443A3}"
 EndProject
@@ -17,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageGenerator", "..\Mess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageProcessor", "..\MessageProcessor\MessageProcessor.csproj", "{C234A9FA-28F9-444C-8043-F82A6EEA87F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "..\Constants\Constants.csproj", "{F2455BD4-D923-48BC-B1D3-F498CFC84B14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serial", "..\Serial\Serial.csproj", "{932AB864-311A-4BCA-A6BF-4B6B7321F6F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +27,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2F64AE07-EE70-41F0-9F4A-2C929878C75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F64AE07-EE70-41F0-9F4A-2C929878C75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F64AE07-EE70-41F0-9F4A-2C929878C75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F64AE07-EE70-41F0-9F4A-2C929878C75E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C5FDC33-D80D-48E2-BFA5-0BB383C44CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5FDC33-D80D-48E2-BFA5-0BB383C44CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5FDC33-D80D-48E2-BFA5-0BB383C44CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5FDC33-D80D-48E2-BFA5-0BB383C44CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D00792AD-6CD8-48C3-AB62-FFB5525443A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D00792AD-6CD8-48C3-AB62-FFB5525443A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D00792AD-6CD8-48C3-AB62-FFB5525443A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,15 +59,15 @@ Global
 		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C234A9FA-28F9-444C-8043-F82A6EEA87F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2455BD4-D923-48BC-B1D3-F498CFC84B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932AB864-311A-4BCA-A6BF-4B6B7321F6F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932AB864-311A-4BCA-A6BF-4B6B7321F6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932AB864-311A-4BCA-A6BF-4B6B7321F6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932AB864-311A-4BCA-A6BF-4B6B7321F6F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {12EBC528-238E-48AC-8FCF-108FF9A7D2BE}
+		SolutionGuid = {663EDD35-22DC-4E1C-A4D0-354E47764C50}
 	EndGlobalSection
 EndGlobal
