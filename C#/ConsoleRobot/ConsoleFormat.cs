@@ -205,7 +205,7 @@ namespace ConsoleRobot
         static public void PrintEncoderSendMessage(object sender, MessageByteArgs e)
         {
             ResetConsoleCursorAndConsoleColor();
-            Console.Write(hex_received_index++ + " : ");
+            Console.Write(hex_sender_index++ + " : ");
             Console.ForegroundColor = ConsoleColor.Black;
 
             Console.BackgroundColor = ConsoleColor.Magenta;

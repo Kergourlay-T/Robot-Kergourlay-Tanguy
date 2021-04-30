@@ -56,7 +56,7 @@ namespace MessageProcessor
         {
             ushort nbLed = Convert.ToUInt16(e.msgPayload[0]);
             bool stateLed = Convert.ToBoolean(e.msgPayload[1]);
-            OnLEDMessageReceivedEvent?.Invoke(this, new LEDMessageArgs(nbLed, stateLed);
+            OnLEDMessageReceivedEvent?.Invoke(this, new LEDMessageArgs(nbLed, stateLed));
         }
 
         public virtual void OnIRMessageReceived(MessageByteArgs e)
@@ -66,7 +66,7 @@ namespace MessageProcessor
 
         public virtual void OnMotorMessageReceived(MessageByteArgs e)
         {
-            OnMotorMessageReceivedEvent?.Invoke(this, new MotorMessageArgs(e.msgPayload[0], e.msgPayload[1]));
+            OnMotorMessageReceivedEvent?.Invoke(this, new MotorMessageArgs((sbyte)e.msgPayload[0], (sbyte)e.msgPayload[1]));
         }
 
         public virtual void OnStateMessageReceived(MessageByteArgs e)

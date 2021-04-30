@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serial;
+using ExtendedSerialPort;
 using Constants;
 using EventArgsLibrary;
 
@@ -39,10 +41,9 @@ namespace MessageEncoder
                 byte checksum = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
                 msg[msg.Length - 1] = checksum;
 
-                if (Serial.serialPort != null)
+                if (serial.serialPort != null)
                 {
-
-                    Serial.serialPort.WWrite(msg, 0, msg.Length);
+                    serial.serialPort.Write(msg, 0, msg.Length);
                     OnSendMessage(msgFunction, msgPayloadLength, msgPayload, checksum);
                     return true;
                 }
@@ -120,7 +121,7 @@ namespace MessageEncoder
                     OnSetLEDState(msgPayload[0], msgPayload[1] == 0x00 ? false : true);
                     break;
                 case (ushort)Enums.Functions.MOTOR_PORTOCOL:
-                    OnMotorSetSpeed(msgPayload[0], msgPayload[1]);
+                    OnMotorSetSpeed((sbyte)msgPayload[0], (sbyte)msgPayload[1]);
                     break;
                 case (ushort)Enums.Functions.SET_ROBOT_STATE:
                     OnSetState(msgPayload[0]);
@@ -132,7 +133,7 @@ namespace MessageEncoder
         {
             OnSetLEDStateEvent?.Invoke(this, new LEDMessageArgs(LEDNumber, LEDState));
         }
-        public virtual void OnMotorSetSpeed(byte leftMotorSpeed, byte rigthMotorSpeed)
+        public virtual void OnMotorSetSpeed(sbyte leftMotorSpeed, sbyte rigthMotorSpeed)
         {
             OnMotorSetSpeedEvent?.Invoke(this, new MotorMessageArgs(leftMotorSpeed, rigthMotorSpeed));
         }

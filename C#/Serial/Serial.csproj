@@ -59,18 +59,6 @@
       <Project>{9f9adace-2793-4065-b700-532d15837ea8}</Project>
       <Name>MessageDecoder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MessageEncoder\MessageEncoder.csproj">
-      <Project>{08fa698e-e151-4e75-ac61-cf9e072f8ea4}</Project>
-      <Name>MessageEncoder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MessageGenerator\MessageGenerator.csproj">
-      <Project>{7d0cde19-54c1-45e2-82c4-006f718415ad}</Project>
-      <Name>MessageGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MessageProcessor\MessageProcessor.csproj">
-      <Project>{c234a9fa-28f9-444c-8043-f82a6eea87f2}</Project>
-      <Name>MessageProcessor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

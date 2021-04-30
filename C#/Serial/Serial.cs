@@ -8,35 +8,25 @@ using System.Management;
 using EventArgsLibrary;
 using ExtendedSerialPort;
 using MessageDecoder;
-using MessageEncoder;
-using MessageGenerator;
-using MessageProcessor;
 
 namespace Serial
 {
-    public class Serial
+    public class serial
     {
         #region Attributes
         public static ReliableSerialPort serialPort;
-
         public static MsgDecoder msgDecoder;
-        public static MsgEncoder msgEncoder;
-        public static MsgGenerator msgGenerator;
-        public static MsgProcessor msgProcessor; 
         #endregion
 
         #region Constructor 
-        public Serial()
+        public serial()
         {
             MsgDecoder msgDecoder = new MsgDecoder();
-            MsgEncoder msgENcoder = new MsgEncoder();
-            MsgGenerator msgGenerator = new MsgGenerator();
-            MsgProcessor msgProcessor = new MsgProcessor();
         }
         #endregion
 
         #region Method
-        public bool AutoConnectionSerial (uint timestamp, uint trial_max = 255)
+        public bool AutoConnectionSerial (uint timestamp = 1000, uint trial_max = 255)
         {
             OnAutoConnectionLaunched();
             byte i = 0;
@@ -54,7 +44,6 @@ namespace Serial
                 {
                     OnNoConnectionAvailable();
                 }
-                
 
             } while (serialPort == null && i < trial_max);
             return (serialPort != null);

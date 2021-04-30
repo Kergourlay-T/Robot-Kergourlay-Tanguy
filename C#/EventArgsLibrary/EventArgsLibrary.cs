@@ -60,13 +60,13 @@ namespace EventArgsLibrary
 
     public class MotorMessageArgs : EventArgs
     {
-        public MotorMessageArgs(byte leftMotorSpeed_a, byte rigthMotorSpeed_a)
+        public MotorMessageArgs(sbyte leftMotorSpeed_a, sbyte rigthMotorSpeed_a)
         {
             leftMotorSpeed = leftMotorSpeed_a;
             rightMotorSpeed = rigthMotorSpeed_a;
         }
-        public byte leftMotorSpeed { get; set; }
-        public byte rightMotorSpeed { get; set; }
+        public sbyte leftMotorSpeed { get; set; }
+        public sbyte rightMotorSpeed { get; set; }
     }
 
     public class StateMessageArgs : EventArgs

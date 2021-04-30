@@ -43,7 +43,7 @@ namespace MessageDecoder
         private static int msg_payload_index = 0;
         private static byte CalculateChecksum()
         {
-            byte checksum = Constants.Consts.SOF;
+            byte checksum = Consts.SOF;
             checksum ^= functionMSB;
             checksum ^= functionLSB;
             checksum ^= payloadLenghtMSB;
@@ -60,7 +60,7 @@ namespace MessageDecoder
             switch (actualState)
             {
                 case State.Waiting:
-                    if (b == Constants.Consts.SOF)
+                    if (b == Consts.SOF)
                     {
                         OnSOFReceived(b);
                     }
@@ -174,7 +174,7 @@ namespace MessageDecoder
             msgPayloadLenght += (ushort)(e << 0);
             actualState = State.Waiting;
             OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (msgPayloadLenght <= Constants.Consts.MAX_MSG_LENGTH)
+            if (msgPayloadLenght <= Consts.MAX_MSG_LENGTH)
             {
                 short PayloadLengthTest = Dictionary.CheckPayloadLengthAssoicatedToFunction[msgFunction];
                 if (PayloadLengthTest != -1)
