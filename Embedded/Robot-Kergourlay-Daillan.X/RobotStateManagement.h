@@ -41,14 +41,26 @@
 #define OBSTACLE_A_GAUCHE_LEGER 6
 #define OBSTACLE_A_DROITE_LEGER 7
 
-extern unsigned char robotAutoControl;
+#define MAXIMUM_SPEED 50
+#define MINIMUM_SPEED 10
+#define VITESSE_DEMI_TOUR 15
+#define VITESSE_TOURNE 30
+#define VITESSE_TOURNE_LEGER 15
+#define VITESSE_RECULE -15
+#define VITESSE_COULOIR 10
 
-void SetRobotState(unsigned char ReceivedSetRobotState);
+typedef enum {
+    FALSE = 0,
+    TRUE = 1,
+} boolean;
+
+void SetRobotState(unsigned char ReceivedRobotState);
 void SetRobotAutoControlState(unsigned char SetRobotControlState);
+boolean GetRobotAutoControlState(void);
 
 void OperatingSystemLoop(void);
 void SetNextRobotStateInAutomaticMode(void);
-void SendState(unsigned char stateRobot);
+float DetermineSpeedAdaptedToDistances();
 
 #endif	/* ROBOTCONTROLSTATE_H */
 

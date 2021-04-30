@@ -3,7 +3,6 @@
 
 void InitIO() {
     // IMPORTANT : désactiver les entrées analogiques, sinon on perd les entrées numériques
-
     ANSELA = 0; // 0 desactive
     ANSELB = 0;
     ANSELC = 0;
@@ -12,8 +11,8 @@ void InitIO() {
     ANSELF = 0;
     ANSELG = 0;
 
-    //********** Configuration des sorties : _TRISxx = 0 ********************************
-
+    //********** Configuration des sorties : _TRISxx = 0 **********************/
+    
     // LED
     _TRISC10 = 0; // LED Orange
     _TRISG6 = 0; //LED Blanche
@@ -27,15 +26,14 @@ void InitIO() {
     _TRISC6 = 0;
     _TRISC7 = 0;
 
-    //********** Configuration des entrées : _TRISxx = 1 ********************************   
+    //********** Configuration des entrées : _TRISxx = 1 **********************/ 
 
 
-    //***** Configuration UART *****
-    _U1RXR = 24; //Remappe la RP sur l'entrée Rx1
-    _RP36R = 0b00001; //
+    //******************** Configuration UART *********************************/
+    _U1RXR = 24; //Remappe la RP24 sur l'entrée Rx1
+    _RP36R = 0b00001; ////Remappe la sortie Tx1 vers RP36
 
-
-    // *************** QEI **********************
+    /*********************** QEI *********************************************/
     _QEA2R = 97; // assign QEI A to pin RP97
     _QEB2R = 96; // assign QEI B to pin RP96
     _QEA1R = 70; // assign QEI A to pin RP70

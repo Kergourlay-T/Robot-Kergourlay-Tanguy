@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c ChipConfig.c IO.c timer.c Robot.c PWM.c ADC.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c QEI.c Utilities.c SendMessage.c RobotControlState.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c ChipConfig.c IO.c timer.c Robot.c PWM.c ADC.c UART.c QEI.c Utilities.c msgDecoder.c msgEncoder.c msgGenerator.c msgProcessor.c CB_RX1.c CB_TX1.c RobotStateManagement.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o ${OBJECTDIR}/SendMessage.o ${OBJECTDIR}/RobotControlState.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/Robot.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/UART_Protocol.o.d ${OBJECTDIR}/QEI.o.d ${OBJECTDIR}/Utilities.o.d ${OBJECTDIR}/SendMessage.o.d ${OBJECTDIR}/RobotControlState.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o ${OBJECTDIR}/msgDecoder.o ${OBJECTDIR}/msgEncoder.o ${OBJECTDIR}/msgGenerator.o ${OBJECTDIR}/msgProcessor.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/RobotStateManagement.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/Robot.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/QEI.o.d ${OBJECTDIR}/Utilities.o.d ${OBJECTDIR}/msgDecoder.o.d ${OBJECTDIR}/msgEncoder.o.d ${OBJECTDIR}/msgGenerator.o.d ${OBJECTDIR}/msgProcessor.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/RobotStateManagement.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o ${OBJECTDIR}/SendMessage.o ${OBJECTDIR}/RobotControlState.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o ${OBJECTDIR}/msgDecoder.o ${OBJECTDIR}/msgEncoder.o ${OBJECTDIR}/msgGenerator.o ${OBJECTDIR}/msgProcessor.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/RobotStateManagement.o
 
 # Source Files
-SOURCEFILES=main.c ChipConfig.c IO.c timer.c Robot.c PWM.c ADC.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c QEI.c Utilities.c SendMessage.c RobotControlState.c
+SOURCEFILES=main.c ChipConfig.c IO.c timer.c Robot.c PWM.c ADC.c UART.c QEI.c Utilities.c msgDecoder.c msgEncoder.c msgGenerator.c msgProcessor.c CB_RX1.c CB_TX1.c RobotStateManagement.c
 
 
 
@@ -143,24 +143,6 @@ ${OBJECTDIR}/UART.o: UART.c  .generated_files/62d9bedc26f8c522efe953ba6514baa8a2
 	@${RM} ${OBJECTDIR}/UART.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART.c  -o ${OBJECTDIR}/UART.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/CB_TX1.o: CB_TX1.c  .generated_files/b41c4a0d000fd232697d31eca9523cc0cc5c2e88.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/CB_TX1.o.d 
-	@${RM} ${OBJECTDIR}/CB_TX1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_TX1.c  -o ${OBJECTDIR}/CB_TX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_TX1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/CB_RX1.o: CB_RX1.c  .generated_files/4c430d6547eb6f04ef3b4ac7d3afcb3f3d8c1e5c.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/CB_RX1.o.d 
-	@${RM} ${OBJECTDIR}/CB_RX1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_RX1.c  -o ${OBJECTDIR}/CB_RX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_RX1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/UART_Protocol.o: UART_Protocol.c  .generated_files/5d451881a65b6b78f570854925b07562d031f63d.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART_Protocol.o.d 
-	@${RM} ${OBJECTDIR}/UART_Protocol.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_Protocol.c  -o ${OBJECTDIR}/UART_Protocol.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART_Protocol.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/QEI.o: QEI.c  .generated_files/7adbec0bbd86b6984db578e3ab8485891ce6a98f.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/QEI.o.d 
@@ -173,17 +155,47 @@ ${OBJECTDIR}/Utilities.o: Utilities.c  .generated_files/9ee20fc14f767b68b2e721b0
 	@${RM} ${OBJECTDIR}/Utilities.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/SendMessage.o: SendMessage.c  .generated_files/e9a10a232e02c040178216392cbe60f23fe35f7f.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+${OBJECTDIR}/msgDecoder.o: msgDecoder.c  .generated_files/3c2d064f6035a9ca18a2eba59dbc326cb1d0dbbe.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SendMessage.o.d 
-	@${RM} ${OBJECTDIR}/SendMessage.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SendMessage.c  -o ${OBJECTDIR}/SendMessage.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/SendMessage.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/msgDecoder.o.d 
+	@${RM} ${OBJECTDIR}/msgDecoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgDecoder.c  -o ${OBJECTDIR}/msgDecoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgDecoder.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/RobotControlState.o: RobotControlState.c  .generated_files/8006618d4e1c4d1cfc06cf82f18ee01a24495ab.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+${OBJECTDIR}/msgEncoder.o: msgEncoder.c  .generated_files/526e8057b6482f249956cde1b4a6245b563e7fb2.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RobotControlState.o.d 
-	@${RM} ${OBJECTDIR}/RobotControlState.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RobotControlState.c  -o ${OBJECTDIR}/RobotControlState.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RobotControlState.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/msgEncoder.o.d 
+	@${RM} ${OBJECTDIR}/msgEncoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgEncoder.c  -o ${OBJECTDIR}/msgEncoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgEncoder.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/msgGenerator.o: msgGenerator.c  .generated_files/4e133adca7731a475b0bfe2a9d9a54c06a7b8122.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/msgGenerator.o.d 
+	@${RM} ${OBJECTDIR}/msgGenerator.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgGenerator.c  -o ${OBJECTDIR}/msgGenerator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgGenerator.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/msgProcessor.o: msgProcessor.c  .generated_files/25ebec3804089ce1b91bf8922c5d70f118d4e475.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/msgProcessor.o.d 
+	@${RM} ${OBJECTDIR}/msgProcessor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgProcessor.c  -o ${OBJECTDIR}/msgProcessor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgProcessor.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/CB_RX1.o: CB_RX1.c  .generated_files/4c430d6547eb6f04ef3b4ac7d3afcb3f3d8c1e5c.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/CB_RX1.o.d 
+	@${RM} ${OBJECTDIR}/CB_RX1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_RX1.c  -o ${OBJECTDIR}/CB_RX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_RX1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/CB_TX1.o: CB_TX1.c  .generated_files/b41c4a0d000fd232697d31eca9523cc0cc5c2e88.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/CB_TX1.o.d 
+	@${RM} ${OBJECTDIR}/CB_TX1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_TX1.c  -o ${OBJECTDIR}/CB_TX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_TX1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/RobotStateManagement.o: RobotStateManagement.c  .generated_files/a3a5cb870b16ddd2f54775ffb4f3b15eb2959da7.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RobotStateManagement.o.d 
+	@${RM} ${OBJECTDIR}/RobotStateManagement.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  RobotStateManagement.c  -o ${OBJECTDIR}/RobotStateManagement.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RobotStateManagement.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/60f99726c1616c0bb74f800fa47d2fc4d758ad32.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
@@ -234,24 +246,6 @@ ${OBJECTDIR}/UART.o: UART.c  .generated_files/158661ec1e83263a1057338bff9080450b
 	@${RM} ${OBJECTDIR}/UART.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART.c  -o ${OBJECTDIR}/UART.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/CB_TX1.o: CB_TX1.c  .generated_files/296d48c2c6693eebe24484b79339fe17e8fd5cf1.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/CB_TX1.o.d 
-	@${RM} ${OBJECTDIR}/CB_TX1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_TX1.c  -o ${OBJECTDIR}/CB_TX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_TX1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/CB_RX1.o: CB_RX1.c  .generated_files/5e3edc3b633f05ef60d3f3351133811d63202633.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/CB_RX1.o.d 
-	@${RM} ${OBJECTDIR}/CB_RX1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_RX1.c  -o ${OBJECTDIR}/CB_RX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_RX1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/UART_Protocol.o: UART_Protocol.c  .generated_files/83057410e69a8e5a9b956065a5cc95f703ab4de4.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART_Protocol.o.d 
-	@${RM} ${OBJECTDIR}/UART_Protocol.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_Protocol.c  -o ${OBJECTDIR}/UART_Protocol.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART_Protocol.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/QEI.o: QEI.c  .generated_files/50b7bd5d1e422633efa616f6a250cc61a11c3aa9.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/QEI.o.d 
@@ -264,17 +258,47 @@ ${OBJECTDIR}/Utilities.o: Utilities.c  .generated_files/25b2fa746c67d376f9d9346b
 	@${RM} ${OBJECTDIR}/Utilities.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/SendMessage.o: SendMessage.c  .generated_files/3c27c188df28dd2b93270ebad21d9826d8cce434.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+${OBJECTDIR}/msgDecoder.o: msgDecoder.c  .generated_files/fff86722da4deef461f434dd11389430792defc7.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SendMessage.o.d 
-	@${RM} ${OBJECTDIR}/SendMessage.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SendMessage.c  -o ${OBJECTDIR}/SendMessage.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/SendMessage.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/msgDecoder.o.d 
+	@${RM} ${OBJECTDIR}/msgDecoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgDecoder.c  -o ${OBJECTDIR}/msgDecoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgDecoder.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/RobotControlState.o: RobotControlState.c  .generated_files/14f500ad3e48e52023f05f1ce33e823ef149fd90.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+${OBJECTDIR}/msgEncoder.o: msgEncoder.c  .generated_files/743e55b8dce12f98682cc4584eaef68fb3c1f96.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RobotControlState.o.d 
-	@${RM} ${OBJECTDIR}/RobotControlState.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RobotControlState.c  -o ${OBJECTDIR}/RobotControlState.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RobotControlState.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/msgEncoder.o.d 
+	@${RM} ${OBJECTDIR}/msgEncoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgEncoder.c  -o ${OBJECTDIR}/msgEncoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgEncoder.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/msgGenerator.o: msgGenerator.c  .generated_files/5083a966a60364a008983e06f2fd662ad20fd0b4.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/msgGenerator.o.d 
+	@${RM} ${OBJECTDIR}/msgGenerator.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgGenerator.c  -o ${OBJECTDIR}/msgGenerator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgGenerator.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/msgProcessor.o: msgProcessor.c  .generated_files/a123eff0e3b40ef1417655861c42380b4bfba614.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/msgProcessor.o.d 
+	@${RM} ${OBJECTDIR}/msgProcessor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  msgProcessor.c  -o ${OBJECTDIR}/msgProcessor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/msgProcessor.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/CB_RX1.o: CB_RX1.c  .generated_files/5e3edc3b633f05ef60d3f3351133811d63202633.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/CB_RX1.o.d 
+	@${RM} ${OBJECTDIR}/CB_RX1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_RX1.c  -o ${OBJECTDIR}/CB_RX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_RX1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/CB_TX1.o: CB_TX1.c  .generated_files/296d48c2c6693eebe24484b79339fe17e8fd5cf1.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/CB_TX1.o.d 
+	@${RM} ${OBJECTDIR}/CB_TX1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  CB_TX1.c  -o ${OBJECTDIR}/CB_TX1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/CB_TX1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/RobotStateManagement.o: RobotStateManagement.c  .generated_files/927396b8f55b7d7a5b89ceb514d7388b9de46dda.flag .generated_files/7ea0a7387a4caef41c6f658dc10008541d6e04dc.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RobotStateManagement.o.d 
+	@${RM} ${OBJECTDIR}/RobotStateManagement.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  RobotStateManagement.c  -o ${OBJECTDIR}/RobotStateManagement.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RobotStateManagement.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

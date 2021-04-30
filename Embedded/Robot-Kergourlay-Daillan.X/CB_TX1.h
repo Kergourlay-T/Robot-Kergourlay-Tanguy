@@ -12,7 +12,5 @@ unsigned char CB_TX1_IsTranmitting(void);
 int CB_TX1_GetDataSize(void);
 int CB_TX1_RemainingSize(void);
 
-void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void);
-
 #endif	/* CB_TX1_H */
 

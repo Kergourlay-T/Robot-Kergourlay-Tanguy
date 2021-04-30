@@ -4,6 +4,15 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Serial" projectFiles="true">
+        <itemPath>CB_RX1.h</itemPath>
+        <itemPath>CB_TX1.h</itemPath>
+        <itemPath>msgDecoder.h</itemPath>
+        <itemPath>msgEncoder.h</itemPath>
+        <itemPath>msgGenerator.h</itemPath>
+        <itemPath>msgProcessor.h</itemPath>
+        <itemPath>Protocol.h</itemPath>
+      </logicalFolder>
       <itemPath>ChipConfig.h</itemPath>
       <itemPath>IO.h</itemPath>
       <itemPath>timer.h</itemPath>
@@ -12,13 +21,9 @@
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>UART.h</itemPath>
-      <itemPath>CB_TX1.h</itemPath>
-      <itemPath>CB_RX1.h</itemPath>
-      <itemPath>UART_Protocol.h</itemPath>
       <itemPath>QEI.h</itemPath>
       <itemPath>Utilities.h</itemPath>
-      <itemPath>SendMessage.h</itemPath>
-      <itemPath>RobotControlState.h</itemPath>
+      <itemPath>RobotStateManagement.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,6 +32,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Serial" projectFiles="true">
+        <itemPath>msgDecoder.c</itemPath>
+        <itemPath>msgEncoder.c</itemPath>
+        <itemPath>msgGenerator.c</itemPath>
+        <itemPath>msgProcessor.c</itemPath>
+        <itemPath>CB_RX1.c</itemPath>
+        <itemPath>CB_TX1.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>ChipConfig.c</itemPath>
       <itemPath>IO.c</itemPath>
@@ -35,13 +48,9 @@
       <itemPath>PWM.c</itemPath>
       <itemPath>ADC.c</itemPath>
       <itemPath>UART.c</itemPath>
-      <itemPath>CB_TX1.c</itemPath>
-      <itemPath>CB_RX1.c</itemPath>
-      <itemPath>UART_Protocol.c</itemPath>
       <itemPath>QEI.c</itemPath>
       <itemPath>Utilities.c</itemPath>
-      <itemPath>SendMessage.c</itemPath>
-      <itemPath>RobotControlState.c</itemPath>
+      <itemPath>RobotStateManagement.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -1,17 +1,19 @@
 #include <xc.h>
 #include "adc.h"
+#include "Robot.h"
 
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[5];
 unsigned char ADCConversionFinishedFlag;
 
-/****************************************************************************************************/
-// Configuration ADC
-/****************************************************************************************************/
+
+/************************** Configuration ADC *********************************/
+
+
 void InitADC1(void) {
     //cf. ADC Reference Manual page 47
     //Configuration en mode 12 bits mono canal ADC avec conversions successives sur 4 entrées
-    
+
     /************************************************************/
     //AD1CON1
     /************************************************************/
@@ -93,4 +95,27 @@ unsigned char ADCIsConversionFinished(void) {
 
 void ADCClearConversionFinishedFlag(void) {
     ADCConversionFinishedFlag = 0;
+}
+
+/* Convertit la valeur lu par les télémètres en mm */
+void ADCConversionLoop(void) {
+    if (ADCIsConversionFinished() == 1) {
+        ADCClearConversionFinishedFlag();
+        unsigned int * result = ADCGetResult();
+
+        float volts = ((float) result [0])*3.3 / 4096 * 3.2;
+        robotState.distanceTelemetreDroitExtremite = 34 / volts - 5;
+
+        volts = ((float) result [1])*3.3 / 4096 * 3.2;
+        robotState.distanceTelemetreDroit = (34 / volts - 5);
+
+        volts = ((float) result[2])*3.3 / 4096 * 3.2;
+        robotState.distanceTelemetreCentre = 34 / volts - 5;
+
+        volts = ((float) result[4])*3.3 / 4096 * 3.2;
+        robotState.distanceTelemetreGauche = (34 / volts - 5);
+
+        volts = ((float) result[3])*3.3 / 4096 * 3.2;
+        robotState.distanceTelemetreGaucheExtremite = 34 / volts - 5;
+    }
 }

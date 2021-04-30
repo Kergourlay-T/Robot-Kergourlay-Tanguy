@@ -3,10 +3,8 @@
 #include "PWM.h"
 #include "Robot.h"
 #include "Utilities.h"
-#include "UART_Protocol.h"
-#include "SendMessage.h"
 
-float acceleration = 30;
+float acceleration = 15;
 
 void InitPWM(void) {
     PTCON2bits.PCLKDIV = 0b000; //Divide by 1
@@ -28,37 +26,6 @@ void InitPWM(void) {
     PTCONbits.PTEN = 1;
 }
 
-//void PWMSetSpeed(float vitesseEnPourcents, int moteur) {
-//    if (!moteur) {
-//        robotState.vitesseDroiteCommandeCourante = vitesseEnPourcents;
-//        if (robotState.vitesseDroiteCommandeCourante < 0) {
-//            MOTEUR_DROIT_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//            MOTEUR_DROIT_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//            MOTEUR_DROIT_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//        }
-//        else {
-//            MOTEUR_DROIT_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//            MOTEUR_DROIT_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//            MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//        }
-//        MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
-//    }
-//    else {
-//        robotState.vitesseGaucheCommandeCourante = vitesseEnPourcents;
-//        if (robotState.vitesseGaucheCommandeCourante > 0) {
-//            MOTEUR_GAUCHE_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//            MOTEUR_GAUCHE_L_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//            MOTEUR_GAUCHE_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//        }
-//        else {
-//            MOTEUR_GAUCHE_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO 
-//            MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin 
-//            MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM 
-//        }
-//        MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
-//    }
-//}
-
 void PWMSetSpeedConsigne(float vitesseEnPourcents, int moteur) {
     if (!moteur) {
         robotState.vitesseDroiteConsigne = -vitesseEnPourcents;
@@ -74,7 +41,6 @@ void PWMUpdateSpeed() {
                 robotState.vitesseDroiteCommandeCourante + acceleration,
                 robotState.vitesseDroiteConsigne);
     }
-
     if (robotState.vitesseDroiteCommandeCourante > robotState.vitesseDroiteConsigne) {
         robotState.vitesseDroiteCommandeCourante = Max(
                 robotState.vitesseDroiteCommandeCourante - acceleration,
@@ -114,18 +80,6 @@ void PWMUpdateSpeed() {
     MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante) * PWMPER;  
     robotState.vitesseGaucheErreure = robotState.vitesseGaucheConsigne - robotState.vitesseGaucheCommandeCourante;
 }
-
-void SendSpeed() {
-    unsigned char SpeedInfo[24];
-    getBytesFromFloat(SpeedInfo, 0, (float) (robotState.vitesseDroiteConsigne));
-    getBytesFromFloat(SpeedInfo, 4, (float) (robotState.vitesseDroiteCommandeCourante));
-    getBytesFromFloat(SpeedInfo, 8, (float) (robotState.vitesseDroiteErreure));
-    getBytesFromFloat(SpeedInfo, 12, (float) (robotState.vitesseGaucheConsigne));
-    getBytesFromFloat(SpeedInfo, 8, (float) (robotState.vitesseGaucheCommandeCourante));
-    getBytesFromFloat(SpeedInfo, 12, (float) (robotState.vitesseGaucheErreure));
-    UartEncodeAndSendMessage(MOTORS_PROTOCOL, 24, SpeedInfo);
-}
-
 
 /*
 void PWMSetSpeedConsignePolaire() {

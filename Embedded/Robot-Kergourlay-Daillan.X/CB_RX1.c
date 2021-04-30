@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "CB_RX1.h"
-#include "UART_Protocol.h"
 
 #define CBRX1_BUFFER_SIZE 128
 
@@ -20,29 +19,16 @@ void CB_RX1_Add(unsigned char value) {
     }
 }
 
-//unsigned char CB_RX1_Get(void) {
-//    unsigned char value = cbRx1Buffer[cbRx1Tail];
-//    if (cbRx1Tail >= 127)
-//        cbRx1Tail = 0;
-//    else
-//        cbRx1Tail += 1;
-//    return value;
-//}
-
-void CB_RX1_Get(void) {
+unsigned char CB_RX1_Get(void) {
     unsigned char value = cbRx1Buffer[cbRx1Tail];
-    if (cbRx1Tail >= CBRX1_BUFFER_SIZE - 1)
-        cbRx1Tail = 0;
-    else
-        cbRx1Tail++;
-    UartDecodeMessage(value);
-}
-
-unsigned char CB_RX1_IsDataAvailable(void) {
-    if (cbRx1Head != cbRx1Tail)
-        return 1;
-    else
-        return 0;
+    if (cbRx1Tail != cbRx1Head)
+    {
+        if (cbRx1Tail == CBRX1_BUFFER_SIZE - 1)
+            cbRx1Tail = 0;
+        else
+            cbRx1Tail++;
+    }
+    return value;
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
@@ -63,9 +49,9 @@ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
 
 int CB_RX1_GetRemainingSize(void) {
     if (cbRx1Head > cbRx1Tail) {
-        return CBRX1_BUFFER_SIZE - (cbRx1Head - cbRx1Tail);
+        return CBRX1_BUFFER_SIZE - 1 - (cbRx1Head - cbRx1Tail);
     } else {
-        return CBRX1_BUFFER_SIZE - (cbRx1Tail - cbRx1Head);
+        return CBRX1_BUFFER_SIZE - 1 - (cbRx1Tail - cbRx1Head);
     }
 }
 

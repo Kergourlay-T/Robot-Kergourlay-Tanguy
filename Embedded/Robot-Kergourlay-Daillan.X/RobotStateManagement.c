@@ -1,66 +1,76 @@
 #include <xc.h>
-#include "RobotControlState.h"
-#include "IO.h"
+#include "RobotStateManagement.h"
 #include "Robot.h"
+#include "IO.h"
 #include "PWM.h"
 #include "timer.h"
-#include "SendMessage.h"
-#include "UART_Protocol.h"
+#include "msgGenerator.h"
+#include "Utilities.h"
 
-unsigned char robotAutoControl;
-
-/***************************************************************************************************/
-//Déclaration OperatingSystemLoop
-/****************************************************************************************************/
+boolean robotAutoControl = TRUE;
+boolean demiTourAlea = TRUE;
 unsigned char stateRobot = 0;
+float speedAdaptedToDistances = 0;
 
+/************* Management of instructions sent by the GUI *********************/
+void SetRobotState(unsigned char receivedRobotState) {
+    stateRobot = receivedRobotState;
+}
+
+void SetRobotAutoControlState(unsigned char receivedRobotAutoControlState) {
+    robotAutoControl = (receivedRobotAutoControlState == 1) ? TRUE : FALSE;
+    if (!robotAutoControl) {
+        stateRobot = STATE_ARRET;
+    } else {
+        stateRobot = STATE_ATTENTE;
+    }
+}
+
+boolean GetRobotAutoControlState() {
+    return robotAutoControl;
+}
+
+/***************** Déclaration OperatingSystemLoop ****************************/
 void OperatingSystemLoop(void) {
+    GenerateManualControlMessage(robotAutoControl);
+
     switch (stateRobot) {
         case STATE_ATTENTE:
             timestamp = 0;
-            robotState.demiTourAlea = 0;
             robotAutoControl = 1;
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-            SendState(stateRobot);
             stateRobot = STATE_ATTENTE_EN_COURS;
         case STATE_ATTENTE_EN_COURS:
             if (timestamp > 1000)
                 stateRobot = STATE_AVANCE;
             break;
 
-            /****************************************************/
-            // Gestion State Avance
-            /****************************************************/
         case STATE_AVANCE:
-            if (robotState.speedAdaptedToDistances >= 30) {
+            speedAdaptedToDistances = DetermineSpeedAdaptedToDistances();
+            if (speedAdaptedToDistances >= 30) {
                 LED_BLANCHE = 0;
                 LED_BLEUE = 1;
                 LED_ORANGE = 0;
-            } else if (robotState.speedAdaptedToDistances >= 20) {
+            } else if (speedAdaptedToDistances >= 20) {
                 LED_BLANCHE = 1;
                 LED_BLEUE = 0;
                 LED_ORANGE = 0;
-            } else if (robotState.speedAdaptedToDistances <= 20) {
+            } else if (speedAdaptedToDistances < 20) {
                 LED_BLANCHE = 0;
                 LED_BLEUE = 0;
                 LED_ORANGE = 0;
             }
-            PWMSetSpeedConsigne(robotState.speedAdaptedToDistances, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(robotState.speedAdaptedToDistances, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(speedAdaptedToDistances, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(speedAdaptedToDistances, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
         case STATE_AVANCE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
             break;
 
-            /****************************************************/
-            // Gestion State Tourne
-            /****************************************************/
         case STATE_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_TOURNE, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-            SendState(stateRobot);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             LED_BLANCHE = 1;
             LED_BLEUE = 1;
@@ -72,8 +82,7 @@ void OperatingSystemLoop(void) {
 
         case STATE_TOURNE_DROITE:
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(VITESSE_TOURNE, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             LED_BLANCHE = 0;
             LED_BLEUE = 0;
@@ -83,13 +92,9 @@ void OperatingSystemLoop(void) {
             SetNextRobotStateInAutomaticMode();
             break;
 
-            /****************************************************/
-            // Gestion State Tourne sur Place
-            /****************************************************/
         case STATE_TOURNE_SUR_PLACE_GAUCHE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(-15, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(VITESSE_DEMI_TOUR, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-VITESSE_DEMI_TOUR, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
             LED_BLANCHE = 1;
             LED_BLEUE = 1;
@@ -100,9 +105,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_DROITE:
-            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(-VITESSE_DEMI_TOUR, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_DEMI_TOUR, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS;
             LED_BLANCHE = 1;
             LED_BLEUE = 1;
@@ -112,13 +116,9 @@ void OperatingSystemLoop(void) {
             SetNextRobotStateInAutomaticMode();
             break;
 
-            /****************************************************/
-            // Gestion State Arrêt et State Recule
-            /****************************************************/
         case STATE_ARRET:
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-            SendState(stateRobot);
             stateRobot = STATE_ARRET_EN_COURS;
             LED_BLANCHE = 0;
             LED_BLEUE = 0;
@@ -129,9 +129,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_RECULE:
-            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(-15, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(VITESSE_RECULE, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_RECULE, MOTEUR_GAUCHE);
             stateRobot = STATE_RECULE_EN_COURS;
             LED_BLANCHE = 0;
             LED_BLEUE = 0;
@@ -141,13 +140,9 @@ void OperatingSystemLoop(void) {
             SetNextRobotStateInAutomaticMode();
             break;
 
-            /****************************************************/
-            // Gestion State Couloir
-            /****************************************************/
         case STATE_COULOIR_A_GAUCHE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(10, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_COULOIR, MOTEUR_GAUCHE);
             stateRobot = STATE_COULOIR_A_GAUCHE_EN_COURS;
             LED_BLANCHE = 1;
             LED_BLEUE = 1;
@@ -158,9 +153,8 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_COULOIR_A_DROITE:
-            PWMSetSpeedConsigne(10, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
-            SendState(stateRobot);
+            PWMSetSpeedConsigne(VITESSE_COULOIR, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_GAUCHE);
             LED_BLANCHE = 0;
             LED_BLEUE = 0;
             LED_ORANGE = 1;
@@ -170,26 +164,9 @@ void OperatingSystemLoop(void) {
             SetNextRobotStateInAutomaticMode();
             break;
 
-            /****************************************************/
-            // Gestion State Tourne Léger
-            /****************************************************/
-        case STATE_TOURNE_DROITE_LEGER:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-            stateRobot = STATE_TOURNE_DROITE_LEGER_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 0;
-            LED_ORANGE = 1;
-            SendState(stateRobot);
-            break;
-        case STATE_TOURNE_DROITE_LEGER_EN_COURS:
-            SetNextRobotStateInAutomaticMode();
-            break;
-
         case STATE_TOURNE_GAUCHE_LEGER:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-            SendState(stateRobot);
             stateRobot = STATE_TOURNE_GAUCHE_LEGER_EN_COURS;
             LED_BLANCHE = 1;
             LED_BLEUE = 0;
@@ -200,20 +177,29 @@ void OperatingSystemLoop(void) {
             SetNextRobotStateInAutomaticMode();
             break;
 
+        case STATE_TOURNE_DROITE_LEGER:
+            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_GAUCHE);
+            stateRobot = STATE_TOURNE_DROITE_LEGER_EN_COURS;
+            LED_BLANCHE = 1;
+            LED_BLEUE = 0;
+            LED_ORANGE = 1;
+            break;
+        case STATE_TOURNE_DROITE_LEGER_EN_COURS:
+            SetNextRobotStateInAutomaticMode();
+            break;
+
         default:
-            stateRobot = STATE_ATTENTE;
+            stateRobot = STATE_ARRET;
             break;
     }
 }//End OperatingSystemLoop
 
-
-/***************************************************************************************************/
-//Déclaration SetNextRobotStateInAutomaticMode
-/****************************************************************************************************/
+/***************** Déclaration SetNextRobotStateInAutomaticMode ***************/
 unsigned char nextStateRobot = 0;
 
 void SetNextRobotStateInAutomaticMode() {
-    if (robotAutoControl == 1) {
+    if (robotAutoControl == TRUE) {
         unsigned char positionObstacle = PAS_D_OBSTACLE;
 
         //Obstacle en face
@@ -255,14 +241,14 @@ void SetNextRobotStateInAutomaticMode() {
             //Pas d'obstacle
         else {
             positionObstacle = PAS_D_OBSTACLE;
-            robotState.demiTourAlea = (robotState.demiTourAlea + 1) % 2;
+            demiTourAlea = ((demiTourAlea + 1) % 2 == 1) ? TRUE : FALSE;
         }
 
         //Détermination de l'état à venir du robot
         if (positionObstacle == PAS_D_OBSTACLE) {
             nextStateRobot = STATE_AVANCE;
         } else if (positionObstacle == OBSTACLE_EN_FACE) {
-            if (!robotState.demiTourAlea) {
+            if (demiTourAlea) {
                 nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
             } else {
                 nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
@@ -284,35 +270,23 @@ void SetNextRobotStateInAutomaticMode() {
         //Si l'on n'est pas dans la transition de l'étape en cours
         if (nextStateRobot != stateRobot - 1) {
             stateRobot = nextStateRobot;
-            
+            GenerateRobotStateMessage(stateRobot);
         }
     }
-}//SetNextRobotStateInAutomaticMode
+}//End SetNextRobotStateInAutomaticMode
 
-void SetRobotState(unsigned char ReceivedSetRobotState) {
-    //Fonction fixant l'état du robot
-    stateRobot = ReceivedSetRobotState;
+float DetermineSpeedAdaptedToDistances() {
+    // Détermine l'obstacle le plus proche    
+    float Distances[5] = {robotState.distanceTelemetreDroitExtremite,
+        robotState.distanceTelemetreDroit, robotState.distanceTelemetreCentre,
+        robotState.distanceTelemetreGauche, robotState.distanceTelemetreGaucheExtremite};
+    // Détermine la vitesse à adopter en fonction de la distance à l'objet le plus proche
+    speedAdaptedToDistances = MinDistance(Distances) - 10;
+    if (speedAdaptedToDistances > MAXIMUM_SPEED)
+        speedAdaptedToDistances = MAXIMUM_SPEED;
+    else if (speedAdaptedToDistances < MINIMUM_SPEED)
+        speedAdaptedToDistances = MINIMUM_SPEED;
+    return speedAdaptedToDistances;
 }
 
-void SetRobotAutoControlState(unsigned char SetRobotControlState) {
-    //Fonction qui fixe le mode de contrôle du robot
-    if (SetRobotControlState == 0) {
-        robotAutoControl = 0;
-        stateRobot = STATE_ARRET;
-    } else if (SetRobotControlState == 1) {
-        robotAutoControl = 1;
-        stateRobot = STATE_ATTENTE;
-    }
-}
-
-void SendState(unsigned char stateRobot) {
-    int pos = 0;
-    unsigned char instant[4];
-    instant[pos++] = ((unsigned char) stateRobot);
-    instant[pos++] = (unsigned char) (timestamp << 24);
-    instant[pos++] = (unsigned char) (timestamp << 16);
-    instant[pos++] = (unsigned char) (timestamp << 8);
-    instant[pos++] = (unsigned char) (timestamp << 0);
-    UartEncodeAndSendMessage(STATE_PROTOCOL, 5, instant);
-}
 

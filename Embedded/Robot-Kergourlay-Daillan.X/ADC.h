@@ -7,7 +7,6 @@ void ADC1StartConversionSequence();
 unsigned int * ADCGetResult(void);
 unsigned char ADCIsConversionFinished(void);
 void ADCClearConversionFinishedFlag(void);
-
-void __attribute__((interrupt, no_auto_psv)) _AD1Interrupt(void);
+void ADCConversionLoop(void);
 
 #endif /* ADC_H */

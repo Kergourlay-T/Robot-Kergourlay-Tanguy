@@ -1,5 +1,5 @@
-build/default/production/timer.o: timer.c timer.h IO.h PWM.h ADC.h main.h \
- UART_Protocol.h QEI.h SendMessage.h Robot.h RobotControlState.h
+build/default/production/timer.o: timer.c timer.h IO.h PWM.h ADC.h \
+ RobotStateManagement.h QEI.h msgGenerator.h
 
 timer.h:
 
@@ -9,14 +9,8 @@ PWM.h:
 
 ADC.h:
 
-main.h:
-
-UART_Protocol.h:
+RobotStateManagement.h:
 
 QEI.h:
 
-SendMessage.h:
-
-Robot.h:
-
-RobotControlState.h:
+msgGenerator.h:
