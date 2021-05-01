@@ -3,7 +3,9 @@
 
 void GenerateLEDMessage(int nbLED, int LEDState);
 void GenerateTelemeterMessage(void);
-void GenerateMotorMessage(void);
+void GenerateMotorConsigneMessage(void);
+void GenerateMotorMeasuredMessage(void);
+void GenerateMotorErrordMessage(void);
 void GenerateRobotStateMessage(unsigned char stateRobot);
 void GenerateManualControlMessage(int manualControl);
 void GeneratePositionData(void);

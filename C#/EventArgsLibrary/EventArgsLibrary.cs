@@ -4,7 +4,8 @@ namespace EventArgsLibrary
 {
     public class MessageByteArgs : EventArgs
     {
-        public MessageByteArgs(ushort msgFunction_a, ushort msgPayloadLength_a, byte[] msgPayload_a, byte checksum_a)
+        public MessageByteArgs(ushort msgFunction_a, ushort msgPayloadLength_a, 
+            byte[] msgPayload_a, byte checksum_a)
         {
             msgFunction = msgFunction_a;
             msgPayloadLength = msgPayloadLength_a;
@@ -20,7 +21,8 @@ namespace EventArgsLibrary
             payloadMSB = (byte)(msgPayloadLength >> 0);
             payloadLSB = (byte)(msgPayloadLength >> 8);
         }
-        public MessageByteArgs(byte SOF_a, byte functionMSB_a, byte functionLSB_a, byte payloadMSB_a, byte payloadLSB_a, byte[] msgPayload_a, byte checksum_a)
+        public MessageByteArgs(byte SOF_a, byte functionMSB_a, byte functionLSB_a, 
+            byte payloadMSB_a, byte payloadLSB_a, byte[] msgPayload_a, byte checksum_a)
         {
             SOF = SOF_a;
             functionMSB = functionMSB_a;
@@ -60,13 +62,13 @@ namespace EventArgsLibrary
 
     public class MotorMessageArgs : EventArgs
     {
-        public MotorMessageArgs(sbyte leftMotorSpeed_a, sbyte rigthMotorSpeed_a)
+        public MotorMessageArgs(sbyte leftMotor_a, sbyte rightMotor_a)
         {
-            leftMotorSpeed = leftMotorSpeed_a;
-            rightMotorSpeed = rigthMotorSpeed_a;
+            leftMotor = leftMotor_a;
+            rightMotor = rightMotor_a;
         }
-        public sbyte leftMotorSpeed { get; set; }
-        public sbyte rightMotorSpeed { get; set; }
+        public sbyte leftMotor { get; set; }
+        public sbyte rightMotor { get; set; }
     }
 
     public class StateMessageArgs : EventArgs
@@ -95,34 +97,53 @@ namespace EventArgsLibrary
 
     public class IRMessageArgs : EventArgs
     {
-        public IRMessageArgs(byte leftIR_a, byte centerIR_a, byte rigthIR_a)
+        public IRMessageArgs(byte leftIR_a, byte leftEndIR_a, byte centerIR_a, 
+            byte rigthIR_a, byte rigthEndIR_a)
         {
+            leftEndIR = leftEndIR_a;
             leftIR = leftIR_a;
             centerIR = centerIR_a;
             rigthIR = rigthIR_a;
+            rigthEndIR = rigthEndIR_a;
         }
-        public byte leftIR;
-        public byte centerIR;
-        public byte rigthIR;
+        public byte leftIR { get; set; }
+        public byte leftEndIR { get; set; }
+        public byte centerIR { get; set; }
+        public byte rigthIR { get; set; }
+        public byte rigthEndIR { get; set; }
     }
 
     public class PositionMessageArgs : EventArgs
     {
-        public PositionMessageArgs(uint timestamp_a, float xPos_a, float yPos_a, float angleRadiant_a, float linearSpeed_a, float angularSpeed_a)
+        public PositionMessageArgs(uint timestamp_a, float xPos_a, float yPos_a, 
+            float theta_a, float linearSpeed_a, float angularSpeed_a)
         {
             timestamp = timestamp_a;
             xPos = xPos_a;
             yPos = yPos_a;
-            angleRadiant = angleRadiant_a;
+            theta = theta_a;
             linearSpeed = linearSpeed_a;
             angularSpeed = angularSpeed_a;
         }
         public uint timestamp { get; set; }
         public float xPos { get; set; }
         public float yPos { get; set; }
-        public float angleRadiant { get; set; }
+        public float theta { get; set; }
         public float linearSpeed { get; set; }
         public float angularSpeed { get; set; }
+    }
+
+    public class SetPositionMessageArgs : EventArgs
+    {
+        public SetPositionMessageArgs(float xPos_a, float yPos_a, float angleRadian_a)
+        {
+            xPos = xPos_a;
+            yPos = yPos_a;
+            angleRadian = angleRadian_a;
+        }
+        public float xPos { get; set; }
+        public float yPos { get; set; }
+        public float angleRadian { get; set; }
     }
 
     public class TextMessageArgs : EventArgs
@@ -134,9 +155,7 @@ namespace EventArgsLibrary
         public string text { get; set; }
     }
 
-    /***************************************************************************************************/
-    //  Declaration of MsgDecoder specific overloads
-    /****************************************************************************************************/
+    #region MsgDecoder Events
     public class DecodeByteArgs : EventArgs
     {
         public DecodeByteArgs(byte b_a)
@@ -153,6 +172,7 @@ namespace EventArgsLibrary
         }
         public byte[] payload { get; set; }
     }
+    #endregion
 
 
     #region Serial Events

@@ -37,7 +37,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> commandThetaList;
         FixedSizedQueue<double> commandM1List;
         FixedSizedQueue<double> commandM2List;
-        FixedSizedQueue<double> commandAngleRadianList;
         FixedSizedQueue<double> commandAngularSpeedList;
         FixedSizedQueue<double> commandLinearSpeedList;
 
@@ -46,7 +45,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> consigneThetaList;
         FixedSizedQueue<double> consigneM1List;
         FixedSizedQueue<double> consigneM2List;
-        FixedSizedQueue<double> consigneAngleRadianList;
         FixedSizedQueue<double> consigneAngularSpeedList;
         FixedSizedQueue<double> consigneLinearSpeedList;
 
@@ -55,7 +53,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> measuredThetaList;
         FixedSizedQueue<double> measuredM1List;
         FixedSizedQueue<double> measuredM2List;
-        FixedSizedQueue<double> measuredAngleRadianList;
         FixedSizedQueue<double> measuredAngularSpeedList;
         FixedSizedQueue<double> measuredLinearSpeedList;
 
@@ -64,7 +61,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> errorThetaList;
         FixedSizedQueue<double> errorM1List;
         FixedSizedQueue<double> errorM2List;
-        FixedSizedQueue<double> errorAngleRadianList;
         FixedSizedQueue<double> errorAngularSpeedList;
         FixedSizedQueue<double> errorLinearSpeedList;
 
@@ -73,7 +69,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> corrPThetaList;
         FixedSizedQueue<double> corrPM1List;
         FixedSizedQueue<double> corrPM2List;
-        FixedSizedQueue<double> corrPAngleRadianList;
         FixedSizedQueue<double> corrPAngularSpeedList;
         FixedSizedQueue<double> corrPLinearSpeedList;
 
@@ -82,7 +77,6 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> corrIThetaList;
         FixedSizedQueue<double> corrIM1List;
         FixedSizedQueue<double> corrIM2List;
-        FixedSizedQueue<double> corrIAngleRadianList;
         FixedSizedQueue<double> corrIAngularSpeedList;
         FixedSizedQueue<double> corrILinearSpeedList;
 
@@ -91,27 +85,25 @@ namespace WpfFirstDisplay
         FixedSizedQueue<double> corrDThetaList;
         FixedSizedQueue<double> corrDM1List;
         FixedSizedQueue<double> corrDM2List;
-        FixedSizedQueue<double> corrDAngleRadianList;
         FixedSizedQueue<double> corrDAngularSpeedList;
         FixedSizedQueue<double> corrDLinearSpeedList;
 
         double corrLimitPX, corrLimitPY, corrLimitPTheta, corrLimitPM1, corrLimitPM2,
-            corrLimitPAngleRadian, corrLimitPAngularSpeed, corrLimitPLinearSpeed;
+            corrLimitPAngularSpeed, corrLimitPLinearSpeed;
         double corrLimitIX, corrLimitIY, corrLimitITheta, corrLimitIM1, corrLimitIM2,
-            corrLimitIAngleRadian, corrLimitIAngularSpeed, corrLimitILinearSpeed;
+            corrLimitIAngularSpeed, corrLimitILinearSpeed;
         double corrLimitDX, corrLimitDY, corrLimitDTheta, corrLimitDM1, corrLimitDM2,
-            corrLimitDAngleRadian, corrLimitDAngularSpeed, corrLimitDLinearSpeed;
+            corrLimitDAngularSpeed, corrLimitDLinearSpeed;
 
-        double KpX, KpY, KpTheta, KpM1, KpM2, KpAngleRadian, KpAngularSpeed, KpLinearSpeed;
-        double KiX, KiY, KiTheta, KiM1, KiM2, KiAngleRadian, KiAngularSpeed, KiLinearSpeed;
-        double KdX, KdY, KdTheta, KdM1, KdM2, KdAngleRadian, KdAngularSpeed, KdLinearSpeed;
+        double KpX, KpY, KpTheta, KpM1, KpM2, KpAngularSpeed, KpLinearSpeed;
+        double KiX, KiY, KiTheta, KiM1, KiM2, KiAngularSpeed, KiLinearSpeed;
+        double KdX, KdY, KdTheta, KdM1, KdM2, KdAngularSpeed, KdLinearSpeed;
 
         FixedSizedQueue<float> IRRigthEndList;
         FixedSizedQueue<float> IRRigthList;
         FixedSizedQueue<float> IRCenterList;
         FixedSizedQueue<float> IRLeftList;
         FixedSizedQueue<float> IRLeftEndList;
-        FixedSizedQueue<float> robotStateList;
         FixedSizedQueue<float> timestampList;
 
         System.Timers.Timer displayTimer;
@@ -129,13 +121,13 @@ namespace WpfFirstDisplay
         public FirstDisplayControl()
         {
             InitializeComponent();
+            SetTitle(asservissementMode.ToString("N2"));
 
             commandXList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandYList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            commandAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -144,7 +136,6 @@ namespace WpfFirstDisplay
             consigneThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            consigneAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -153,7 +144,6 @@ namespace WpfFirstDisplay
             measuredThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            measuredAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -162,16 +152,14 @@ namespace WpfFirstDisplay
             errorThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            errorAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrPXList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPYList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPThetaList = new Utilities.FixedSizedQueue<double>(queueSize); 
+            corrPThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -180,7 +168,6 @@ namespace WpfFirstDisplay
             corrIThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrIAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrILinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -189,7 +176,6 @@ namespace WpfFirstDisplay
             corrDThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrDAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
@@ -198,7 +184,6 @@ namespace WpfFirstDisplay
             IRCenterList = new Utilities.FixedSizedQueue<float>(queueSize);
             IRLeftList = new Utilities.FixedSizedQueue<float>(queueSize);
             IRLeftEndList = new Utilities.FixedSizedQueue<float>(queueSize);
-            robotStateList = new Utilities.FixedSizedQueue<float>(queueSize);
             timestampList = new Utilities.FixedSizedQueue<float>(queueSize);
 
             consigneXList.Enqueue(0);
@@ -206,7 +191,6 @@ namespace WpfFirstDisplay
             consigneThetaList.Enqueue(0);
             consigneM1List.Enqueue(0);
             consigneM2List.Enqueue(0);
-            consigneAngleRadianList.Enqueue(0);
             consigneAngularSpeedList.Enqueue(0);
             consigneLinearSpeedList.Enqueue(0);
 
@@ -215,15 +199,14 @@ namespace WpfFirstDisplay
             commandThetaList.Enqueue(0);
             commandM1List.Enqueue(0);
             commandM2List.Enqueue(0);
-            commandAngleRadianList.Enqueue(0);
             commandAngularSpeedList.Enqueue(0);
+            commandLinearSpeedList.Enqueue(0);
 
             measuredXList.Enqueue(0);
             measuredYList.Enqueue(0);
             measuredThetaList.Enqueue(0);
             measuredM1List.Enqueue(0);
             measuredM2List.Enqueue(0);
-            measuredAngleRadianList.Enqueue(0);
             measuredAngularSpeedList.Enqueue(0);
             measuredLinearSpeedList.Enqueue(0);
 
@@ -232,7 +215,6 @@ namespace WpfFirstDisplay
             errorThetaList.Enqueue(0);
             errorM1List.Enqueue(0);
             errorM2List.Enqueue(0);
-            errorAngleRadianList.Enqueue(0);
             errorAngularSpeedList.Enqueue(0);
             errorLinearSpeedList.Enqueue(0);
 
@@ -241,8 +223,8 @@ namespace WpfFirstDisplay
             IRCenterList.Enqueue(0);
             IRLeftList.Enqueue(0);
             IRLeftEndList.Enqueue(0);
-            robotStateList.Enqueue(0);
             timestampList.Enqueue(0);
+
 
             displayTimer = new System.Timers.Timer(100);
             displayTimer.Elapsed += DisplayTimer_Elapsed;
@@ -252,17 +234,17 @@ namespace WpfFirstDisplay
             m_KeyboardHookManager.Enabled = true;
             m_KeyboardHookManager.KeyDown += KeyboardHookManager_KeyDown;
         }
-      
+
         public void SetTitle(string titre)
         {
-            LabelTitre.Content = titre;
+            LabelTitre.Content += titre;
         }
 
         public void SetAsservissementMode(Enums.AsservissementMode mode)
         {
             asservissementMode = mode;
 
-            switch(asservissementMode)
+            switch (asservissementMode)
             {
                 case Enums.AsservissementMode.Disabled:
                     LabelConsigneX.Visibility = Visibility.Hidden;
@@ -370,7 +352,6 @@ namespace WpfFirstDisplay
             LabelConsigneTheta.Content = consigneThetaList.Average().ToString("N2");
             LabelConsigneM1.Content = consigneM1List.Average().ToString("N2");
             LabelConsigneM2.Content = consigneM2List.Average().ToString("N2");
-            LabelConsigneAngleRadian.Content = consigneAngleRadianList.Average().ToString("N2");
             LabelConsigneAngularSpeed.Content = consigneAngularSpeedList.Average().ToString("N2");
             LabelConsigneLinearSpeed.Content = consigneLinearSpeedList.Average().ToString("N2");
 
@@ -379,7 +360,6 @@ namespace WpfFirstDisplay
             LabelMeasureTheta.Content = measuredThetaList.Average().ToString("N2");
             LabelMeasureM1.Content = measuredM1List.Average().ToString("N2");
             LabelMeasureM2.Content = measuredM2List.Average().ToString("N2");
-            LabelMeasureAngleRadian.Content = measuredAngleRadianList.Average().ToString("N2");
             LabelMeasureAngularSpeed.Content = measuredAngularSpeedList.Average().ToString("N2");
             LabelMeasureLinearSpeed.Content = measuredLinearSpeedList.Average().ToString("N2");
 
@@ -388,7 +368,6 @@ namespace WpfFirstDisplay
             LabelErreurTheta.Content = errorThetaList.Average().ToString("N2");
             LabelErreurM1.Content = errorM1List.Average().ToString("N2");
             LabelErreurM2.Content = errorM2List.Average().ToString("N2");
-            LabelErreurAngleRadian.Content = errorAngleRadianList.Average().ToString("N2");
             LabelErreurAngularSpeed.Content = errorAngularSpeedList.Average().ToString("N2");
             LabelErreurLinearSpeed.Content = errorLinearSpeedList.Average().ToString("N2");
 
@@ -397,7 +376,6 @@ namespace WpfFirstDisplay
             LabelCommandTheta.Content = commandThetaList.Average().ToString("N2");
             LabelCommandM1.Content = commandM1List.Average().ToString("N2");
             LabelCommandM2.Content = commandM2List.Average().ToString("N2");
-            LabelCommandAngleRadian.Content = commandAngleRadianList.Average().ToString("N2");
             LabelCommandAngularSpeed.Content = commandAngularSpeedList.Average().ToString("N2");
             LabelCommandLinearSpeed.Content = commandLinearSpeedList.Average().ToString("N2");
 
@@ -406,7 +384,6 @@ namespace WpfFirstDisplay
             LabelKpTheta.Content = KpTheta.ToString("N2");
             LabelKpM1.Content = KpM1.ToString("N2");
             LabelKpM2.Content = KpM2.ToString("N2");
-            LabelKpAngleRadian.Content = KpAngleRadian.ToString("N2");
             LabelKpAngularSpeed.Content = KpAngularSpeed.ToString("N2");
             LabelKpLinearSpeed.Content = KpLinearSpeed.ToString("N2");
 
@@ -415,7 +392,6 @@ namespace WpfFirstDisplay
             LabelKiTheta.Content = KiTheta.ToString("N2");
             LabelKiM1.Content = KiM1.ToString("N2");
             LabelKiM2.Content = KiM2.ToString("N2");
-            LabelKiAngleRadian.Content = KiAngleRadian.ToString("N2");
             LabelKiAngularSpeed.Content = KiAngularSpeed.ToString("N2");
             LabelKiLinearSpeed.Content = KiLinearSpeed.ToString("N2");
 
@@ -424,7 +400,6 @@ namespace WpfFirstDisplay
             LabelKdTheta.Content = KdTheta.ToString("N2");
             LabelKdM1.Content = KdM1.ToString("N2");
             LabelKdM2.Content = KdM2.ToString("N2");
-            LabelKdAngleRadian.Content = KdAngleRadian.ToString("N2");
             LabelKdAngularSpeed.Content = KdAngularSpeed.ToString("N2");
             LabelKdLinearSpeed.Content = KdLinearSpeed.ToString("N2");
 
@@ -433,7 +408,6 @@ namespace WpfFirstDisplay
             LabelCorrMaxPTheta.Content = corrLimitPTheta.ToString("N2");
             LabelCorrMaxPM1.Content = corrLimitPM1.ToString("N2");
             LabelCorrMaxPM2.Content = corrLimitPM2.ToString("N2");
-            LabelCorrMaxPAngleRadian.Content = corrLimitPAngleRadian.ToString("N2");
             LabelCorrMaxPAngularSpeed.Content = corrLimitPAngularSpeed.ToString("N2");
             LabelCorrMaxPLinearSpeed.Content = corrLimitPLinearSpeed.ToString("N2");
 
@@ -442,7 +416,6 @@ namespace WpfFirstDisplay
             LabelCorrMaxITheta.Content = corrLimitITheta.ToString("N2");
             LabelCorrMaxIM1.Content = corrLimitIM1.ToString("N2");
             LabelCorrMaxIM2.Content = corrLimitIM2.ToString("N2");
-            LabelCorrMaxIAngleRadian.Content = corrLimitIAngleRadian.ToString("N2");
             LabelCorrMaxIAngularSpeed.Content = corrLimitIAngularSpeed.ToString("N2");
             LabelCorrMaxILinearSpeed.Content = corrLimitILinearSpeed.ToString("N2");
 
@@ -451,7 +424,6 @@ namespace WpfFirstDisplay
             LabelCorrMaxDTheta.Content = corrLimitDTheta.ToString("N2");
             LabelCorrMaxDM1.Content = corrLimitDM1.ToString("N2");
             LabelCorrMaxDM2.Content = corrLimitDM2.ToString("N2");
-            LabelCorrMaxDAngleRadian.Content = corrLimitDAngleRadian.ToString("N2");
             LabelCorrMaxDAngularSpeed.Content = corrLimitDAngularSpeed.ToString("N2");
             LabelCorrMaxDLinearSpeed.Content = corrLimitDLinearSpeed.ToString("N2");
 
@@ -461,21 +433,18 @@ namespace WpfFirstDisplay
                 LabelCorrPX.Content = corrPXList.Average().ToString("N2");
                 LabelCorrPY.Content = corrPYList.Average().ToString("N2");
                 LabelCorrPTheta.Content = corrPThetaList.Average().ToString("N2");
-                LabelCorrPAngleRadian.Content = corrPAngleRadianList.Average().ToString("N2");
                 LabelCorrPAngularSpeed.Content = corrPAngularSpeedList.Average().ToString("N2");
                 LabelCorrPLinearSpeed.Content = corrPLinearSpeedList.Average().ToString("N2");
 
                 LabelCorrIX.Content = corrIXList.Average().ToString("N2");
                 LabelCorrIY.Content = corrIYList.Average().ToString("N2");
                 LabelCorrITheta.Content = corrIThetaList.Average().ToString("N2");
-                LabelCorrIAngleRadian.Content = corrIAngleRadianList.Average().ToString("N2");
                 LabelCorrIAngularSpeed.Content = corrIAngularSpeedList.Average().ToString("N2");
                 LabelCorrILinearSpeed.Content = corrILinearSpeedList.Average().ToString("N2");
 
                 LabelCorrDX.Content = corrDXList.Average().ToString("N2");
                 LabelCorrDY.Content = corrDYList.Average().ToString("N2");
                 LabelCorrDTheta.Content = corrDThetaList.Average().ToString("N2");
-                LabelCorrDAngleRadian.Content = corrDAngleRadianList.Average().ToString("N2");
                 LabelCorrDAngularSpeed.Content = corrDAngularSpeedList.Average().ToString("N2");
                 LabelCorrDLinearSpeed.Content = corrDLinearSpeedList.Average().ToString("N2");
             }
@@ -498,84 +467,77 @@ namespace WpfFirstDisplay
                 LabelIRigth.Content = IRRigthList.Average().ToString("N2");
                 LabelIRCenter.Content = IRCenterList.Average().ToString("N2");
                 LabelIRLeft.Content = IRLeftList.Average().ToString("N2");
-                LabelIRLeftCenter.Content = IRLeftEndList.Average().ToString("N2");                           
+                LabelIRLeftCenter.Content = IRLeftEndList.Average().ToString("N2");
             }
 
-            if (robotStateList.Count > 0)
-            {
-                LabelRobotState.Content = (((Enums.Functions)robotStateList.Average()).ToString("N2"));
+            if (timestampList.Count > 0)
                 LabelTimestamp.Content = timestampList.Average().ToString("N2");
-            }
 
         }
-#endregion
+        #endregion
 
         #region UpdateValues
         public void UpdatePolarSpeedConsigneValues(double consigneX, double consigneY, double consigneTheta,
-            double consigneAngleRadian, double consigneAngularSpeed, double consigneLinearSpeed)
+            double consigneAngularSpeed, double consigneLinearSpeed)
         {
             consigneXList.Enqueue(consigneX);
             consigneYList.Enqueue(consigneY);
             consigneThetaList.Enqueue(consigneTheta);
-            consigneAngleRadianList.Enqueue(consigneAngleRadian);
             consigneAngularSpeedList.Enqueue(consigneAngularSpeed);
             consigneLinearSpeedList.Enqueue(consigneLinearSpeed);
-
         }
-        public void UpdateIndependantSpeedConsigneValues(double consigneM1, double consigneM2)
+        public void UpdateIndependantSpeedConsigneValues(object receiver, MotorMessageArgs e)
         {
-            consigneM1List.Enqueue(consigneM1);
-            consigneM2List.Enqueue(consigneM2);
+            consigneM1List.Enqueue(e.leftMotor);
+            consigneM2List.Enqueue(e.rightMotor);
         }
 
         public void UpdatePolarSpeedCommandValues(double commandX, double commandY, double commandTheta,
-            double commandAngleRadian, double commandAngularSpeed, double commandLinearSpeed)
+            double commandAngularSpeed, double commandLinearSpeed)
         {
             commandXList.Enqueue(commandX);
             commandYList.Enqueue(commandY);
             commandThetaList.Enqueue(commandTheta);
-            commandAngleRadianList.Enqueue(commandAngleRadian);
             commandAngularSpeedList.Enqueue(commandAngularSpeed);
             commandLinearSpeedList.Enqueue(commandLinearSpeed);
         }
-        public void UpdateIndependantSpeedCommandValues(double commandM1, double commandM2)
+        public void UpdateIndependantSpeedCommandValues(object receiver, MotorMessageArgs e)
         {
-            commandM1List.Enqueue(commandM1);
-            commandM2List.Enqueue(commandM2);
+            commandM1List.Enqueue(e.leftMotor);
+            commandM2List.Enqueue(e.rightMotor);
         }
 
-        public void UpdatePolarOdometrySpeed(double valueX, double valueY, double valueTheta,
-            double valueRadianAngle, double valueAngularSpeed, double valueLinearSpeed)
+        public void UpdatePolarOdometrySpeed(object sender, PositionMessageArgs e)
         {
-            measuredXList.Enqueue(valueX);
-            measuredYList.Enqueue(valueY);
-            measuredThetaList.Enqueue(valueTheta);
-            measuredAngleRadianList.Enqueue(valueRadianAngle);
-            measuredAngleRadianList.Enqueue(valueAngularSpeed);
-            measuredLinearSpeedList.Enqueue(valueLinearSpeed);
+            measuredXList.Enqueue(e.xPos);
+            measuredYList.Enqueue(e.yPos);
+            measuredThetaList.Enqueue(e.theta);
+            measuredAngularSpeedList.Enqueue(e.angularSpeed);
+            measuredLinearSpeedList.Enqueue(e.linearSpeed);
         }
-        public void UpdateIndependantOdometrySpeed(double valueM1, double valueM2)
+        public void UpdateIndependantOdometrySpeed(object sender, MotorMessageArgs e)
         {
-            measuredM1List.Enqueue(valueM1);
-            measuredM2List.Enqueue(valueM2);
+            measuredM1List.Enqueue(e.leftMotor);
+            measuredM2List.Enqueue(e.rightMotor);
         }
 
         public void UpdatePolarSpeedErrorValues(double errorX, double errorY, double errorTheta,
-            double errorAngleRadian, double errorAngularSpeed, double errorLinearSpeed)
+            double errorAngularSpeed, double errorLinearSpeed)
         {
             errorXList.Enqueue(errorX);
             errorYList.Enqueue(errorY);
             errorThetaList.Enqueue(errorTheta);
-            errorAngleRadianList.Enqueue(errorAngleRadian);
+            errorAngularSpeedList.Enqueue(errorAngularSpeed);
+            errorLinearSpeedList.Enqueue(errorLinearSpeed);
         }
-        public void UpdateIndependantSpeedErrorValues(double errorM1, double errorM2)
+        public void UpdateIndependantSpeedErrorValues(object sender, MotorMessageArgs e)
         {
-            errorM1List.Enqueue(errorM1);
-            errorM2List.Enqueue(errorM2);
+            errorM1List.Enqueue(e.leftMotor);
+            errorM2List.Enqueue(e.rightMotor);
         }
 
-        public void UpdatePolarSpeedCorrectionValues(double corrPX, double corrPTheta, double corrIX, 
-            double corrITheta,double corrDX, double corrDTheta)
+        public void UpdatePolarSpeedCorrectionValues(double corrPX, double corrPTheta, double corrIX,
+            double corrITheta, double corrDX, double corrDTheta)
         {
             corrPXList.Enqueue(corrPX);
             corrPThetaList.Enqueue(corrPTheta);
@@ -584,7 +546,7 @@ namespace WpfFirstDisplay
             corrDXList.Enqueue(corrDX);
             corrDThetaList.Enqueue(corrDTheta);
         }
-        public void UpdateIndependantSpeedCorrectionValues(double corrPM1, double corrPM2, double corrIM1, 
+        public void UpdateIndependantSpeedCorrectionValues(double corrPM1, double corrPM2, double corrIM1,
             double corrIM2, double corrDM1, double corrDM2)
         {
             corrPM1List.Enqueue(corrPM1);
@@ -595,8 +557,7 @@ namespace WpfFirstDisplay
             corrDM2List.Enqueue(corrDM2);
         }
 
-
-        public void UpdatePolarSpeedCorrectionGains(double KpX, double KpTheta, double KiX, 
+        public void UpdatePolarSpeedCorrectionGains(double KpX, double KpTheta, double KiX,
             double KiTheta, double KdX, double KdTheta)
         {
             this.KpX = KpX;
@@ -606,7 +567,7 @@ namespace WpfFirstDisplay
             this.KdX = KdX;
             this.KdTheta = KdTheta;
         }
-        public void UpdateIndependantSpeedCorrectionGains(double KpM1, double KpM2, double KiM1, 
+        public void UpdateIndependantSpeedCorrectionGains(double KpM1, double KpM2, double KiM1,
             double KiM2, double KdM1, double KdM2)
         {
             this.KpM1 = KpM1;
@@ -618,8 +579,7 @@ namespace WpfFirstDisplay
         }
 
         public void UpdatePolarSpeedCorrectionLimits(double corrLimitPX, double corrLimitPTheta,
-            double corrLimitIX, double corrLimitITheta,
-            double corrLimitDX, double corrLimitDTheta)
+            double corrLimitIX, double corrLimitITheta, double corrLimitDX, double corrLimitDTheta)
         {
             this.corrLimitPX = corrLimitPX;
             this.corrLimitPTheta = corrLimitPTheta;
@@ -628,9 +588,9 @@ namespace WpfFirstDisplay
             this.corrLimitDX = corrLimitDX;
             this.corrLimitDTheta = corrLimitDTheta;
         }
+
         public void UpdateIndependantSpeedCorrectionLimits(double corrLimitPM1, double corrLimitPM2,
-            double corrLimitIM1, double corrLimitIM2, 
-            double corrLimitDM1, double corrLimitDM2)
+            double corrLimitIM1, double corrLimitIM2, double corrLimitDM1, double corrLimitDM2)
         {
             this.corrLimitPM1 = corrLimitPM1;
             this.corrLimitPM2 = corrLimitPM2;
@@ -642,97 +602,134 @@ namespace WpfFirstDisplay
         #endregion
 
         #region Update Robot Informations
-        public void UpdateTelematersValues (float IRRigthEnd, float IRRigth, float IRCenter, 
-            float IRLeft, float IRLeftEnd)
+        public void UpdateCheckInstruction(object receiver, MessageByteArgs e)
         {
-            IRRigthEndList.Enqueue(IRRigthEnd);
-            IRRigthList.Enqueue(IRRigth);
-            IRCenterList.Enqueue(IRCenter);
-            IRLeftList.Enqueue(IRLeft);
-            IRLeftEndList.Enqueue(IRLeftEnd);
+            LabelInformationReceived.Content = (((Enums.Functions)e.msgFunction).ToString("N2"));
         }
 
-        public void UpdateLEDState(ushort nbLED, bool LEDState)
+        public void UpdateTelematersValues(object receiver, IRMessageArgs e)
         {
-            if(nbLED == 1)
+            IRRigthEndList.Enqueue(e.rigthEndIR);
+            IRRigthList.Enqueue(e.rigthIR);
+            IRCenterList.Enqueue(e.centerIR);
+            IRLeftList.Enqueue(e.leftIR);
+            IRLeftEndList.Enqueue(e.leftEndIR);
+        }
+
+        public void UpdateLEDState(object receiver, LEDMessageArgs e)
+        {
+            if (e.LEDNumber == 1)
             {
-                CheckBoxLED1.IsChecked = LEDState;
-                currentLED1State = LEDState;
+                CheckBoxLED1.IsChecked = e.LEDState;
+                currentLED1State = e.LEDState;
             }
-            else if (nbLED == 2)
+            else if (e.LEDNumber == 2)
             {
-                CheckBoxLED2.IsChecked = LEDState;
-                currentLED2State = LEDState;
+                CheckBoxLED2.IsChecked = e.LEDState;
+                currentLED2State = e.LEDState;
             }
-            else if (nbLED == 3)
+            else if (e.LEDNumber == 3)
             {
-                CheckBoxLED3.IsChecked = LEDState;
-                currentLED3State = LEDState;
+                CheckBoxLED3.IsChecked = e.LEDState;
+                currentLED3State = e.LEDState;
             }
         }
-
-        public void UpdateRobotStateAndTimestamp(ushort robotState, uint timestamp)
+        public void UpdateRobotStateAndTimestamp(object receiver, StateMessageArgs e)
         {
-            robotStateList.Enqueue(0);
-            timestampList.Enqueue(0);
+            LabelRobotState.Content = (((Enums.Functions)e.state).ToString("N2"));
+            timestampList.Enqueue(e.time);
         }
-
-        public void UpdateTextBox(string content)
+        public void UpdateManualControl(object receiver, StateAutoControlMessageArgs e)
         {
-
+            CheckBoxAutoControl.IsChecked = e.stateAutoControl;
         }
+        public void UpdateTextBoxReception(object receiver, TextMessageArgs e)
+        {
+            TextBoxReception.Text += e.text;
+        }
+        #endregion
 
-        public void OnCheckBoxLED1StateChange(object sender, EventArgs e)
+        #region Set Robot Values
+        private void OnTextBoxEmissionKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string message = TextBoxEmission.Text;
+                OnSentTextMessageFromInterfaceGenerate(message);
+                TextBoxEmission.Text = "";
+            }
+        }
+        private void OnCheckBoxLED1StateChange(object sender, EventArgs e)
         {
             if (CheckBoxLED1.IsChecked != currentLED1State)
-            {
                 OnSetLEDStateFromInterfaceGenerate(1, !currentLED1State);
-            }
         }
-        public void OnCheckBoxLED2StateChange(object sender, EventArgs e)
+        private void OnCheckBoxLED2StateChange(object sender, EventArgs e)
         {
-
             if (CheckBoxLED2.IsChecked != currentLED2State)
-            {
                 OnSetLEDStateFromInterfaceGenerate(2, !currentLED2State);
-            }
-
         }
-        public void OnCheckBoxLED3StateChange(object sender, EventArgs e)
+        private void OnCheckBoxLED3StateChange(object sender, EventArgs e)
         {
             if (CheckBoxLED3.IsChecked != currentLED3State)
-            {
                 OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
-            }
+        }
+        private void OnCheckBoxAutoControlStateChange(object sender, EventArgs e)
+        {
+            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
+                OnSetAutoControlStateFromInterfaceGenerate(!currentAutoControlState);
+        }
+        private void OnCheckBoxAutoControlCheckChange(object sender, EventArgs e)
+        {
+            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
+                OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
         }
 
+        private void OnButtonResetClick(object sender, RoutedEventArgs e)
+        {
+            OnResetPositionFromInterfaceGenerate();
+        }
+        private void KeyboardHookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (currentAutoControlState == false)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE);
+                        break;
 
+                    case Keys.Right:
+                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_TOURNE_SUR_PLACE_DROITE);
+                        break;
+
+                    case Keys.Up:
+                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_AVANCE);
+                        break;
+
+                    case Keys.Down:
+                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_RECULE);
+                        break;
+
+                    case Keys.PageDown:
+                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_ARRET);
+                        break;
+                }
+            }
+        }
+        #endregion
+
+        #region Events
         public event EventHandler<LEDMessageArgs> OnSetLEDStateFromInterfaceGenerateEvent;
         public void OnSetLEDStateFromInterfaceGenerate(ushort nbLED, bool LEDState)
         {
             OnSetLEDStateFromInterfaceGenerateEvent?.Invoke(this, new LEDMessageArgs(nbLED, LEDState));
         }
 
-
-        public void OnCheckBoxAutoControlStateChange(object sender, EventArgs e)
-        {
-            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
-            {
-                OnSetAutoControlStateFromInterfaceGenerate(!currentAutoControlState);
-            }
-        }
         public EventHandler<StateAutoControlMessageArgs> OnSetAutoControlStateFromInterfaceGenerateEvent;
-        public void OnSetAutoControlStateFromInterfaceGenerate (bool autoControlSet)
+        public void OnSetAutoControlStateFromInterfaceGenerate(bool autoControlSet)
         {
             OnSetAutoControlStateFromInterfaceGenerateEvent?.Invoke(this, new StateAutoControlMessageArgs(autoControlSet));
-        }
-
-        public void OnCheckBoxAutoControlCheckChange(object sender, EventArgs e)
-        {
-            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
-            {
-                OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
-            }
         }
 
         public event EventHandler<MotorMessageArgs> OnSetMotorSpeedFromInterfaceGenerateEvent;
@@ -741,46 +738,37 @@ namespace WpfFirstDisplay
             OnSetMotorSpeedFromInterfaceGenerateEvent?.Invoke(this, new MotorMessageArgs(leftMotor, rigthMotor));
         }
 
-
         public event EventHandler<StateMessageArgs> OnSetRobotStateFromInterfaceGenerateEvent;
-        public void OnSetRobotStateFromInterfaceGenerate (ushort robotState)
+        public void OnSetRobotStateFromInterfaceGenerate(ushort robotState)
         {
+            LabelInformationSent.Content = (((Enums.Functions)robotState).ToString("N2"));
             OnSetRobotStateFromInterfaceGenerateEvent?.Invoke(this, new StateMessageArgs(robotState));
         }
 
-        private void KeyboardHookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        public event EventHandler<SetPositionMessageArgs> OnSetPositionFromInterfaceGenrateEvent;
+        public void OnSetPositionFromInterfaceGenrate(float xPos, float yPos, float angleRadian)
         {
-            if (currentAutoControlState == false)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                        OnSetRobotStateFromInterfaceGenerate(stateRobot.);
-                        UartEncodeAndSendMessage(0x0051, 1, new byte[] { (byte)StateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE });
-                        break;
-
-                    case Keys.Right:
-                        UartEncodeAndSendMessage(0x0051, 1, new byte[] { (byte)StateRobot.STATE_TOURNE_SUR_PLACE_DROITE });
-                        break;
-
-                    case Keys.Up:
-                        UartEncodeAndSendMessage(0x0051, 1, new byte[] { (byte)StateRobot.STATE_AVANCE });
-                        break;
-
-                    case Keys.Down:
-                        UartEncodeAndSendMessage(0x0051, 1, new byte[] { (byte)StateRobot.STATE_RECULE });
-                        break;
-
-                    case Keys.PageDown:
-                        UartEncodeAndSendMessage(0x0051, 1, new byte[] { (byte)StateRobot.STATE_ARRET });
-                        break;
-                }
-            }
+            OnSetPositionFromInterfaceGenrateEvent?.Invoke(this, new SetPositionMessageArgs(xPos, yPos, angleRadian));
         }
 
+        public event EventHandler<EventArgs> OnResetPositionFromInterfaceGenerateEvent;
+        public void OnResetPositionFromInterfaceGenerate()
+        {
+            OnResetPositionFromInterfaceGenerateEvent?.Invoke(this, new EventArgs());
+        }
 
-
+        public event EventHandler<TextMessageArgs> OnSentTextMessageFromInterfaceGenerateEvent;
+        public void OnSentTextMessageFromInterfaceGenerate(string content)
+        {
+            OnSentTextMessageFromInterfaceGenerateEvent?.Invoke(this, new TextMessageArgs(content));
+        }
         #endregion
+
+        #region Test
+        private void OnButtonTestClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion 
     }
 }
-

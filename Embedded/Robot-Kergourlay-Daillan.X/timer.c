@@ -100,7 +100,9 @@ void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
         GenerateLEDMessage(2, LED_BLEUE);
         GenerateLEDMessage(3, LED_BLANCHE);
         GenerateTelemeterMessage();
-        GenerateMotorMessage();
+        GenerateMotorConsigneMessage();
+        GenerateMotorMeasuredMessage();
+        GenerateMotorErrordMessage();
         GeneratePositionData();
     }
 }

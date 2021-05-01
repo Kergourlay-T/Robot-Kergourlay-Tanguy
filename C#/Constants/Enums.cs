@@ -14,8 +14,10 @@ namespace Constants
             LED_ROBOT_TO_GUI = 0x0020,
             LED_GUI_TO_ROBOT = 0x0021,
             TELEMETER_ROBOT_TO_GUI = 0x0030,
-            MOTOR_ROBOT_TO_GUI = 0x0040,
-            MOTOR_GUI_TO_ROBOT = 0x0041,
+            MOTOR_CONSIGNE_ROBOT_TO_GUI_LENGTH = 0x0040,
+            MOTOR_MEASURED_ROBOT_TO_GUI_LENGTH = 0x0041,
+            MOTOR_ERROR_ROBOT_TO_GUI_LENGTH = 0x0042,
+            MOTOR_GUI_TO_ROBOT = 0x0043,
             ROBOT_STATE_ROBOT_TO_GUI = 0x0050,
             ROBOT_STATE_GUI_TO_ROBOT = 0x0051,
             MANUAL_CONTROL_ROBOT_TO_GUI = 0x0052,
@@ -25,6 +27,27 @@ namespace Constants
             RESET_POSITION_GUI_TO_ROBOT = 0x0062,
             MESSAGE_ROBOT_TO_GUI = 0x0080,
             MESSAGE_GUI_TO_ROBOT = 0x0081
+        }
+
+        public enum payloadLengthOfFunctions : int
+        {
+            CHECK_INSTRUCTION_ROBOT_TO_GUI_LENGTH = 0, // undefine
+            LED_ROBOT_TO_GUI_LENGTH = 2,
+            LED_GUI_TO_ROBOT_LENGTH = 2,
+            TELEMETER_ROBOT_TO_GUI_LENGTH = 5,
+            MOTOR_CONSIGNE_ROBOT_TO_GUI_LENGTH = 8,
+            MOTOR_MEASURED_ROBOT_TO_GUI_LENGTH = 8,
+            MOTOR_ERROR_ROBOT_TO_GUI_LENGTH = 8,
+            MOTOR_GUI_TO_ROBOT_LENGTH = 2,
+            ROBOT_STATE_ROBOT_TO_GUI_LENGTH = 1,
+            ROBOT_STATE_GUI_TO_ROBOT_LENGTH = 1,
+            MANUAL_CONTROL_ROBOT_TO_GUI_LENGTH = 1,
+            MANUAL_CONTROL_GUI_TO_ROBOT_LENGTH = 1,
+            POSITION_DATA_ROBOT_TO_GUI_LENGTH = 24,
+            POSITION_DATA_GUI_TO_ROBOT_LENGTH = 3,
+            RESET_POSITION_GUI_TO_ROBOT_LENGTH = 0, // 0 because it is an order
+            MESSAGE_ROBOT_TO_GUI_LENGTH = 0,
+            MESSAGE_GUI_TO_ROBOT_LENGTH = 0
         }
 
         public enum stateRobot : ushort

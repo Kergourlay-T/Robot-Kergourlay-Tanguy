@@ -44,6 +44,7 @@ namespace ConsoleRobot
 
         static void Main()
         {
+            #region Assign Events
             /// Creation of links between modules, except from and to the graphical interface  
             ConsoleFormat.ConsoleInformationFormat(ConsoleTitleFormatConst.MAIN, "Begin Booting Sequence", true);
 
@@ -52,7 +53,7 @@ namespace ConsoleRobot
             msgGenerator.OnMessageGeneratorCreatedEvent += ConsoleFormat.PrintMessageProcessorCreated;
             msgProcessor.OnMessageProcessorCreatedEvent += ConsoleFormat.PrintMessageGeneratorCreated;
 
-            #region Event
+            
             #region Communication 
 
             #region Serial Viewer
@@ -115,10 +116,14 @@ namespace ConsoleRobot
             #region Function Processor
             if (function_received)
             {
+                msgProcessor.OnCheckInstructionReceivedEvent += ConsoleFormat.PrintProcessorCheckInstructionReceived;
                 msgProcessor.OnIRMessageReceivedEvent += ConsoleFormat.PrintProcessorIRMessageReceived;
                 msgProcessor.OnLEDMessageReceivedEvent += ConsoleFormat.PrintProcessorLEDMessageReceived;
-                msgProcessor.OnMotorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorSpeedMessageReceived;
+                msgProcessor.OnMotorConsigneMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorConsigneMessageReceived;
+                msgProcessor.OnMotorMeasuredMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorMeasuredMessageReceived;
+                msgProcessor.OnMotorErrorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorErrorMessageReceived;          
                 msgProcessor.OnStateMessageReceivedEvent += ConsoleFormat.PrintProcessorStateMessageReceived;
+                msgProcessor.OnManualControlStateReceivedEvent += ConsoleFormat.OnManualControlStateReceived;
                 msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDataMessageReceived;
                 msgProcessor.OnTextMessageReceivedEvent += ConsoleFormat.PrintProcessorTextMessageReceived;
                 msgProcessor.OnUnknowFunctionReceivedEvent += ConsoleFormat.PrintUnknowFunctionWarning;
@@ -132,7 +137,6 @@ namespace ConsoleRobot
             msgDecoder.OnCorrectChecksumReceivedEvent += msgProcessor.MessageProcessor; // Obligatory
 
             ConsoleFormat.ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MAIN, "End  Booting Sequence", true);
-            msgGenerator.GenerateMessageLEDSetStateConsigneToRobot(1, true);
             Console.ReadKey();
 
             StartRobotInterface();
@@ -144,13 +148,13 @@ namespace ConsoleRobot
         }//End Main
 
 
-
         static Thread t1;
         static void StartRobotInterface()
         {
             t1 = new Thread(() =>
             {
-                //Attention, il est nécessaire d'ajouter PresentationFramework, PresentationCore, WindowBase and your wpf window application aux ressources.
+                /*Attention, il est nécessaire d'ajouter PresentationFramework, PresentationCore, 
+                 * WindowBase et votre wpf window application aux ressources. */
                 interfaceRobot = new FirstDisplayControl();
                 interfaceRobot.Loaded += RegisterRobotInterfaceEvents;
                 interfaceRobot.ShowDialog();
@@ -162,40 +166,27 @@ namespace ConsoleRobot
         static void RegisterRobotInterfaceEvents(object sender, EventArgs e)
         {
             /// Display of events from the microcontroller
-            msgProcessor.OnIRMessageReceivedEvent += ConsoleFormat.PrintProcessorIRMessageReceived;
-            msgProcessor.OnLEDMessageReceivedEvent += ConsoleFormat.PrintProcessorLEDMessageReceived;
-            msgProcessor.OnMotorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorSpeedMessageReceived;
-            msgProcessor.OnStateMessageReceivedEvent += ConsoleFormat.PrintProcessorStateMessageReceived;
-            msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDataMessageReceived;
-            msgProcessor.OnTextMessageReceivedEvent += ConsoleFormat.PrintProcessorTextMessageReceived;
-            msgProcessor.OnUnknowFunctionReceivedEvent += ConsoleFormat.PrintUnknowFunctionWarning;
+            msgProcessor.OnCheckInstructionReceivedEvent += interfaceRobot.UpdateCheckInstruction;
+            msgProcessor.OnIRMessageReceivedEvent += interfaceRobot.UpdateTelematersValues;
+            msgProcessor.OnLEDMessageReceivedEvent += interfaceRobot.UpdateLEDState;
+            msgProcessor.OnMotorConsigneMessageReceivedEvent += interfaceRobot.UpdateIndependantSpeedConsigneValues;
+            msgProcessor.OnMotorMeasuredMessageReceivedEvent += interfaceRobot.UpdateIndependantOdometrySpeed;
+            msgProcessor.OnMotorErrorMessageReceivedEvent += interfaceRobot.UpdateIndependantSpeedErrorValues;
+            msgProcessor.OnStateMessageReceivedEvent += interfaceRobot.UpdateRobotStateAndTimestamp;
+            msgProcessor.OnManualControlStateReceivedEvent += interfaceRobot.UpdateManualControl;
+            msgProcessor.OnPositionMessageReceivedEvent += interfaceRobot.UpdatePolarOdometrySpeed;
+            msgProcessor.OnTextMessageReceivedEvent += interfaceRobot.UpdateTextBoxReception;
+            // msgProcessor.OnUnknowFunctionReceivedEvent += ConsoleFormat.PrintUnknowFunctionWarning;           
 
-            //UpdatePolarSpeedConsigneValues
-            //UpdateIndependantSpeedConsigneValues
-            //UpdatePolarSpeedCommandValues
-            //UpdateIndependantSpeedCommandValues
-            //UpdatePolarOdometrySpeed
-            //UpdateIndependantOdometrySpeed
-            //UpdatePolarSpeedErrorValues
-            //UpdateIndependantSpeedErrorValues
-            //UpdatePolarSpeedCorrectionValues
-            //UpdateIndependantSpeedCorrectionValues
-            //UpdatePolarSpeedCorrectionGains
-            //UpdateIndependantSpeedCorrectionGains
-            //UpdatePolarSpeedCorrectionLimits
-            //UpdateIndependantSpeedCorrectionLimits
-
-
-
-            /// Sending orders from the GUI
-            /// 
-
-
-
-            /// Affichage des infos en provenance du décodeur de message
-            msgDecoder.OnMessageDecodedEvent += interfaceRobot.DisplayMessageDecoded;
-            msgDecoder.OnMessageDecodedErrorEvent += interfaceRobot.DisplayMessageDecodedError;
-
+            /// Sending orders from the GUI            
+            interfaceRobot.OnSetLEDStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageLEDSetStateConsigneToRobot;
+            interfaceRobot.OnSetAutoControlStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageSetAutoControlStateToRobot;
+            interfaceRobot.OnSetMotorSpeedFromInterfaceGenerateEvent += msgGenerator.GenerateMessageMotorSetSpeedToRobot;
+            interfaceRobot.OnSetRobotStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageSetStateToRobot;
+            interfaceRobot.OnSetAutoControlStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageSetAutoControlStateToRobot;
+            interfaceRobot.OnSetPositionFromInterfaceGenrateEvent += msgGenerator.GenerateMessageSetPositionToRobot;
+            interfaceRobot.OnResetPositionFromInterfaceGenerateEvent += msgGenerator.GenerateMessageResetPositionToRobot;
+            interfaceRobot.OnSentTextMessageFromInterfaceGenerateEvent += msgGenerator.GenerateMessageTextToRobot;
         }
 
         /******************************************* Trap app termination ***************************************/
