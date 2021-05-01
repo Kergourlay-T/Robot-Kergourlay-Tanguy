@@ -161,8 +161,7 @@ namespace ConsoleRobot
 
         static void RegisterRobotInterfaceEvents(object sender, EventArgs e)
         {
-            /// Affichage des évènements en provenance du uC
-            /// 
+            /// Display of events from the microcontroller
             msgProcessor.OnIRMessageReceivedEvent += ConsoleFormat.PrintProcessorIRMessageReceived;
             msgProcessor.OnLEDMessageReceivedEvent += ConsoleFormat.PrintProcessorLEDMessageReceived;
             msgProcessor.OnMotorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorSpeedMessageReceived;
@@ -173,7 +172,7 @@ namespace ConsoleRobot
 
 
 
-            /// Envoi des ordres en provenance de l'interface graphique
+            /// Sending orders from the GUI
 
 
             /// Affichage des infos en provenance du décodeur de message

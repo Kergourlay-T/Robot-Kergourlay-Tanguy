@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,156 +15,214 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.IO.Ports;
-using Constants;
-using ConsoleRobot;
-using EventArgsLibrary;
-using ExtendedSerialPort;
-using WpfAsservissementDisplay;
 using Utilities;
-using MouseKeyboardActivityMonitor.WinApi;
-using MouseKeyboardActivityMonitor;
 
-namespace InterfaceRobot
+namespace WpfFirstDisplay
 {
-
     /// <summary>
     /// Logique d'interaction pour UserControl1.xaml
     /// </summary>
     /// 
-    public partial class FirstDisplayControl: UserControl
+    public partial class FirstDisplayControl : UserControl
     {
-        ReliableSerialPort serialPort1;
-        DispatcherTimer timerAffichage;
-        private readonly KeyboardHookListener m_KeyboardHookManager;
-
+        #region Attributes
         int queueSize = 1;
         FixedSizedQueue<double> commandXList;
+        FixedSizedQueue<double> commandYList;
         FixedSizedQueue<double> commandThetaList;
         FixedSizedQueue<double> commandM1List;
         FixedSizedQueue<double> commandM2List;
+        FixedSizedQueue<double> commandAngleRadianList;
+        FixedSizedQueue<double> commandAngularSpeedList;
+        FixedSizedQueue<double> commandLinearSpeedList;
 
         FixedSizedQueue<double> consigneXList;
+        FixedSizedQueue<double> consigneYList;
         FixedSizedQueue<double> consigneThetaList;
         FixedSizedQueue<double> consigneM1List;
         FixedSizedQueue<double> consigneM2List;
+        FixedSizedQueue<double> consigneAngleRadianList;
+        FixedSizedQueue<double> consigneAngularSpeedList;
+        FixedSizedQueue<double> consigneLinearSpeedList;
 
         FixedSizedQueue<double> measuredXList;
+        FixedSizedQueue<double> measuredYList;
         FixedSizedQueue<double> measuredThetaList;
         FixedSizedQueue<double> measuredM1List;
         FixedSizedQueue<double> measuredM2List;
+        FixedSizedQueue<double> measuredAngleRadianList;
+        FixedSizedQueue<double> measuredAngularSpeedList;
+        FixedSizedQueue<double> measuredLinearSpeedList;
 
         FixedSizedQueue<double> errorXList;
+        FixedSizedQueue<double> errorYList;
         FixedSizedQueue<double> errorThetaList;
         FixedSizedQueue<double> errorM1List;
         FixedSizedQueue<double> errorM2List;
+        FixedSizedQueue<double> errorAngleRadianList;
+        FixedSizedQueue<double> errorAngularSpeedList;
+        FixedSizedQueue<double> errorLinearSpeedList;
 
         FixedSizedQueue<double> corrPXList;
+        FixedSizedQueue<double> corrPYList;
         FixedSizedQueue<double> corrPThetaList;
         FixedSizedQueue<double> corrPM1List;
         FixedSizedQueue<double> corrPM2List;
+        FixedSizedQueue<double> corrPAngleRadianList;
+        FixedSizedQueue<double> corrPAngularSpeedList;
+        FixedSizedQueue<double> corrPLinearSpeedList;
+
         FixedSizedQueue<double> corrIXList;
+        FixedSizedQueue<double> corrIYList;
         FixedSizedQueue<double> corrIThetaList;
         FixedSizedQueue<double> corrIM1List;
         FixedSizedQueue<double> corrIM2List;
+        FixedSizedQueue<double> corrIAngleRadianList;
+        FixedSizedQueue<double> corrIAngularSpeedList;
+        FixedSizedQueue<double> corrILinearSpeedList;
+
         FixedSizedQueue<double> corrDXList;
+        FixedSizedQueue<double> corrDYList;
         FixedSizedQueue<double> corrDThetaList;
         FixedSizedQueue<double> corrDM1List;
         FixedSizedQueue<double> corrDM2List;
+        FixedSizedQueue<double> corrDAngleRadianList;
+        FixedSizedQueue<double> corrDAngularSpeedList;
+        FixedSizedQueue<double> corrDLinearSpeedList;
 
-        double corrLimitPX, corrLimitPTheta, corrLimitPM1, corrLimitPM2;
-        double corrLimitIX, corrLimitITheta, corrLimitIM1, corrLimitIM2;
-        double corrLimitDX, corrLimitDTheta, corrLimitDM1, corrLimitDM2;
+        double corrLimitPX, corrLimitPY, corrLimitPTheta, corrLimitPM1, corrLimitPM2,
+            corrLimitPAngleRadian, corrLimitPAngularSpeed, corrLimitPLineraSpeed;
+        double corrLimitIX, corrLimitIY, corrLimitITheta, corrLimitIM1, corrLimitIM2,
+            corrLimitIAnglaRadian, corrLimitIAngularSpeed, corrLimitILinearSpeed;
+        double corrLimitDX, corrLimitDY, corrLimitDTheta, corrLimitDM1, corrLimitDM2,
+            corrLimitDAngleRadian, corrLimitDAngularSpeed, corrLimitDLinearSpeed;
 
-        double KpX, KpTheta, KpM1, KpM2;
-        double KiX, KiTheta, KiM1, KiM2;
-        double KdX, KdTheta, KdM1, KdM2;
+        double KpX, KpY, KpTheta, KpM1, KpM2, KpAngleRadian, KpAngularSpeed, KpLinearSpeed;
+        double KiX, KiY, KiTheta, KiM1, KiM2, KiAngleRadian, KiAngularSpeed, KiLinearSpeed;
+        double KdX, KdY, KdTheta, KdM1, KdM2, KdAngleRadian, KdAngularSpeed, KdLinearSpeed;
 
         System.Timers.Timer displayTimer;
+
+        AsservissementMode asservissementMode = AsservissementMode.Disabled;
+        #endregion
 
         public FirstDisplayControl()
         {
             InitializeComponent();
-            serialPort1 = new ReliableSerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
-            serialPort1.DataReceived += SerialPort1_DataReceived;
-            serialPort1.Open();
-
-            timerAffichage = new DispatcherTimer();
-            timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timerAffichage.Tick += TimerAffichage_Tick;
-            timerAffichage.Start();
-
-            m_KeyboardHookManager = new KeyboardHookListener(new GlobalHooker());
-            m_KeyboardHookManager.Enabled = true;
-            m_KeyboardHookManager.KeyDown += M_KeyboardHookManager_KeyDown;
 
             commandXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            commandYList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            commandAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            commandAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            commandLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             consigneXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            consigneYList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            consigneAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            consigneAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            consigneLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             measuredXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            measuredYList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            measuredAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            measuredAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            measuredLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             errorXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            errorYList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            errorAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            errorAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            errorLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrPXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrPYList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrPThetaList = new Utilities.FixedSizedQueue<double>(queueSize); 
             corrPM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrPAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrPAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrPLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrIXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrIYList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrIAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrIAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrILinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrDXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrDYList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM2List = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrDAngleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrDAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
+            corrDLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             consigneXList.Enqueue(0);
+            commandYList.Enqueue(0);
             consigneThetaList.Enqueue(0);
             consigneM1List.Enqueue(0);
             consigneM2List.Enqueue(0);
+            commandAngleRadianList.Enqueue(0);
+            commandAngularSpeedList.Enqueue(0);
+            commandLinearSpeedList.Enqueue(0);
 
             commandXList.Enqueue(0);
+            commandYList.Enqueue(0);
             commandThetaList.Enqueue(0);
             commandM1List.Enqueue(0);
             commandM2List.Enqueue(0);
+            commandAngleRadianList.Enqueue(0);
+            commandAngularSpeedList.Enqueue(0);
 
             measuredXList.Enqueue(0);
+            measuredYList.Enqueue(0);
             measuredThetaList.Enqueue(0);
             measuredM1List.Enqueue(0);
             measuredM2List.Enqueue(0);
+            measuredAngleRadianList.Enqueue(0);
+            measuredAngularSpeedList.Enqueue(0);
+            measuredLinearSpeedList.Enqueue(0);
 
             errorXList.Enqueue(0);
+            errorYList.Enqueue(0);
             errorThetaList.Enqueue(0);
             errorM1List.Enqueue(0);
             errorM2List.Enqueue(0);
+            errorAngleRadianList.Enqueue(0);
+            errorAngularSpeedList.Enqueue(0);
+            errorLinearSpeedList.Enqueue(0);
 
             displayTimer = new Timer(100);
-            displayTimer.Elapsed += DisplayTimer_Elapsed1; ;
+            displayTimer.Elapsed += DisplayTimer_Elapsed;
             displayTimer.Start();
         }
 
+        public void SetTitle(string titre)
+        {
+            LabelTitre.Content = titre;
+        }
 
-        #region SetAsservissementMode
         public void SetAsservissementMode(AsservissementMode mode)
         {
             asservissementMode = mode;
 
-            switch (asservissementMode)
+            switch(asservissementMode)
             {
                 case AsservissementMode.Disabled:
                     LabelConsigneX.Visibility = Visibility.Hidden;
@@ -252,17 +311,11 @@ namespace InterfaceRobot
                     LabelCorrDM1.Visibility = Visibility.Visible;
                     LabelCorrDM2.Visibility = Visibility.Visible;
                     break;
-
             }
         }
-        #endregion
 
-        public void SetTitle(string titre)
-        {
-            LabelTitre.Content = titre;
-        }
-
-        private void DisplayTimer_Elapsed1(object sender, System.Timers.ElapsedEventArgs e)
+        #region UpdateDisplay
+        private void DisplayTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Dispatcher.BeginInvoke(new Action(delegate ()
             {
@@ -270,7 +323,6 @@ namespace InterfaceRobot
             }));
         }
 
-        #region UpdateDisplay
         public void UpdateDisplay()
         {
             LabelConsigneX.Content = consigneXList.Average().ToString("N2");
@@ -348,9 +400,9 @@ namespace InterfaceRobot
                 LabelCorrDM2.Content = corrDM2List.Average().ToString("N2");
             }
         }
-        #endregion
+#endregion
 
-        #region UpdateDate
+        #region UpdateValues
         public void UpdatePolarSpeedConsigneValues(double consigneX, double consigneTheta)
         {
             consigneXList.Enqueue(consigneX);
@@ -452,7 +504,7 @@ namespace InterfaceRobot
             this.corrLimitDTheta = corrLimitDTheta;
         }
         public void UpdateIndependantSpeedCorrectionLimits(double corrLimitPM1, double corrLimitPM2,
-            double corrLimitIM1, double corrLimitIM2,
+            double corrLimitIM1, double corrLimitIM2, 
             double corrLimitDM1, double corrLimitDM2)
         {
             this.corrLimitPM1 = corrLimitPM1;
@@ -463,24 +515,6 @@ namespace InterfaceRobot
             this.corrLimitDM2 = corrLimitDM2;
         }
         #endregion
-
-        #region serial,Keyboard,Timer
-        private void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void M_KeyboardHookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void TimerAffichage_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-
-
     }
 }
+
