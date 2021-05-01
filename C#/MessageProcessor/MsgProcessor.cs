@@ -15,21 +15,21 @@ namespace MessageProcessor
             OnMessageProcessorCreated();
         }
 
-        public void MessageProcessor(object sender, MessageByteArgs e )
+        public void MessageProcessor(object sender, MessageByteArgs e)
         {
             switch (e.msgFunction)
             {
-                case (ushort)Enums.Functions.LED_PROTOCOL:
+                case (ushort)Enums.Functions.LED_ROBOT_TO_GUI:
                     OnIRMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.STATE_PROTOCOL:
+                case (ushort)Enums.Functions.ROBOT_STATE_ROBOT_TO_GUI:
                     OnStateMessageReceived(e);
                     break;
-                case (ushort)Enums.Functions.POSITION_DATA:
+                case (ushort)Enums.Functions.POSITION_DATA_ROBOT_TO_GUI:
                     OnPositionMessageReceived(e);
                     break;
-                case (ushort)Enums.Functions.TEXT_PROTOCOL:
+                case (ushort)Enums.Functions.MESSAGE_ROBOT_TO_GUI:
                     OnTextMessageReceived(e);
                     break;
                 default:

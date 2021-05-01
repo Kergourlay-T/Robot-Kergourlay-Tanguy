@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands.cs" />
     <Compile Include="ConsoleTitleFormatConst.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Enums.cs" />

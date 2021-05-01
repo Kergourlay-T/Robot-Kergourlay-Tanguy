@@ -9,6 +9,7 @@
     <Border BorderBrush="#AAAAAA" BorderThickness="1">
         <Grid >
             <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="0.4*"></RowDefinition>
                 <RowDefinition Height="1.6*"></RowDefinition>
                 <RowDefinition Height="0.4*"></RowDefinition>
@@ -33,8 +34,9 @@
             </Grid.ColumnDefinitions>
 
 
-            <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.ColumnSpan="6"/>
-            <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="1" Grid.ColumnSpan="6"/>
+            <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.ColumnSpan="9"/>
+            <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.ColumnSpan="9"/>
+            <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="1" Grid.ColumnSpan="9"/>
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="9"/>
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="3" Grid.ColumnSpan="9"/>
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="4" Grid.ColumnSpan="9"/>
@@ -45,65 +47,65 @@
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="9" Grid.ColumnSpan="9"/>
 
 
-            <Label Grid.Column="1" Grid.Row="0" Content="Telemeters" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="2" Grid.Row="0" Content="" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="3" Grid.Row="0" Content="LED" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="4" Content="" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="5" Content="Robot Informations" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="1" Grid.Row="1" Content="Telemeters" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="2" Grid.Row="1" Content="" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="3" Grid.Row="1" Content="LED" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="4" Grid.Row="1" Content="" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="5" Grid.Row="1" Content="Robot Informations" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
 
 
-            <Label Grid.Row="2" x:Name="LabelTitre" Content="" Foreground="White" Margin="0" Padding="0" ></Label>
-            <Label Grid.Row="3" Content="Consigne : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Row="4" Content="Measure : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Row="5" Content="Error : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Row="6" Content="Command : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="1" Grid.Row="2" Content="X" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="2" Grid.Row="2" Content="Y" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="3" Grid.Row="2" Content="Theta" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="4" Grid.Row="2" Content="M1" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="5" Grid.Row="2" Content="M2" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="6" Grid.Row="2" Content="angleRadian" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="7" Grid.Row="2" Content="angularSpeed" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="8" Grid.Row="2" Content="linearSpeed" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Row="3" x:Name="LabelTitre" Content="" Foreground="White" Margin="0" Padding="0" ></Label>
+            <Label Grid.Row="4" Content="Consigne : " Foreground="White"  Margin="0" Padding="0"></Label>
+            <Label Grid.Row="5" Content="Measure : " Foreground="White"  Margin="0" Padding="0"></Label>
+            <Label Grid.Row="6" Content="Error : " Foreground="White"  Margin="0" Padding="0"></Label>
+            <Label Grid.Row="7" Content="Command : " Foreground="White"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="1" Grid.Row="3" Content="X" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="2" Grid.Row="3" Content="Y" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="3" Grid.Row="3" Content="Theta" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="4" Grid.Row="3" Content="M1" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="5" Grid.Row="3" Content="M2" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="6" Grid.Row="3" Content="angleRadian" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="7" Grid.Row="3" Content="angularSpeed" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="8" Grid.Row="3" Content="linearSpeed" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
           
            
           
 
-            <Label x:Name="LabelConsigneX" Content="0" Grid.Column="1" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneY" Content="0" Grid.Column="2" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneTheta" Content="0" Grid.Column="3" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneM1" Content="0" Grid.Column="4" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneM2" Content="0" Grid.Column="5" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneAngledRadian" Content="0" Grid.Column="6" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneAngularSpeed" Content="0" Grid.Column="7" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelConsigneLinearSpeed" Content="0" Grid.Column="8" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureX" Content="0" Grid.Column="1" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureY" Content="0" Grid.Column="2" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureTheta" Content="0" Grid.Column="3" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureM1" Content="0" Grid.Column="4" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureM2" Content="0" Grid.Column="5" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureAngleRadian" Content="0" Grid.Column="6" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureAngularSpeed" Content="0" Grid.Column="7" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelMeasureLinearSpeed" Content="0" Grid.Column="8" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurX" Content="0" Grid.Column="1" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurY" Content="0" Grid.Column="2" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurTheta" Content="0" Grid.Column="3" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurM1" Content="0" Grid.Column="4" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurM2" Content="0" Grid.Column="5" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurAngleRadian" Content="0" Grid.Column="6" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurAngularSpeed" Content="0" Grid.Column="7" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelErreurLinearSpeed" Content="0" Grid.Column="8" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandX" Content="0" Grid.Column="1" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandY" Content="0" Grid.Column="2" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandTheta" Content="0" Grid.Column="3" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandM1" Content="0" Grid.Column="4" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandM2" Content="0" Grid.Column="5" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandAngleRadian" Content="0" Grid.Column="6" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandAngularSpeed" Content="0" Grid.Column="7" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
-            <Label x:Name="LabelCommandLinearSpeed" Content="0" Grid.Column="8" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneX" Content="0" Grid.Column="1" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneY" Content="0" Grid.Column="2" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneTheta" Content="0" Grid.Column="3" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneM1" Content="0" Grid.Column="4" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneM2" Content="0" Grid.Column="5" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneAngleRadian" Content="0" Grid.Column="6" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneAngularSpeed" Content="0" Grid.Column="7" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelConsigneLinearSpeed" Content="0" Grid.Column="8" Grid.Row="4" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureX" Content="0" Grid.Column="1" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureY" Content="0" Grid.Column="2" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureTheta" Content="0" Grid.Column="3" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureM1" Content="0" Grid.Column="4" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureM2" Content="0" Grid.Column="5" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureAngleRadian" Content="0" Grid.Column="6" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureAngularSpeed" Content="0" Grid.Column="7" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelMeasureLinearSpeed" Content="0" Grid.Column="8" Grid.Row="5" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurX" Content="0" Grid.Column="1" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurY" Content="0" Grid.Column="2" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurTheta" Content="0" Grid.Column="3" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurM1" Content="0" Grid.Column="4" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurM2" Content="0" Grid.Column="5" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurAngleRadian" Content="0" Grid.Column="6" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurAngularSpeed" Content="0" Grid.Column="7" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelErreurLinearSpeed" Content="0" Grid.Column="8" Grid.Row="6" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandX" Content="0" Grid.Column="1" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandY" Content="0" Grid.Column="2" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandTheta" Content="0" Grid.Column="3" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandM1" Content="0" Grid.Column="4" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandM2" Content="0" Grid.Column="5" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandAngleRadian" Content="0" Grid.Column="6" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandAngularSpeed" Content="0" Grid.Column="7" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
+            <Label x:Name="LabelCommandLinearSpeed" Content="0" Grid.Column="8" Grid.Row="7" Foreground="White" Margin="0" Padding="0"/>
 
 
-            <Grid Grid.Column="0" Grid.Row="7">
+            <Grid Grid.Column="0" Grid.Row="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -114,7 +116,7 @@
                 <Label Grid.Row="2" Content="Corr P Max" Foreground="White" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid Grid.Column="0" Grid.Row="8">
+            <Grid Grid.Column="0" Grid.Row="9">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -125,7 +127,7 @@
                 <Label Grid.Row="2" Content="Corr I Max" Foreground="White" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid Grid.Column="0" Grid.Row="9">
+            <Grid Grid.Column="0" Grid.Row="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -136,7 +138,7 @@
                 <Label Grid.Row="2" Content="Corr D Max" Foreground="White" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid Grid.Column="0" Grid.Row="1">
+            <Grid Grid.Column="0" Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -151,7 +153,7 @@
                 <Label Grid.Row="4" Content="LeftEnd" Foreground="White" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid Grid.Column="4" Grid.Row="1">
+            <Grid Grid.Column="4" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -168,7 +170,7 @@
                 <Label Grid.Row="3"  Content="Timestamp : " Foreground="White"  Margin="0" Padding="0"></Label>
             </Grid>
 
-            <Grid Grid.Column="2" Grid.Row="1">
+            <Grid Grid.Column="2" Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -182,7 +184,7 @@
                 <Label Grid.Row="4" Grid.Column="8" Content="AutoControl : " Foreground="White"  Margin="0" Padding="0"></Label>
             </Grid>
 
-            <Grid x:Name="CorrPXGrid" Grid.Column="1" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrPXGrid" Grid.Column="1" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -202,7 +204,7 @@
                 </Polyline>-->
             </Grid>
 
-            <Grid x:Name="CorrPYGrid" Grid.Column="2" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrPYGrid" Grid.Column="2" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -216,7 +218,7 @@
                 <Label x:Name="LabelCorrMaxPY" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
             
-            <Grid x:Name="CorrPThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrPThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -230,7 +232,7 @@
                 <Label x:Name="LabelCorrMaxPTheta" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrPM1Grid" Grid.Column="4" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrPM1Grid" Grid.Column="4" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -244,7 +246,7 @@
                 <Label x:Name="LabelCorrMaxPM1" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrPM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrPM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -258,7 +260,7 @@
                 <Label x:Name="LabelCorrMaxPM2" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -272,7 +274,7 @@
                 <Label x:Name="LabelCorrMaxPAngleRadian" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -286,7 +288,7 @@
                 <Label x:Name="LabelCorrMaxPAngularSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrLinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="7">
+            <Grid x:Name="CorrLinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -300,7 +302,7 @@
                 <Label x:Name="LabelCorrMaxPLinearSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIXGrid" Grid.Column="1" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIXGrid" Grid.Column="1" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>   
@@ -315,7 +317,7 @@
                 <Label x:Name="LabelCorrMaxIX" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIYGrid" Grid.Column="2" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIYGrid" Grid.Column="2" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -330,7 +332,7 @@
                 <Label x:Name="LabelCorrMaxIY" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -344,7 +346,7 @@
                 <Label x:Name="LabelCorrMaxITheta" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIM1Grid" Grid.Column="4" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIM1Grid" Grid.Column="4" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -357,7 +359,7 @@
                 <Label x:Name="LabelCorrIM1" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrMaxIM1" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
-            <Grid x:Name="CorrIM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -371,7 +373,7 @@
                 <Label x:Name="LabelCorrMaxIM2" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -386,7 +388,7 @@
                 <Label x:Name="LabelCorrMaxIAngleRadian" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrIAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrIAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -401,7 +403,7 @@
                 <Label x:Name="LabelCorrMaxIAngularSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrILinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="8">
+            <Grid x:Name="CorrILinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -416,7 +418,7 @@
                 <Label x:Name="LabelCorrMaxILinearSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDXGrid" Grid.Column="1" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDXGrid" Grid.Column="1" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -430,7 +432,7 @@
                 <Label x:Name="LabelCorrMaxDX" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDYGrid" Grid.Column="2" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDYGrid" Grid.Column="2" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -444,7 +446,7 @@
                 <Label x:Name="LabelCorrMaxDY" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDThetaGrid" Grid.Column="3" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -457,7 +459,7 @@
                 <Label x:Name="LabelCorrDTheta" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrMaxDTheta" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
-            <Grid x:Name="CorrDThetaM1" Grid.Column="4" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDThetaM1" Grid.Column="4" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -470,7 +472,7 @@
                 <Label x:Name="LabelCorrDM1" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrMaxDM1" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
-            <Grid x:Name="CorrDM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -484,7 +486,7 @@
                 <Label x:Name="LabelCorrMaxDM2" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDAngleRadianGrid" Grid.Column="6" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -499,7 +501,7 @@
                 <Label x:Name="LabelCorrMaxDAngleRadian" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDAngularSpeedGrid" Grid.Column="7" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -514,7 +516,7 @@
                 <Label x:Name="LabelCorrMaxDAngularSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="CorrDLinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="9">
+            <Grid x:Name="CorrDLinearSpeedGrid" Grid.Column="8" MinWidth="50" Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
@@ -529,7 +531,7 @@
                 <Label x:Name="LabelCorrMaxDLinearSpeed" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="TelemeterGrid" Grid.Column="1" MinWidth="50" Grid.Row="1">
+            <Grid x:Name="TelemeterGrid" Grid.Column="1" MinWidth="50" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -543,11 +545,11 @@
                 <Label x:Name="LabelIRRigthEnd" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
                 <Label x:Name="LabelIRigth" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelIRCenter" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
-                <Label x:Name="LabelILeft" Grid.Row="3" Content="0" Foreground="White" Margin="0" Padding="0"/>
+                <Label x:Name="LabelIRLeft" Grid.Row="3" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelIRLeftCenter" Grid.Row="4" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="LEDGrid" Grid.Column="3" MinWidth="50" Grid.Row="1">
+            <Grid x:Name="LEDGrid" Grid.Column="3" MinWidth="50" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -558,13 +560,13 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <CheckBox x:Name="CheckBoxLED1" Content=""  Foreground="White"  HorizontalAlignment="Center"  Grid.Row="0" Margin="0"/>
-                <CheckBox x:Name="CheckBoxLED2" Content=""  Foreground="White" HorizontalAlignment="Center"  Grid.Row="1" Margin="0" />
-                <CheckBox x:Name="CheckBoxLED3" Content=""  Foreground="White" HorizontalAlignment="Center"  Grid.Row="2"  Margin="0" />
-                <CheckBox x:Name="CheckBoxAutoControl" Content=""  Foreground="White" HorizontalAlignment="Center" Grid.Row="4"  Margin="0" />
+                <CheckBox x:Name="CheckBoxLED1" Content=""  Foreground="White"  HorizontalAlignment="Center"  Grid.Row="0" Margin="0" Checked ="OnCheckBoxLED1CheckChange"/>
+                <CheckBox x:Name="CheckBoxLED2" Content=""  Foreground="White" HorizontalAlignment="Center"  Grid.Row="1" Margin="0" Checked="OnCheckBoxLED2CheckChange" />
+                <CheckBox x:Name="CheckBoxLED3" Content=""  Foreground="White" HorizontalAlignment="Center"  Grid.Row="2"  Margin="0" Checked="OnCheckBoxLED3CheckChange" />
+                <CheckBox x:Name="CheckBoxAutoControl" Content=""  Foreground="White" HorizontalAlignment="Center" Grid.Row="4"  Margin="0" Checked="OnCheckBoxAutoControlCheckChange" IsChecked="True" />
             </Grid>
 
-            <Grid x:Name="RobotInformationsGrid" Grid.Column="5" MinWidth="50" Grid.Row="1">
+            <Grid x:Name="RobotInformationsGrid" Grid.Column="5" MinWidth="50" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -581,7 +583,7 @@
                 <Label x:Name="LabelTimestamp" Content="0" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
             </Grid>
 
-            <Grid x:Name="ButtonsGrid" Grid.Column="7" MinWidth="50" Grid.Row="1">
+            <Grid x:Name="ButtonsGrid" Grid.Column="7" MinWidth="50" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -592,10 +594,29 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-            <Button x:Name="buttonEnvoyer" Content="Clear"  Grid.Row="0" Margin="0" Background="White" Click="buttonEnvoyer_Click"/>
-            <Button x:Name="buttonTest" Content="Test "  Grid.Row="2" Margin="0"  Background="White" Click="buttonTest_Click" />
-            <Button x:Name="buttonReset" Content="ResetOdometry"  Grid.Row="4" Margin="0" Background="White" Click="buttonReset_Click"/>
+                <Button x:Name="buttonEnvoyer" Content="Clear"  Grid.Row="0" Margin="0" Background="White" Click="buttonEnvoyer_Click"/>
+                <Button x:Name="buttonTest" Content="Test"  Grid.Row="2" Margin="0"  Background="White" Click="buttonTest_Click" />
+                <Button x:Name="buttonReset" Content="ResetOdometry"  Grid.Row="4" Margin="0" Background="White" Click="buttonReset_Click"/>
             </Grid>
+
+            <Grid x:Name="TextBoxEmissionGrid" Grid.Column="0" MinWidth="50" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox x:Name="Emission" Header="Emission" Foreground="White" Margin="0" Background="black" BorderBrush="Black" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="4">
+                    <TextBox x:Name="TextBoxEmission" Margin="0" TextWrapping="Wrap" Text="" TextChanged="textBoxEmission_TextChanged" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" KeyUp="TextBoxEmission_KeyUp"/>
+                </GroupBox>
+            </Grid>
+
+            <Grid x:Name="TextBoxReceptionGrid" Grid.Column="5" MinWidth="50" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox x:Name="Reception" Header="Reception" Foreground="White" Margin="0" Background="Black" BorderBrush="Black" Grid.Row="1" Grid.RowSpan="4" >
+                    <TextBox x:Name="TextBoxReception" Margin="0" TextWrapping="Wrap" Text="" TextChanged="TextBoxRexeption_TextChanged" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"  />
+                </GroupBox>
+            </Grid>
+
         </Grid>
     </Border>
 </UserControl>

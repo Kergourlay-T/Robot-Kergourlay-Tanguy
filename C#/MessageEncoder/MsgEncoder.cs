@@ -117,13 +117,13 @@ namespace MessageEncoder
             OnSendMessageEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLength, msgPayload, checksum));
             switch (msgFunction)
             {
-                case (ushort)Enums.Functions.LED_PROTOCOL:
+                case (ushort)Enums.Functions.LED_GUI_TO_ROBOT:
                     OnSetLEDState(msgPayload[0], msgPayload[1] == 0x00 ? false : true);
                     break;
-                case (ushort)Enums.Functions.MOTOR_PORTOCOL:
+                case (ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT:
                     OnMotorSetSpeed((sbyte)msgPayload[0], (sbyte)msgPayload[1]);
                     break;
-                case (ushort)Enums.Functions.SET_ROBOT_STATE:
+                case (ushort)Enums.Functions.ROBOT_STATE_GUI_TO_ROBOT:
                     OnSetState(msgPayload[0]);
                     break;
             }

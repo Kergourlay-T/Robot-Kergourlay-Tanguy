@@ -84,6 +84,15 @@ namespace EventArgsLibrary
         public uint time { get; set; }
     }
 
+    public class StateAutoControlMessageArgs : EventArgs
+    {
+        public StateAutoControlMessageArgs(bool stateAutoControl_a)
+        {
+            stateAutoControl = stateAutoControl_a;
+        }
+        public bool stateAutoControl { get; set; }
+    }
+
     public class IRMessageArgs : EventArgs
     {
         public IRMessageArgs(byte leftIR_a, byte centerIR_a, byte rigthIR_a)

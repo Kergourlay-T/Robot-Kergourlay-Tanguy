@@ -26,7 +26,7 @@ namespace MessageGenerator
         public void GenerateMessageLEDSetStateConsigneToRobot(ushort numberLED, bool LEDState)
         {
             byte[] payload = new byte[] { (byte)numberLED, (byte)(LEDState ? 0x00 : 0x01) };
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.LED_PROTOCOL, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.LED_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageMotorSetSpeedToRobot(sbyte leftMotorSpeed, sbyte rigthMotorSpeed)
@@ -48,13 +48,13 @@ namespace MessageGenerator
             {
                 payload[1] = (byte)((rigthMotorSpeed > 0) ? 100 : -100);
             }
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.MOTOR_PORTOCOL, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageSetStateRobot(byte StateRobot)
         {
             byte[] payload = new byte[] { (byte)StateRobot };
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.SET_ROBOT_STATE, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.ROBOT_STATE_GUI_TO_ROBOT, payload);
         }
 
     }//End MsgGenerator

@@ -286,7 +286,7 @@ namespace ConsoleRobot
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.STATE_ROBOT, "Actual State: " + e.state + " - " + e.time, true);
         }
 
-        static public void PrintProcessorPositionDateMessageReceived(object sender, PositionMessageArgs e)
+        static public void PrintProcessorPositionDataMessageReceived(object sender, PositionMessageArgs e)
         {
             ResetConsoleCursorAndConsoleColor();
             ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.POSITIONDATA, "Actual Position :", true);

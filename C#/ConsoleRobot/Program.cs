@@ -11,7 +11,7 @@ using MessageDecoder;
 using MessageEncoder;
 using MessageGenerator;
 using MessageProcessor;
-using InterfaceRobot;
+using WpfFirstDisplay;
 using Constants;
 
 namespace ConsoleRobot
@@ -23,7 +23,7 @@ namespace ConsoleRobot
         public static MsgEncoder msgEncoder;
         public static MsgGenerator msgGenerator;
         public static MsgProcessor msgProcessor;
-        public static InterfaceRobot interfaceRobot;
+        public static FirstDisplayControl interfaceRobot;
 
         static object ExitLock = new object();
         public Program()
@@ -119,7 +119,7 @@ namespace ConsoleRobot
                 msgProcessor.OnLEDMessageReceivedEvent += ConsoleFormat.PrintProcessorLEDMessageReceived;
                 msgProcessor.OnMotorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorSpeedMessageReceived;
                 msgProcessor.OnStateMessageReceivedEvent += ConsoleFormat.PrintProcessorStateMessageReceived;
-                msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDateMessageReceived;
+                msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDataMessageReceived;
                 msgProcessor.OnTextMessageReceivedEvent += ConsoleFormat.PrintProcessorTextMessageReceived;
                 msgProcessor.OnUnknowFunctionReceivedEvent += ConsoleFormat.PrintUnknowFunctionWarning;
             }
@@ -151,7 +151,7 @@ namespace ConsoleRobot
             t1 = new Thread(() =>
             {
                 //Attention, il est nécessaire d'ajouter PresentationFramework, PresentationCore, WindowBase and your wpf window application aux ressources.
-                interfaceRobot = new InterfaceRobot();
+                interfaceRobot = new FirstDisplayControl();
                 interfaceRobot.Loaded += RegisterRobotInterfaceEvents;
                 interfaceRobot.ShowDialog();
             });
@@ -166,13 +166,30 @@ namespace ConsoleRobot
             msgProcessor.OnLEDMessageReceivedEvent += ConsoleFormat.PrintProcessorLEDMessageReceived;
             msgProcessor.OnMotorMessageReceivedEvent += ConsoleFormat.PrintProcessorMotorSpeedMessageReceived;
             msgProcessor.OnStateMessageReceivedEvent += ConsoleFormat.PrintProcessorStateMessageReceived;
-            msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDateMessageReceived;
+            msgProcessor.OnPositionMessageReceivedEvent += ConsoleFormat.PrintProcessorPositionDataMessageReceived;
             msgProcessor.OnTextMessageReceivedEvent += ConsoleFormat.PrintProcessorTextMessageReceived;
             msgProcessor.OnUnknowFunctionReceivedEvent += ConsoleFormat.PrintUnknowFunctionWarning;
+
+            //UpdatePolarSpeedConsigneValues
+            //UpdateIndependantSpeedConsigneValues
+            //UpdatePolarSpeedCommandValues
+            //UpdateIndependantSpeedCommandValues
+            //UpdatePolarOdometrySpeed
+            //UpdateIndependantOdometrySpeed
+            //UpdatePolarSpeedErrorValues
+            //UpdateIndependantSpeedErrorValues
+            //UpdatePolarSpeedCorrectionValues
+            //UpdateIndependantSpeedCorrectionValues
+            //UpdatePolarSpeedCorrectionGains
+            //UpdateIndependantSpeedCorrectionGains
+            //UpdatePolarSpeedCorrectionLimits
+            //UpdateIndependantSpeedCorrectionLimits
 
 
 
             /// Sending orders from the GUI
+            /// 
+
 
 
             /// Affichage des infos en provenance du décodeur de message
