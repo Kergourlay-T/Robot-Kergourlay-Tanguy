@@ -32,7 +32,7 @@ namespace MessageGenerator
 
         public void GenerateMessageMotorSetSpeedToRobot(object sender, MotorMessageArgs e)
         {
-            byte[] payload = new byte[(int)Enums.payloadLengthOfFunctions.MOTOR_GUI_TO_ROBOT_LENGTH];
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT]];
             if (100 >= e.leftMotor && e.leftMotor <= -100)
             {
                 payload[0] = (byte)e.leftMotor;
@@ -66,7 +66,7 @@ namespace MessageGenerator
 
         public void GenerateMessageSetPositionToRobot (object sender, SetPositionMessageArgs e)
         {
-            byte[] payload = new byte[(int)Enums.payloadLengthOfFunctions.POSITION_DATA_GUI_TO_ROBOT_LENGTH];
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.POSITION_DATA_GUI_TO_ROBOT]];
             int pos = 0;
             payload[pos++] = Convert.ToByte(e.xPos);
             payload[pos++] = Convert.ToByte(e.yPos);
@@ -76,7 +76,7 @@ namespace MessageGenerator
 
         public void GenerateMessageResetPositionToRobot(object sender, EventArgs e)
         {
-            byte[] payload = new byte[(int)Enums.payloadLengthOfFunctions.RESET_POSITION_GUI_TO_ROBOT_LENGTH];
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.RESET_POSITION_GUI_TO_ROBOT]];
             msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.RESET_POSITION_GUI_TO_ROBOT, payload);
         }
 

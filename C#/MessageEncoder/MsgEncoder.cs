@@ -21,9 +21,9 @@ namespace MessageEncoder
         {
             short msgPayloadLengthTest;
             ushort msgPayloadLength = (ushort)msgPayload.Length;
-            if (Dictionary.CheckPayloadLengthAssoicatedToFunction.TryGetValue(msgFunction, out msgPayloadLengthTest))
+            if (Dictionary.PayloadLengthOfFunctions.TryGetValue(msgFunction, out msgPayloadLengthTest))
             {
-                msgPayloadLengthTest = Dictionary.CheckPayloadLengthAssoicatedToFunction[msgFunction];
+                msgPayloadLengthTest = Dictionary.PayloadLengthOfFunctions[msgFunction];
                
                 if (msgPayloadLengthTest != -1)
                 {

@@ -31,15 +31,15 @@ namespace MessageProcessor
                     OnIRMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_CONSIGNE_ROBOT_TO_GUI_LENGTH:
+                case (ushort)Enums.Functions.MOTOR_CONSIGNE_ROBOT_TO_GUI:
                     OnMotorConsigneMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_MEASURED_ROBOT_TO_GUI_LENGTH:
+                case (ushort)Enums.Functions.MOTOR_MEASURED_ROBOT_TO_GUI:
                     OnMotorMeasuredMeassgeReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_ERROR_ROBOT_TO_GUI_LENGTH:
+                case (ushort)Enums.Functions.MOTOR_ERROR_ROBOT_TO_GUI:
                     OnMotorErrorMessageReceived(e);
                     break;
 

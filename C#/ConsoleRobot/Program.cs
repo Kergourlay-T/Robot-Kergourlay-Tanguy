@@ -48,13 +48,17 @@ namespace ConsoleRobot
             /// Creation of links between modules, except from and to the graphical interface  
             ConsoleFormat.ConsoleInformationFormat(ConsoleTitleFormatConst.MAIN, "Begin Booting Sequence", true);
 
+            /// Creation of link between projects
+
+            msgDecoder.OnCorrectChecksumReceivedEvent += msgProcessor.MessageProcessor; // Obligatory
+
+
+            #region Console
             msgDecoder.OnMessageDecoderCreatedEvent += ConsoleFormat.PrintMessageDecoderCreated;
             msgEncoder.OnMessageEncoderCreatedEvent += ConsoleFormat.PrintMessageEncoderCreated;
             msgGenerator.OnMessageGeneratorCreatedEvent += ConsoleFormat.PrintMessageProcessorCreated;
-            msgProcessor.OnMessageProcessorCreatedEvent += ConsoleFormat.PrintMessageGeneratorCreated;
-
-            
-            #region Communication 
+            msgProcessor.OnMessageProcessorCreatedEvent += ConsoleFormat.PrintMessageGeneratorCreated;            
+       
 
             #region Serial Viewer
             if (serial_viewer)
@@ -133,8 +137,7 @@ namespace ConsoleRobot
             #endregion //End region Communication
             #endregion //End region Event
 
-            bool isSerialConnected = serial.AutoConnectionSerial();
-            msgDecoder.OnCorrectChecksumReceivedEvent += msgProcessor.MessageProcessor; // Obligatory
+            bool isSerialConnected = serial.AutoConnectionSerial();           
 
             ConsoleFormat.ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MAIN, "End  Booting Sequence", true);
             Console.ReadKey();
