@@ -19,43 +19,43 @@ namespace MessageProcessor
         {
             switch (e.msgFunction)
             {
-                case (ushort)Enums.Functions.CHECK_INSTRUCTION_ROBOT_TO_GUI:
+                case (ushort)Functions.CHECK_INSTRUCTION_ROBOT_TO_GUI:
                     OnCheckInstructionReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.LED_ROBOT_TO_GUI:
+                case (ushort)Functions.LED_ROBOT_TO_GUI:
                     OnLEDMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.TELEMETER_ROBOT_TO_GUI:
+                case (ushort)Functions.TELEMETER_ROBOT_TO_GUI:
                     OnIRMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_CONSIGNE_ROBOT_TO_GUI:
+                case (ushort)Functions.MOTOR_CONSIGNE_ROBOT_TO_GUI:
                     OnMotorConsigneMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_MEASURED_ROBOT_TO_GUI:
+                case (ushort)Functions.MOTOR_MEASURED_ROBOT_TO_GUI:
                     OnMotorMeasuredMeassgeReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MOTOR_ERROR_ROBOT_TO_GUI:
+                case (ushort)Functions.MOTOR_ERROR_ROBOT_TO_GUI:
                     OnMotorErrorMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.ROBOT_STATE_ROBOT_TO_GUI:
+                case (ushort)Functions.ROBOT_STATE_ROBOT_TO_GUI:
                     OnStateMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MANUAL_CONTROL_ROBOT_TO_GUI:
+                case (ushort)Functions.MANUAL_CONTROL_ROBOT_TO_GUI:
                     OnManualControlStateReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.POSITION_DATA_ROBOT_TO_GUI:
+                case (ushort)Functions.POSITION_DATA_ROBOT_TO_GUI:
                     OnPositionMessageReceived(e);
                     break;
 
-                case (ushort)Enums.Functions.MESSAGE_ROBOT_TO_GUI:
+                case (ushort)Functions.MESSAGE_ROBOT_TO_GUI:
                     OnTextMessageReceived(e);
                     break;
 

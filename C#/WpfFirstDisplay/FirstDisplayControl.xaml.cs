@@ -115,7 +115,7 @@ namespace WpfFirstDisplay
 
         private readonly KeyboardHookListener m_KeyboardHookManager;
 
-        Enums.AsservissementMode asservissementMode = Enums.AsservissementMode.Disabled;
+        AsservissementMode asservissementMode = AsservissementMode.Disabled;
         #endregion
 
         public FirstDisplayControl()
@@ -240,13 +240,13 @@ namespace WpfFirstDisplay
             LabelTitre.Content += titre;
         }
 
-        public void SetAsservissementMode(Enums.AsservissementMode mode)
+        public void SetAsservissementMode(AsservissementMode mode)
         {
             asservissementMode = mode;
 
             switch (asservissementMode)
             {
-                case Enums.AsservissementMode.Disabled:
+                case AsservissementMode.Disabled:
                     LabelConsigneX.Visibility = Visibility.Hidden;
                     LabelConsigneTheta.Visibility = Visibility.Hidden;
                     LabelErreurX.Visibility = Visibility.Hidden;
@@ -275,7 +275,7 @@ namespace WpfFirstDisplay
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
                     break;
-                case Enums.AsservissementMode.Polar:
+                case AsservissementMode.Polar:
                     LabelConsigneX.Visibility = Visibility.Visible;
                     LabelConsigneTheta.Visibility = Visibility.Visible;
                     LabelErreurX.Visibility = Visibility.Visible;
@@ -304,7 +304,7 @@ namespace WpfFirstDisplay
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
                     break;
-                case Enums.AsservissementMode.Independant:
+                case AsservissementMode.Independant:
                     LabelConsigneX.Visibility = Visibility.Hidden;
                     LabelConsigneTheta.Visibility = Visibility.Hidden;
                     LabelErreurX.Visibility = Visibility.Hidden;
@@ -604,7 +604,7 @@ namespace WpfFirstDisplay
         #region Update Robot Informations
         public void UpdateCheckInstruction(object receiver, MessageByteArgs e)
         {
-            LabelInformationReceived.Content = (((Enums.Functions)e.msgFunction).ToString("N2"));
+            LabelInformationReceived.Content = (((Functions)e.msgFunction).ToString("N2"));
         }
 
         public void UpdateTelematersValues(object receiver, IRMessageArgs e)
@@ -636,7 +636,7 @@ namespace WpfFirstDisplay
         }
         public void UpdateRobotStateAndTimestamp(object receiver, StateMessageArgs e)
         {
-            LabelRobotState.Content = (((Enums.Functions)e.state).ToString("N2"));
+            LabelRobotState.Content = (((Functions)e.state).ToString("N2"));
             timestampList.Enqueue(e.time);
         }
         public void UpdateManualControl(object receiver, StateAutoControlMessageArgs e)
@@ -696,23 +696,23 @@ namespace WpfFirstDisplay
                 switch (e.KeyCode)
                 {
                     case Keys.Left:
-                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE);
+                        OnSetRobotStateFromInterfaceGenerate((ushort)stateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE);
                         break;
 
                     case Keys.Right:
-                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_TOURNE_SUR_PLACE_DROITE);
+                        OnSetRobotStateFromInterfaceGenerate((ushort)stateRobot.STATE_TOURNE_SUR_PLACE_DROITE);
                         break;
 
                     case Keys.Up:
-                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_AVANCE);
+                        OnSetRobotStateFromInterfaceGenerate((ushort)stateRobot.STATE_AVANCE);
                         break;
 
                     case Keys.Down:
-                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_RECULE);
+                        OnSetRobotStateFromInterfaceGenerate((ushort)stateRobot.STATE_RECULE);
                         break;
 
                     case Keys.PageDown:
-                        OnSetRobotStateFromInterfaceGenerate((ushort)Enums.stateRobot.STATE_ARRET);
+                        OnSetRobotStateFromInterfaceGenerate((ushort)stateRobot.STATE_ARRET);
                         break;
                 }
             }
@@ -741,7 +741,7 @@ namespace WpfFirstDisplay
         public event EventHandler<StateMessageArgs> OnSetRobotStateFromInterfaceGenerateEvent;
         public void OnSetRobotStateFromInterfaceGenerate(ushort robotState)
         {
-            LabelInformationSent.Content = (((Enums.Functions)robotState).ToString("N2"));
+            LabelInformationSent.Content = (((Functions)robotState).ToString("N2"));
             OnSetRobotStateFromInterfaceGenerateEvent?.Invoke(this, new StateMessageArgs(robotState));
         }
 

@@ -27,12 +27,12 @@ namespace MessageGenerator
         public void GenerateMessageLEDSetStateConsigneToRobot(object sender, LEDMessageArgs e)
         {
             byte[] payload = new byte[] { (byte)e.LEDNumber, (byte)(e.LEDState ? 0x00 : 0x01) };
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.LED_GUI_TO_ROBOT, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.LED_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageMotorSetSpeedToRobot(object sender, MotorMessageArgs e)
         {
-            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT]];
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Functions.MOTOR_GUI_TO_ROBOT]];
             if (100 >= e.leftMotor && e.leftMotor <= -100)
             {
                 payload[0] = (byte)e.leftMotor;
@@ -49,35 +49,35 @@ namespace MessageGenerator
             {
                 payload[1] = (byte)((e.rightMotor > 0) ? 100 : -100);
             }
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.MOTOR_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageSetStateToRobot(object sender, StateMessageArgs e)
         {
             byte[] payload = new byte[] { (byte)e.state };
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.ROBOT_STATE_GUI_TO_ROBOT, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.ROBOT_STATE_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageSetAutoControlStateToRobot (object sender, StateAutoControlMessageArgs e)
         {
             byte[] payload = new byte[] { Convert.ToByte(e.stateAutoControl) };
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.MANUAL_CONTROL_GUI_TO_ROBOT, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.MANUAL_CONTROL_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageSetPositionToRobot (object sender, SetPositionMessageArgs e)
         {
-            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.POSITION_DATA_GUI_TO_ROBOT]];
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Functions.POSITION_DATA_GUI_TO_ROBOT]];
             int pos = 0;
             payload[pos++] = Convert.ToByte(e.xPos);
             payload[pos++] = Convert.ToByte(e.yPos);
             payload[pos++] = Convert.ToByte(e.angleRadian);
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.RESET_POSITION_GUI_TO_ROBOT, payload);
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.RESET_POSITION_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageResetPositionToRobot(object sender, EventArgs e)
         {
-            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Enums.Functions.RESET_POSITION_GUI_TO_ROBOT]];
-            msgEncoder.UartEncodeAndSendMessage((ushort)Enums.Functions.RESET_POSITION_GUI_TO_ROBOT, payload);
+            byte[] payload = new byte[Dictionary.PayloadLengthOfFunctions[(ushort)Functions.RESET_POSITION_GUI_TO_ROBOT]];
+            msgEncoder.UartEncodeAndSendMessage((ushort)Functions.RESET_POSITION_GUI_TO_ROBOT, payload);
         }
 
         public void GenerateMessageTextToRobot(object sender, TextMessageArgs e)

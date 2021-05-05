@@ -71,7 +71,7 @@ namespace MessageEncoder
 
             byte[] msg = new byte[6 + msgPayload.Length];
             ushort i;
-            msg[0] = Constants.Consts.SOF;
+            msg[0] = Consts.SOF;
             msg[1] = functionMSB;
             msg[2] = functionMSB;
             msg[3] = payloadLenghtMSB;
@@ -117,13 +117,13 @@ namespace MessageEncoder
             OnSendMessageEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLength, msgPayload, checksum));
             switch (msgFunction)
             {
-                case (ushort)Enums.Functions.LED_GUI_TO_ROBOT:
+                case (ushort)Functions.LED_GUI_TO_ROBOT:
                     OnSetLEDState(msgPayload[0], msgPayload[1] == 0x00 ? false : true);
                     break;
-                case (ushort)Enums.Functions.MOTOR_GUI_TO_ROBOT:
+                case (ushort)Functions.MOTOR_GUI_TO_ROBOT:
                     OnMotorSetSpeed((sbyte)msgPayload[0], (sbyte)msgPayload[1]);
                     break;
-                case (ushort)Enums.Functions.ROBOT_STATE_GUI_TO_ROBOT:
+                case (ushort)Functions.ROBOT_STATE_GUI_TO_ROBOT:
                     OnSetState(msgPayload[0]);
                     break;
             }
