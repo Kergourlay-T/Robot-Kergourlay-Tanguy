@@ -28,7 +28,7 @@ namespace WpfFirstDisplay
     /// Logique d'interaction pour UserControl1.xaml
     /// </summary>
     /// 
-    public partial class FirstDisplayControl : System.Windows.Controls.UserControl
+    public partial class FirstDisplayControl : Window
     {
         #region Attributes
         int queueSize = 1;
@@ -121,7 +121,7 @@ namespace WpfFirstDisplay
         public FirstDisplayControl()
         {
             InitializeComponent();
-            SetTitle(asservissementMode.ToString("N2"));
+            SetTitle(asservissementMode.ToString());
 
             commandXList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandYList = new Utilities.FixedSizedQueue<double>(queueSize);
@@ -659,22 +659,22 @@ namespace WpfFirstDisplay
                 TextBoxEmission.Text = "";
             }
         }
-        private void OnCheckBoxLED1StateChange(object sender, EventArgs e)
+        private void OnCheckBoxLED1CheckChange(object sender, EventArgs e)
         {
             if (CheckBoxLED1.IsChecked != currentLED1State)
                 OnSetLEDStateFromInterfaceGenerate(1, !currentLED1State);
         }
-        private void OnCheckBoxLED2StateChange(object sender, EventArgs e)
+        private void OnCheckBoxLED2CheckChange(object sender, EventArgs e)
         {
             if (CheckBoxLED2.IsChecked != currentLED2State)
                 OnSetLEDStateFromInterfaceGenerate(2, !currentLED2State);
         }
-        private void OnCheckBoxLED3StateChange(object sender, EventArgs e)
+        private void OnCheckBoxLED3CheckChange(object sender, EventArgs e)
         {
             if (CheckBoxLED3.IsChecked != currentLED3State)
                 OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
         }
-        private void OnCheckBoxAutoControlStateChange(object sender, EventArgs e)
+        private void OnCheckBoxAutoControlSCheckChange(object sender, EventArgs e)
         {
             if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
                 OnSetAutoControlStateFromInterfaceGenerate(!currentAutoControlState);
@@ -689,6 +689,12 @@ namespace WpfFirstDisplay
         {
             OnResetPositionFromInterfaceGenerate();
         }
+
+        private void OnButtonClearClick (object sender, RoutedEventArgs e)
+        {
+            TextBoxReception.Text = "";
+        }
+
         private void KeyboardHookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (currentAutoControlState == false)

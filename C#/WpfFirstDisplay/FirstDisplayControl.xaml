@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfFirstDisplay.FirstDisplayControl"
+﻿<Window x:Class="WpfFirstDisplay.FirstDisplayControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:WpfFirstDisplay"
              mc:Ignorable="d">
 
+    
     <Border BorderBrush="#AAAAAA" BorderThickness="1">
-        <Grid >
+        <Grid x:Name="Background" Background="Black"  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="0.4*"></RowDefinition>
@@ -536,7 +537,7 @@
                 <Label x:Name="LabelInformationReceived" Content="0"  Grid.Row="1" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelRobotState" Content="0" Grid.Row="2" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelTimestamp" Content="0" Grid.Row="3" Foreground="White" Margin="0" Padding="0"/>
-                <TextBox x:Name="TextBoxCheckMessageReceived" Grid.Row="4" Margin="0" TextWrapping="Wrap" Text="" TextChanged="OnTextBoxEmissionTextChanged" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" />
+                <TextBox x:Name="TextBoxCheckMessageReceived" Grid.Row="4" Margin="0" TextWrapping="Wrap" Text="" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" />
             </Grid>
 
             <Grid x:Name="ButtonsGrid" Grid.Column="7" MinWidth="50" Grid.Row="2">
@@ -550,7 +551,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="buttonEnvoyer" Content="Clear"  Grid.Row="0" Margin="0" Background="White" Click="OnButtonEnvoyerClick"/>
+                <Button x:Name="buttonClear" Content="Clear"  Grid.Row="0" Margin="0" Background="White" Click="OnButtonClearClick"/>
                 <Button x:Name="buttonTest" Content="Test"  Grid.Row="2" Margin="0"  Background="White" Click="OnButtonTestClick" />
                 <Button x:Name="buttonReset" Content="Reset"  Grid.Row="4" Margin="0" Background="White" Click="OnButtonResetClick"/>
             </Grid>
@@ -560,7 +561,7 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <GroupBox x:Name="Emission" Header="Emission" Foreground="White" Margin="0" Background="black" BorderBrush="Black" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="4">
-                    <TextBox x:Name="TextBoxEmission" Margin="0" TextWrapping="Wrap" Text="" TextChanged="OnTextBoxEmissionTextChanged" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" KeyUp="OnTextBoxEmissionKeyUp"/>
+                    <TextBox x:Name="TextBoxEmission" Margin="0" TextWrapping="Wrap" Text=""  Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" KeyUp="OnTextBoxEmissionKeyUp"/>
                 </GroupBox>
             </Grid>
 
@@ -569,10 +570,10 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <GroupBox x:Name="Reception" Header="Reception" Foreground="White" Margin="0" Background="Black" BorderBrush="Black" Grid.Row="1" Grid.RowSpan="4" >
-                    <TextBox x:Name="TextBoxReception" Margin="0" TextWrapping="Wrap" Text="" TextChanged="OnTextBoxRexeptionTextChanged" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"  />
+                    <TextBox x:Name="TextBoxReception" Margin="0" TextWrapping="Wrap" Text=""  Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"  />
                 </GroupBox>
             </Grid>
 
         </Grid>
     </Border>
-</UserControl>
+</Window>
