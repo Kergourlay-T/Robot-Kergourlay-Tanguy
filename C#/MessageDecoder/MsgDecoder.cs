@@ -41,19 +41,6 @@ namespace MessageDecoder
         private static byte msgChecksum;
 
         private static int msg_payload_index = 0;
-        private static byte CalculateChecksum()
-        {
-            byte checksum = Consts.SOF;
-            checksum ^= functionMSB;
-            checksum ^= functionLSB;
-            checksum ^= payloadLenghtMSB;
-            checksum ^= payloadLenghtLSB;
-            foreach (byte b in msgPayload)
-            {
-                checksum ^= b;
-            }
-            return checksum;
-        }
 
         public void ByteReceived(byte b)
         {
@@ -224,6 +211,20 @@ namespace MessageDecoder
             }
             actualState = State.Waiting;
             OnChecksumByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
+        }
+
+        private static byte CalculateChecksum()
+        {
+            byte checksum = Consts.SOF;
+            checksum ^= functionMSB;
+            checksum ^= functionLSB;
+            checksum ^= payloadLenghtMSB;
+            checksum ^= payloadLenghtLSB;
+            foreach (byte b in msgPayload)
+            {
+                checksum ^= b;
+            }
+            return checksum;
         }
         public virtual void OnCorrectChecksumReceived()
         {
