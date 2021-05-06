@@ -15,26 +15,20 @@ using WpfFirstDisplay;
 using Constants;
 using ConsoleRobot;
 
+
 namespace ConsoleRobot
 {
     class Program
     {
-        public static serial serial;
-        public static MsgDecoder msgDecoder;
-        public static MsgEncoder msgEncoder;
-        public static MsgGenerator msgGenerator;
-        public static MsgProcessor msgProcessor;
-        public static FirstDisplayControl interfaceRobot;
+        #region Attributes
+        static serial serial;
+        static MsgDecoder msgDecoder;
+        static MsgEncoder msgEncoder;
+        static MsgGenerator msgGenerator;
+        static MsgProcessor msgProcessor;
+        static FirstDisplayControl interfaceRobot;
 
         static object ExitLock = new object();
-        public Program()
-        {
-            serial serial = new serial();
-            MsgDecoder msgDecoder = new MsgDecoder();
-            MsgEncoder msgEncoder = new MsgEncoder();
-            MsgGenerator msgGenerator = new MsgGenerator();
-            MsgProcessor msgProcessor = new MsgProcessor();
-        }
 
         private static bool serial_viewer = true;
         private static bool hex_viewer = true;
@@ -43,8 +37,17 @@ namespace ConsoleRobot
         private static bool hex_error_sender = true;
         private static bool function_received = true;
 
+        #endregion
+
         static void Main()
         {
+            msgDecoder = new MsgDecoder();
+            msgEncoder = new MsgEncoder();
+            msgGenerator = new MsgGenerator();
+            msgProcessor = new MsgProcessor();
+            serial = new serial();
+
+
             #region Assign Events
             /// Creation of links between modules, except from and to the graphical interface  
             ConsoleFormat.ConsoleInformationFormat(ConsoleTitleFormatConst.MAIN, "Begin Booting Sequence", true);
@@ -64,13 +67,13 @@ namespace ConsoleRobot
             #region Serial Viewer
             if (serial_viewer)
             {
-                serial.OnSerialConnectedEvent += ConsoleFormat.PrintNoConnectionAvailableToCOM;
+                serial.OnSerialConnectedEvent += ConsoleFormat.PrintConnectionAvailableToCOM;
                 serial.OnAutoConnectionLaunchedEvent += ConsoleFormat.PrintAutoConnectionStarted;
                 serial.OnNewCOMAttemptEvent += ConsoleFormat.PrintSerialAttemptConnectionToCOM;
                 serial.OnCOMAvailableListEvent += ConsoleFormat.PrintListOfAvailableCOM;
-                serial.OnWrongCOMAvailableEvent += ConsoleFormat.PrintAvailableCOM;
+                serial.OnWrongCOMAvailableEvent += ConsoleFormat.PrintWrongCOM;
                 serial.OnCorrectCOMAvailableEvent += ConsoleFormat.PrintRigthCOM;
-                serial.OnCOMAvailableEvent += ConsoleFormat.PrintWrongCOM;
+                serial.OnCOMAvailableEvent += ConsoleFormat.PrintAvailableCOM;
                 serial.OnNoConnectionAvailablEvent += ConsoleFormat.PrintNoConnectionAvailableToCOM;
                 serial.OnErrorWhileWhileAttemptingCOMEvent += ConsoleFormat.PrintErrorWhileAttemptingCOM;
             }
@@ -139,11 +142,9 @@ namespace ConsoleRobot
             #endregion //End region Event
 
             bool isSerialConnected = serial.AutoConnectionSerial();
-
+            StartRobotInterface();
             ConsoleFormat.ConsoleInformationFormat(Constants.ConsoleTitleFormatConst.MAIN, "End  Booting Sequence", true);
             Console.ReadKey();
-
-            StartRobotInterface();
 
             while (!exitSystem)
             {

@@ -84,7 +84,7 @@ namespace ConsoleRobot
         }
         static public void PrintAvailableCOM(object sender, COMEventArgs e)
         {
-            ConsoleInformationFormat(ConsoleTitleFormatConst.SERIAL, "- COM " + e.COM);
+            ConsoleInformationFormat(ConsoleTitleFormatConst.SERIAL, "- " + e.COM);
         }
         static public void PrintSerialAttemptConnectionToCOM(object sender, AttemptsEventArgs e)
         {
@@ -92,14 +92,17 @@ namespace ConsoleRobot
         }
         static public void PrintRigthCOM(object sender, COMEventArgs e)
         {
+            ResetConsoleCursorAndConsoleColor();
             ConsoleListFormat(e.COM, ConsoleColor.Green);
         }
         static public void PrintWrongCOM(object sender, COMEventArgs e)
         {
+            ResetConsoleCursorAndConsoleColor();
             ConsoleListFormat(e.COM, ConsoleColor.Red);
         }
         static public void PrintNoConnectionAvailableToCOM(object sender, EventArgs e)
         {
+
             ConsoleInformationFormat(ConsoleTitleFormatConst.SERIAL, "No connection enable", false);
         }
         static public void PrintConnectionAvailableToCOM(object sender, COMEventArgs e)

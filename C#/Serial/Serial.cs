@@ -14,14 +14,14 @@ namespace Serial
     public class serial
     {
         #region Attributes
-        public static ReliableSerialPort serialPort;
-        public static MsgDecoder msgDecoder;
+        public  static ReliableSerialPort serialPort;
+        public  MsgDecoder msgDecoder;
         #endregion
 
         #region Constructor 
         public serial()
         {
-            MsgDecoder msgDecoder = new MsgDecoder();
+            msgDecoder = new MsgDecoder();
         }
         #endregion
 
@@ -44,7 +44,7 @@ namespace Serial
                 {
                     OnNoConnectionAvailable();
                 }
-
+                System.Threading.Thread.Sleep((int)timestamp); // Not Good 
             } while (serialPort == null && i < trial_max);
             return (serialPort != null);
         }
@@ -108,11 +108,12 @@ namespace Serial
             serialPort.Open();
             OnSerialConnectedEvent?.Invoke(this, new COMEventArgs(COM));
         }
+
         public void SerialPort_DataReceived(object sender, DataReceivedArgs e)
         {
-            for (int i = 0; i < e.Data.Length; i++)
+            foreach (byte b in e.Data)
             {
-                msgDecoder.ByteReceived(e.Data[i]);
+                msgDecoder.ByteReceived(b);
             }
         }
 
