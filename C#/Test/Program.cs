@@ -20,6 +20,7 @@ namespace ConsoleRobot
 {
     class Program
     {
+        #region Attributes
         static serial serial;
         static MsgDecoder msgDecoder;
         static MsgEncoder msgEncoder;
@@ -35,6 +36,8 @@ namespace ConsoleRobot
         private static bool hex_sender = true;
         private static bool hex_error_sender = true;
         private static bool function_received = true;
+
+        #endregion
 
         static void Main()
         {

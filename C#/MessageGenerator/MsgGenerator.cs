@@ -12,11 +12,11 @@ namespace MessageGenerator
 {
     public class MsgGenerator
     {
-        public static MsgEncoder msgEncoder;
+        public MsgEncoder msgEncoder;
         public MsgGenerator()
         {
             OnMessageGeneratorCreated();
-            MsgEncoder msgEncoder = new MsgEncoder();
+            msgEncoder = new MsgEncoder();
         }
         public event EventHandler<EventArgs> OnMessageGeneratorCreatedEvent;
         public virtual void OnMessageGeneratorCreated()

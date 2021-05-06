@@ -12,6 +12,7 @@ namespace MessageEncoder
 {
     public class MsgEncoder
     {
+
         public MsgEncoder()
         {
             OnMessageEncoderCreated();

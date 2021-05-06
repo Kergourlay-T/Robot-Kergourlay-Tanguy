@@ -14,8 +14,8 @@ namespace Serial
     public class serial
     {
         #region Attributes
-        public static ReliableSerialPort serialPort;
-        public static MsgDecoder msgDecoder;
+        public  static ReliableSerialPort serialPort;
+        public  MsgDecoder msgDecoder;
         #endregion
 
         #region Constructor 
