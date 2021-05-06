@@ -274,6 +274,17 @@ namespace WpfFirstDisplay
                     LabelCorrIM2.Visibility = Visibility.Hidden;
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
+
+                    LabelInformationReceived.Visibility = Visibility.Visible;
+                    LabelInformationSent.Visibility = Visibility.Visible;
+                    LabelIRLeftEnd.Visibility = Visibility.Visible;
+                    LabelIRLeft.Visibility = Visibility.Visible;
+                    LabelIRCenter.Visibility = Visibility.Visible;
+                    LabelIRRigth.Visibility = Visibility.Visible;
+                    LabelIRRigthEnd.Visibility = Visibility.Visible;
+                    LabelTimestamp.Visibility = Visibility.Visible;
+                    LabelRobotState.Visibility = Visibility.Visible;
+
                     break;
                 case AsservissementMode.Polar:
                     LabelConsigneX.Visibility = Visibility.Visible;
@@ -303,6 +314,16 @@ namespace WpfFirstDisplay
                     LabelCorrIM2.Visibility = Visibility.Hidden;
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
+
+                    LabelInformationReceived.Visibility = Visibility.Visible;
+                    LabelInformationSent.Visibility = Visibility.Visible;
+                    LabelIRLeftEnd.Visibility = Visibility.Visible;
+                    LabelIRLeft.Visibility = Visibility.Visible;
+                    LabelIRCenter.Visibility = Visibility.Visible;
+                    LabelIRRigth.Visibility = Visibility.Visible;
+                    LabelIRRigthEnd.Visibility = Visibility.Visible;
+                    LabelTimestamp.Visibility = Visibility.Visible;
+                    LabelRobotState.Visibility = Visibility.Visible;
                     break;
                 case AsservissementMode.Independant:
                     LabelConsigneX.Visibility = Visibility.Hidden;
@@ -332,6 +353,16 @@ namespace WpfFirstDisplay
                     LabelCorrIM2.Visibility = Visibility.Visible;
                     LabelCorrDM1.Visibility = Visibility.Visible;
                     LabelCorrDM2.Visibility = Visibility.Visible;
+
+                    LabelInformationReceived.Visibility = Visibility.Visible;
+                    LabelInformationSent.Visibility = Visibility.Visible;
+                    LabelIRLeftEnd.Visibility = Visibility.Visible;
+                    LabelIRLeft.Visibility = Visibility.Visible;
+                    LabelIRCenter.Visibility = Visibility.Visible;
+                    LabelIRRigth.Visibility = Visibility.Visible;
+                    LabelIRRigthEnd.Visibility = Visibility.Visible;
+                    LabelTimestamp.Visibility = Visibility.Visible;
+                    LabelRobotState.Visibility = Visibility.Visible;
                     break;
             }
         }
@@ -464,10 +495,10 @@ namespace WpfFirstDisplay
             if (IRRigthEndList.Count > 0)
             {
                 LabelIRRigthEnd.Content = IRRigthEndList.Average().ToString("N2");
-                LabelIRigth.Content = IRRigthList.Average().ToString("N2");
+                LabelIRRigth.Content = IRRigthList.Average().ToString("N2");
                 LabelIRCenter.Content = IRCenterList.Average().ToString("N2");
                 LabelIRLeft.Content = IRLeftList.Average().ToString("N2");
-                LabelIRLeftCenter.Content = IRLeftEndList.Average().ToString("N2");
+                LabelIRLeftEnd.Content = IRLeftEndList.Average().ToString("N2");
             }
 
             if (timestampList.Count > 0)

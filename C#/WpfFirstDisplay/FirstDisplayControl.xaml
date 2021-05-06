@@ -498,10 +498,10 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="LabelIRRigthEnd" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
-                <Label x:Name="LabelIRigth" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
+                <Label x:Name="LabelIRRigth" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelIRCenter" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
                 <Label x:Name="LabelIRLeft" Grid.Row="3" Content="0" Foreground="White" Margin="0" Padding="0"/>
-                <Label x:Name="LabelIRLeftCenter" Grid.Row="4" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
+                <Label x:Name="LabelIRLeftEnd" Grid.Row="4" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
 
             <Grid x:Name="LEDGrid" Grid.Column="3" MinWidth="50" Grid.Row="2">
