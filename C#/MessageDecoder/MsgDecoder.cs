@@ -138,7 +138,7 @@ namespace MessageDecoder
             functionLSB = e;
             msgFunction += (ushort)(e << 0);
             OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (Dictionary.PayloadLengthOfFunctions[msgFunction] != -2)
+            if (Dictionary.PayloadLengthOfFunctions.ContainsKey(msgFunction))
             {
                 actualState = State.PayloadLengthMSB;
             }
@@ -164,18 +164,15 @@ namespace MessageDecoder
             if (msgPayloadLenght <= Consts.MAX_MSG_LENGTH)
             {
                 short PayloadLengthTest = Dictionary.PayloadLengthOfFunctions[msgFunction];
-                if (PayloadLengthTest != -1)
+                if (PayloadLengthTest == -1 || PayloadLengthTest == msgPayloadLenght)
                 {
-                    if (PayloadLengthTest == -1 || PayloadLengthTest == msgPayloadLenght)
-                    {
-                        actualState = State.CheckSum;
-                        msg_payload_index = 0;
-                        byte[] msgPayload = new byte[msgPayloadLenght];
-                    }
-                    else
-                    {
-                        OnWrongLenght();
-                    }
+                    actualState = State.CheckSum;
+                    msg_payload_index = 0;
+                    msgPayload = new byte[msgPayloadLenght];
+                }
+                else
+                {
+                    OnWrongLenght();
                 }
             }
             else
