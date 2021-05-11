@@ -6,7 +6,6 @@ unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[5];
 unsigned char ADCConversionFinishedFlag;
 
-
 /************************** Configuration ADC *********************************/
 
 
@@ -78,6 +77,7 @@ void __attribute__((interrupt, no_auto_psv)) _AD1Interrupt(void) {
     ADCResult[2] = ADC1BUF2; // Read the AN11 conversion result  // centre
     ADCResult[3] = ADC1BUF3; // Read the AN15 conversion result   //extremite gauche
     ADCResult[4] = ADC1BUF4; // Read the AN5 conversion result  //gauche
+    ADCConversionLoop();
     ADCConversionFinishedFlag = 1;
 }
 

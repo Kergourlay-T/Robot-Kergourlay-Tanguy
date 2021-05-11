@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "CB_TX1.h"
+#include "IO.h"
 #define CBTX1_BUFFER_SIZE 128
 
 int cbTx1Head;
@@ -54,6 +55,7 @@ void SendOne() {
     isTransmitting = 1;
     unsigned char value = CB_TX1_Get();
     U1TXREG = value; // Transmit one character
+    LED_ORANGE = !LED_ORANGE;
 }
 
 unsigned char CB_TX1_IsTranmitting(void) {

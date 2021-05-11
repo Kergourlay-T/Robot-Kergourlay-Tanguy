@@ -26,21 +26,21 @@ void GenerateMotorConsigneMessage() {
     unsigned char payload[8];
     getBytesFromFloat(payload, 0, (float) (robotState.vitesseDroiteConsigne));
     getBytesFromFloat(payload, 4, (float) (robotState.vitesseGaucheConsigne));   
-    UartEncodeAndSendMessage(MOTOR_CONSIGNE_ROBOT_TO_GUI_LENGTH , 8, payload);
+    UartEncodeAndSendMessage(MOTOR_CONSIGNE_ROBOT_TO_GUI , 8, payload);
 }
 
 void GenerateMotorMeasuredMessage() {
     unsigned char payload[8];
     getBytesFromFloat(payload, 0, (float) (robotState.vitesseDroiteCommandeCourante));
     getBytesFromFloat(payload, 4, (float) (robotState.vitesseGaucheCommandeCourante));
-    UartEncodeAndSendMessage(MOTOR_MEASURED_ROBOT_TO_GUI_LENGTH, 8, payload);
+    UartEncodeAndSendMessage(MOTOR_MEASURED_ROBOT_TO_GUI, 8, payload);
 }
 
 void GenerateMotorErrordMessage() {
     unsigned char payload[8];
     getBytesFromFloat(payload, 0, (float) (robotState.vitesseDroiteErreure));
     getBytesFromFloat(payload, 8, (float) (robotState.vitesseGaucheErreure));
-    UartEncodeAndSendMessage(MOTOR_ERROR_ROBOT_TO_GUI_LENGTH, 8, payload);
+    UartEncodeAndSendMessage(MOTOR_ERROR_ROBOT_TO_GUI, 8, payload);
 }
 
 void GenerateRobotStateMessage(unsigned char stateRobot) {

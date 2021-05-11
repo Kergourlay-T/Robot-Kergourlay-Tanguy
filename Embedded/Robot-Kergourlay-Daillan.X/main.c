@@ -25,8 +25,8 @@ int main(void) {
     LED_ORANGE = 0;
 
     /**************** Initialisation des timers *******************************/
-    InitTimer1(300);
-    InitTimer4(100);
+    InitTimer1();
+    InitTimer4();
     
     /**************** Initialisation de la PWM ********************************/
     InitPWM();
@@ -40,7 +40,8 @@ int main(void) {
     /**************** Initialisation des modules QEI **************************/
     InitQEI1();
     InitQEI2();
-
+    QEIReset();
+    
     /**************** Boucle Principale ***************************************/
     while (1) {
         unsigned char i;

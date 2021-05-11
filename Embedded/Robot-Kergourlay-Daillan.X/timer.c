@@ -33,10 +33,18 @@ void __attribute__((interrupt, no_auto_psv))_T3Interrupt(void) {
 }
 
 /****************** Configuration Timer1 **************************************/
-void InitTimer1(float freq) {
+void InitTimer1() {
+    timestamp = 0;
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
+    SetFreqTimer1(FREQ_ECH_QEI);
+    T1CONbits.TCS = 0; //clock source = internal clock
+    IFS0bits.T1IF = 0; // Clear Timer Interrupt Flag
+    IEC0bits.T1IE = 1; // Enable Timer interrupt
+    T1CONbits.TON = 1; // Enable Timer
+}
 
+void SetFreqTimer1(float freq) {
     T1CONbits.TCKPS = 0b00; //00 = 1:1 prescaler value
     if (FCY / freq > 65535) {
         T1CONbits.TCKPS = 0b01; //01 = 1:8 prescaler value
@@ -51,10 +59,6 @@ void InitTimer1(float freq) {
             PR1 = (int) (FCY / freq / 8);
     } else
         PR1 = (int) (FCY / freq);
-    T1CONbits.TCS = 0; // clocksource = internalclock
-    IFS0bits.T1IF = 0; // Clear Timer Interrupt Flag
-    IEC0bits.T1IE = 1; // Enable Timer interrupt
-    T1CONbits.TON = 1; // Enable Timer
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
@@ -63,12 +67,21 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     PWMUpdateSpeed();
     QEIUpdateData();
     //PWMSetSpeedConsignePolaire();
+    LED_BLANCHE = !LED_BLANCHE;
 }
 
 /****************** Configuration Timer4 **************************************/
-void InitTimer4(float freq) {
+void InitTimer4() {
+    //Timer4 pour envoyer les messages
     T4CONbits.TON = 0; // Disable Timer
+    SetFreqTimer4(25.00f);
+    T4CONbits.TCS = 0; //clock source = internal clock
+    IFS1bits.T4IF = 0; // Clear Timer Interrupt Flag
+    IEC1bits.T4IE = 1; // Enable Timer interrupt
+    T4CONbits.TON = 1; // Enable Timer
+}
 
+void SetFreqTimer4(float freq) {
     T4CONbits.TCKPS = 0b00; //00 = 1:1 prescaler value
     if (FCY / freq > 65535) {
         T4CONbits.TCKPS = 0b01; //01 = 1:8 prescaler value
@@ -83,16 +96,11 @@ void InitTimer4(float freq) {
             PR4 = (int) (FCY / freq / 8);
     } else
         PR4 = (int) (FCY / freq);
-    T4CONbits.TCS = 0; // clocksource = internalclock
-    IFS1bits.T4IF = 0; // Clear Timer Interrupt Flag
-    IEC1bits.T4IE = 1; // Enable Timer interrupt
-    T4CONbits.TON = 1; // Enable Timer
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
-    ADCConversionLoop();
     OperatingSystemLoop();
 
     if (subSamplingCounterT4++ % 10 == 0) {

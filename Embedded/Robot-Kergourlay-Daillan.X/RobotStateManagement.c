@@ -47,22 +47,22 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_AVANCE:
-            speedAdaptedToDistances = DetermineSpeedAdaptedToDistances();
-            if (speedAdaptedToDistances >= 30) {
-                LED_BLANCHE = 0;
-                LED_BLEUE = 1;
-                LED_ORANGE = 0;
-            } else if (speedAdaptedToDistances >= 20) {
-                LED_BLANCHE = 1;
-                LED_BLEUE = 0;
-                LED_ORANGE = 0;
-            } else if (speedAdaptedToDistances < 20) {
-                LED_BLANCHE = 0;
-                LED_BLEUE = 0;
-                LED_ORANGE = 0;
-            }
-            PWMSetSpeedConsigne(speedAdaptedToDistances, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(speedAdaptedToDistances, MOTEUR_GAUCHE);
+//            speedAdaptedToDistances = DetermineSpeedAdaptedToDistances();
+//            if (speedAdaptedToDistances >= 30) {
+//                LED_BLANCHE = 0;
+//                LED_BLEUE = 1;
+//                LED_ORANGE = 0;
+//            } else if (speedAdaptedToDistances >= 20) {
+//                LED_BLANCHE = 1;
+//                LED_BLEUE = 0;
+//                LED_ORANGE = 0;
+//            } else if (speedAdaptedToDistances < 20) {
+//                LED_BLANCHE = 0;
+//                LED_BLEUE = 0;
+//                LED_ORANGE = 0;
+//            }
+            PWMSetSpeedConsigne( 25 /*speedAdaptedToDistances*/ , MOTEUR_DROIT);
+            PWMSetSpeedConsigne(25 /*speedAdaptedToDistances*/ , MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
         case STATE_AVANCE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -72,9 +72,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(VITESSE_TOURNE, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 1;
-            LED_ORANGE = 0;
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 1;
+//            LED_ORANGE = 0;
             break;
         case STATE_TOURNE_GAUCHE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -84,9 +84,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_TOURNE, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
-            LED_BLANCHE = 0;
-            LED_BLEUE = 0;
-            LED_ORANGE = 1;
+//            LED_BLANCHE = 0;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 1;
             break;
         case STATE_TOURNE_DROITE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -95,10 +95,10 @@ void OperatingSystemLoop(void) {
         case STATE_TOURNE_SUR_PLACE_GAUCHE:
             PWMSetSpeedConsigne(VITESSE_DEMI_TOUR, MOTEUR_DROIT);
             PWMSetSpeedConsigne(-VITESSE_DEMI_TOUR, MOTEUR_GAUCHE);
-            stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 1;
-            LED_ORANGE = 1;
+//            stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 1;
+//            LED_ORANGE = 1;
             break;
         case STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -108,9 +108,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(-VITESSE_DEMI_TOUR, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_DEMI_TOUR, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 1;
-            LED_ORANGE = 1;
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 1;
+//            LED_ORANGE = 1;
             break;
         case STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -120,9 +120,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_ARRET_EN_COURS;
-            LED_BLANCHE = 0;
-            LED_BLEUE = 0;
-            LED_ORANGE = 0;
+//            LED_BLANCHE = 0;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 0;
             break;
         case STATE_ARRET_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -132,9 +132,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(VITESSE_RECULE, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_RECULE, MOTEUR_GAUCHE);
             stateRobot = STATE_RECULE_EN_COURS;
-            LED_BLANCHE = 0;
-            LED_BLEUE = 0;
-            LED_ORANGE = 0;
+//            LED_BLANCHE = 0;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 0;
             break;
         case STATE_RECULE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -144,9 +144,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_COULOIR, MOTEUR_GAUCHE);
             stateRobot = STATE_COULOIR_A_GAUCHE_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 1;
-            LED_ORANGE = 0;
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 1;
+//            LED_ORANGE = 0;
             break;
         case STATE_COULOIR_A_GAUCHE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -155,9 +155,9 @@ void OperatingSystemLoop(void) {
         case STATE_COULOIR_A_DROITE:
             PWMSetSpeedConsigne(VITESSE_COULOIR, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_GAUCHE);
-            LED_BLANCHE = 0;
-            LED_BLEUE = 0;
-            LED_ORANGE = 1;
+//            LED_BLANCHE = 0;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 1;
             stateRobot = STATE_COULOIR_A_DROITE_EN_COURS;
             break;
         case STATE_COULOIR_A_DROITE_EN_COURS:
@@ -168,10 +168,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_LEGER_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 0;
-            LED_ORANGE = 1;
-
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 1;
             break;
         case STATE_TOURNE_GAUCHE_LEGER_EN_COURS:
             SetNextRobotStateInAutomaticMode();
@@ -181,9 +180,9 @@ void OperatingSystemLoop(void) {
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
             PWMSetSpeedConsigne(VITESSE_TOURNE_LEGER, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_LEGER_EN_COURS;
-            LED_BLANCHE = 1;
-            LED_BLEUE = 0;
-            LED_ORANGE = 1;
+//            LED_BLANCHE = 1;
+//            LED_BLEUE = 0;
+//            LED_ORANGE = 1;
             break;
         case STATE_TOURNE_DROITE_LEGER_EN_COURS:
             SetNextRobotStateInAutomaticMode();
