@@ -11,5 +11,10 @@ void GenerateManualControlMessage(int manualControl);
 void GeneratePositionData(void);
 void GenerateTextMessage(unsigned char* message, unsigned int lenght); 
 
+void GenerateSpeedPolarOdometryMessage();
+void GenerateSpeedPolarGainsMessage();
+void GenerateSpeedPolarCorrectionsMessage();
+void GenerateSpeedPolarLimitGainsMessage() ;
+
 #endif	/* MSGGENERATOR_H */
 
