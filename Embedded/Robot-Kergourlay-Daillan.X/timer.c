@@ -64,8 +64,8 @@ void SetFreqTimer1(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
     ADC1StartConversionSequence();
-    PWMUpdateSpeed();
     QEIUpdateData();
+    PWMUpdateSpeed();
     //PWMSetSpeedConsignePolaire();
     LED_BLANCHE = !LED_BLANCHE;
 }
@@ -112,5 +112,9 @@ void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
         GenerateMotorMeasuredMessage();
         GenerateMotorErrordMessage();
         GeneratePositionData();
+        GenerateSpeedPolarOdometryMessage(); 
+        GenerateSpeedPolarGainsMessage(); 
+        GenerateSpeedPolarCorrectionsMessage();
+        GenerateSpeedPolarLimitGainsMessage();
     }
 }

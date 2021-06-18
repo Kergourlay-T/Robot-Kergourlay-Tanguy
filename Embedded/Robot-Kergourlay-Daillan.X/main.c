@@ -13,6 +13,7 @@
 #include "CB_RX1.h"
 #include "msgDecoder.h"
 #include "QEI.h"
+#include "Asservissement.h"
 
 int main(void) {
     /**************** Initialisation de l'oscillateur *************************/
@@ -42,6 +43,10 @@ int main(void) {
     InitQEI2();
     QEIReset();
     
+    /**************** Initialisation du correcteur PI *************************/
+//    SetUpPiAsservissementVitesseAngulaire(KuA, TuA);
+//    SetUpPiAsservissementVitesseLineaire(KuV,TuV);
+          
     /**************** Boucle Principale ***************************************/
     while (1) {
         unsigned char i;
