@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>234d01d5-83c9-4b6e-99ad-e01de57875ff</ProjectGuid>
+    <ProjectGuid>4a6a1119-0bfe-4653-9cda-0f1177c2e997</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MessageEncoder</RootNamespace>
-    <AssemblyName>MessageEncoder</AssemblyName>
+    <RootNamespace>ConsoleFormat</RootNamespace>
+    <AssemblyName>ConsoleFormat</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
