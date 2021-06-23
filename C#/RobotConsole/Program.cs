@@ -136,7 +136,7 @@ namespace RobotConsole
             msgProcessor.OnMotorErrorMessageReceivedEvent += interfaceRobot.UpdateIndependantSpeedErrorValues;
             msgProcessor.OnStateMessageReceivedEvent += interfaceRobot.UpdateRobotStateAndTimestamp;
             msgProcessor.OnManualControlStateReceivedEvent += interfaceRobot.UpdateManualControl;
-            // msgProcessor.OnPositionMessageReceivedEvent += interfaceRobot.UpdatePolarOdometrySpeed;
+            msgProcessor.OnPositionMessageReceivedEvent += interfaceRobot.UpdatePositionFromOdometry;
             msgProcessor.OnTextMessageReceivedEvent += interfaceRobot.UpdateTextBoxReception;
             msgProcessor.OnPolarSpeedOdometryDataReceivedEvent += interfaceRobot.UpdatePolarSpeedOdometryValues;
             msgProcessor.OnPolarSpeedCorrectionsDataReceivedEvent += interfaceRobot.UpdatePolarSpeedCorrectionValues;

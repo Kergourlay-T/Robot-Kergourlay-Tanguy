@@ -32,72 +32,53 @@ namespace WpfFirstDisplay
     {
         #region Attributes
         int queueSize = 1;
+
+        FixedSizedQueue<double> posXList;
+        FixedSizedQueue<double> posYList;
+        FixedSizedQueue<double> angleRadianList;
+
         FixedSizedQueue<double> commandXList;
-        FixedSizedQueue<double> commandYList;
         FixedSizedQueue<double> commandThetaList;
         FixedSizedQueue<double> commandM1List;
         FixedSizedQueue<double> commandM2List;
-        FixedSizedQueue<double> commandAngularSpeedList;
-        FixedSizedQueue<double> commandLinearSpeedList;
 
         FixedSizedQueue<double> consigneXList;
-        FixedSizedQueue<double> consigneYList;
         FixedSizedQueue<double> consigneThetaList;
         FixedSizedQueue<double> consigneM1List;
         FixedSizedQueue<double> consigneM2List;
-        FixedSizedQueue<double> consigneAngularSpeedList;
-        FixedSizedQueue<double> consigneLinearSpeedList;
 
         FixedSizedQueue<double> measuredXList;
-        FixedSizedQueue<double> measuredYList;
         FixedSizedQueue<double> measuredThetaList;
         FixedSizedQueue<double> measuredM1List;
         FixedSizedQueue<double> measuredM2List;
-        FixedSizedQueue<double> measuredAngularSpeedList;
-        FixedSizedQueue<double> measuredLinearSpeedList;
 
         FixedSizedQueue<double> errorXList;
-        FixedSizedQueue<double> errorYList;
         FixedSizedQueue<double> errorThetaList;
         FixedSizedQueue<double> errorM1List;
         FixedSizedQueue<double> errorM2List;
-        FixedSizedQueue<double> errorAngularSpeedList;
-        FixedSizedQueue<double> errorLinearSpeedList;
 
         FixedSizedQueue<double> corrPXList;
-        FixedSizedQueue<double> corrPYList;
         FixedSizedQueue<double> corrPThetaList;
         FixedSizedQueue<double> corrPM1List;
         FixedSizedQueue<double> corrPM2List;
-        FixedSizedQueue<double> corrPAngularSpeedList;
-        FixedSizedQueue<double> corrPLinearSpeedList;
 
         FixedSizedQueue<double> corrIXList;
-        FixedSizedQueue<double> corrIYList;
         FixedSizedQueue<double> corrIThetaList;
         FixedSizedQueue<double> corrIM1List;
         FixedSizedQueue<double> corrIM2List;
-        FixedSizedQueue<double> corrIAngularSpeedList;
-        FixedSizedQueue<double> corrILinearSpeedList;
 
         FixedSizedQueue<double> corrDXList;
-        FixedSizedQueue<double> corrDYList;
         FixedSizedQueue<double> corrDThetaList;
         FixedSizedQueue<double> corrDM1List;
         FixedSizedQueue<double> corrDM2List;
-        FixedSizedQueue<double> corrDAngularSpeedList;
-        FixedSizedQueue<double> corrDLinearSpeedList;
 
-        double corrLimitPX, corrLimitPY, corrLimitPTheta, corrLimitPM1, corrLimitPM2,
-            corrLimitPAngularSpeed, corrLimitPLinearSpeed;
-        double corrLimitIX, corrLimitIY, corrLimitITheta, corrLimitIM1, corrLimitIM2,
-            corrLimitIAngularSpeed, corrLimitILinearSpeed;
-        double corrLimitDX, corrLimitDY, corrLimitDTheta, corrLimitDM1, corrLimitDM2,
-            corrLimitDAngularSpeed, corrLimitDLinearSpeed;
+        double corrLimitPX, corrLimitPTheta, corrLimitPM1, corrLimitPM2;
+        double corrLimitIX, corrLimitITheta, corrLimitIM1, corrLimitIM2;
+        double corrLimitDX, corrLimitDTheta, corrLimitDM1, corrLimitDM2;
 
-        double KpX, KpY, KpTheta, KpM1, KpM2, KpAngularSpeed, KpLinearSpeed;
-        double KiX, KiY, KiTheta, KiM1, KiM2, KiAngularSpeed, KiLinearSpeed;
-        double KdX, KdY, KdTheta, KdM1, KdM2, KdAngularSpeed, KdLinearSpeed;
+        double KpX, KpTheta, KpM1, KpM2;
+        double KiX, KiTheta, KiM1, KiM2;
+        double KdX, KdTheta, KdM1, KdM2;
 
         FixedSizedQueue<float> IRRigthEndList;
         FixedSizedQueue<float> IRRigthList;
@@ -115,69 +96,53 @@ namespace WpfFirstDisplay
 
         private readonly KeyboardHookListener m_KeyboardHookManager;
 
-        ActiveMode asservissementMode = ActiveMode.Disabled;
+        ActiveMode activeMode = ActiveMode.Disabled;
         #endregion
 
         public FirstDisplayControl()
         {
             InitializeComponent();
-            SetTitle(asservissementMode.ToString());
+            SetTitle(activeMode.ToString());
+
+            posXList = new Utilities.FixedSizedQueue<double>(queueSize);
+            posYList = new Utilities.FixedSizedQueue<double>(queueSize);
+            angleRadianList = new Utilities.FixedSizedQueue<double>(queueSize);
+
 
             commandXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            commandYList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             commandM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            commandAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            commandLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             consigneXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            consigneYList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             consigneM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            consigneAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            consigneLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             measuredXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            measuredYList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             measuredM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            measuredAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            measuredLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             errorXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            errorYList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             errorM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            errorAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            errorLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrPXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPYList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrPM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrPLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrIXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrIYList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrIM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrIAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrILinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             corrDXList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrDYList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDThetaList = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM1List = new Utilities.FixedSizedQueue<double>(queueSize);
             corrDM2List = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrDAngularSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
-            corrDLinearSpeedList = new Utilities.FixedSizedQueue<double>(queueSize);
 
             IRRigthEndList = new Utilities.FixedSizedQueue<float>(queueSize);
             IRRigthList = new Utilities.FixedSizedQueue<float>(queueSize);
@@ -186,37 +151,30 @@ namespace WpfFirstDisplay
             IRLeftEndList = new Utilities.FixedSizedQueue<float>(queueSize);
             timestampList = new Utilities.FixedSizedQueue<float>(queueSize);
 
+
+            posXList.Enqueue(0);
+            posYList.Enqueue(0);
+            angleRadianList.Enqueue(0);
+
             consigneXList.Enqueue(0);
-            consigneYList.Enqueue(0);
             consigneThetaList.Enqueue(0);
             consigneM1List.Enqueue(0);
             consigneM2List.Enqueue(0);
-            consigneAngularSpeedList.Enqueue(0);
-            consigneLinearSpeedList.Enqueue(0);
 
             commandXList.Enqueue(0);
-            commandYList.Enqueue(0);
             commandThetaList.Enqueue(0);
             commandM1List.Enqueue(0);
             commandM2List.Enqueue(0);
-            commandAngularSpeedList.Enqueue(0);
-            commandLinearSpeedList.Enqueue(0);
 
             measuredXList.Enqueue(0);
-            measuredYList.Enqueue(0);
             measuredThetaList.Enqueue(0);
             measuredM1List.Enqueue(0);
             measuredM2List.Enqueue(0);
-            measuredAngularSpeedList.Enqueue(0);
-            measuredLinearSpeedList.Enqueue(0);
 
             errorXList.Enqueue(0);
-            errorYList.Enqueue(0);
             errorThetaList.Enqueue(0);
             errorM1List.Enqueue(0);
             errorM2List.Enqueue(0);
-            errorAngularSpeedList.Enqueue(0);
-            errorLinearSpeedList.Enqueue(0);
 
             IRRigthEndList.Enqueue(0);
             IRRigthList.Enqueue(0);
@@ -242,9 +200,9 @@ namespace WpfFirstDisplay
 
         public void SetAsservissementMode(ActiveMode mode)
         {
-            asservissementMode = mode;
+            activeMode = mode;
 
-            switch (asservissementMode)
+            switch (activeMode)
             {
                 case ActiveMode.Disabled:
                     LabelConsigneX.Visibility = Visibility.Hidden;
@@ -379,105 +337,72 @@ namespace WpfFirstDisplay
         public void UpdateDisplay()
         {
             LabelConsigneX.Content = consigneXList.Average().ToString("N2");
-            LabelConsigneY.Content = consigneYList.Average().ToString("N2");
             LabelConsigneTheta.Content = consigneThetaList.Average().ToString("N2");
             LabelConsigneM1.Content = consigneM1List.Average().ToString("N2");
             LabelConsigneM2.Content = consigneM2List.Average().ToString("N2");
-            LabelConsigneAngularSpeed.Content = consigneAngularSpeedList.Average().ToString("N2");
-            LabelConsigneLinearSpeed.Content = consigneLinearSpeedList.Average().ToString("N2");
 
             LabelMeasureX.Content = measuredXList.Average().ToString("N2");
-            LabelMeasureY.Content = measuredYList.Average().ToString("N2");
             LabelMeasureTheta.Content = measuredThetaList.Average().ToString("N2");
             LabelMeasureM1.Content = measuredM1List.Average().ToString("N2");
             LabelMeasureM2.Content = measuredM2List.Average().ToString("N2");
-            LabelMeasureAngularSpeed.Content = measuredAngularSpeedList.Average().ToString("N2");
-            LabelMeasureLinearSpeed.Content = measuredLinearSpeedList.Average().ToString("N2");
 
             LabelErreurX.Content = errorXList.Average().ToString("N2");
-            LabelErreurY.Content = errorYList.Average().ToString("N2");
             LabelErreurTheta.Content = errorThetaList.Average().ToString("N2");
             LabelErreurM1.Content = errorM1List.Average().ToString("N2");
             LabelErreurM2.Content = errorM2List.Average().ToString("N2");
-            LabelErreurAngularSpeed.Content = errorAngularSpeedList.Average().ToString("N2");
-            LabelErreurLinearSpeed.Content = errorLinearSpeedList.Average().ToString("N2");
 
             LabelCommandX.Content = commandXList.Average().ToString("N2");
-            LabelCommandY.Content = commandYList.Average().ToString("N2");
             LabelCommandTheta.Content = commandThetaList.Average().ToString("N2");
             LabelCommandM1.Content = commandM1List.Average().ToString("N2");
             LabelCommandM2.Content = commandM2List.Average().ToString("N2");
-            LabelCommandAngularSpeed.Content = commandAngularSpeedList.Average().ToString("N2");
-            LabelCommandLinearSpeed.Content = commandLinearSpeedList.Average().ToString("N2");
 
             LabelKpX.Content = KpX.ToString("N2");
-            LabelKpY.Content = KpY.ToString("N2");
             LabelKpTheta.Content = KpTheta.ToString("N2");
             LabelKpM1.Content = KpM1.ToString("N2");
             LabelKpM2.Content = KpM2.ToString("N2");
-            LabelKpAngularSpeed.Content = KpAngularSpeed.ToString("N2");
-            LabelKpLinearSpeed.Content = KpLinearSpeed.ToString("N2");
 
             LabelKiX.Content = KiX.ToString("N2");
-            LabelKiY.Content = KiY.ToString("N2");
             LabelKiTheta.Content = KiTheta.ToString("N2");
             LabelKiM1.Content = KiM1.ToString("N2");
             LabelKiM2.Content = KiM2.ToString("N2");
-            LabelKiAngularSpeed.Content = KiAngularSpeed.ToString("N2");
-            LabelKiLinearSpeed.Content = KiLinearSpeed.ToString("N2");
 
             LabelKdX.Content = KdX.ToString("N2");
-            LabelKdY.Content = KdY.ToString("N2");
             LabelKdTheta.Content = KdTheta.ToString("N2");
             LabelKdM1.Content = KdM1.ToString("N2");
             LabelKdM2.Content = KdM2.ToString("N2");
-            LabelKdAngularSpeed.Content = KdAngularSpeed.ToString("N2");
-            LabelKdLinearSpeed.Content = KdLinearSpeed.ToString("N2");
 
             LabelCorrMaxPX.Content = corrLimitPX.ToString("N2");
-            LabelCorrMaxPY.Content = corrLimitPY.ToString("N2");
             LabelCorrMaxPTheta.Content = corrLimitPTheta.ToString("N2");
             LabelCorrMaxPM1.Content = corrLimitPM1.ToString("N2");
             LabelCorrMaxPM2.Content = corrLimitPM2.ToString("N2");
-            LabelCorrMaxPAngularSpeed.Content = corrLimitPAngularSpeed.ToString("N2");
-            LabelCorrMaxPLinearSpeed.Content = corrLimitPLinearSpeed.ToString("N2");
 
             LabelCorrMaxIX.Content = corrLimitIX.ToString("N2");
-            LabelCorrMaxIY.Content = corrLimitIY.ToString("N2");
             LabelCorrMaxITheta.Content = corrLimitITheta.ToString("N2");
             LabelCorrMaxIM1.Content = corrLimitIM1.ToString("N2");
             LabelCorrMaxIM2.Content = corrLimitIM2.ToString("N2");
-            LabelCorrMaxIAngularSpeed.Content = corrLimitIAngularSpeed.ToString("N2");
-            LabelCorrMaxILinearSpeed.Content = corrLimitILinearSpeed.ToString("N2");
 
             LabelCorrMaxDX.Content = corrLimitDX.ToString("N2");
-            LabelCorrMaxDY.Content = corrLimitDY.ToString("N2");
             LabelCorrMaxDTheta.Content = corrLimitDTheta.ToString("N2");
             LabelCorrMaxDM1.Content = corrLimitDM1.ToString("N2");
             LabelCorrMaxDM2.Content = corrLimitDM2.ToString("N2");
-            LabelCorrMaxDAngularSpeed.Content = corrLimitDAngularSpeed.ToString("N2");
-            LabelCorrMaxDLinearSpeed.Content = corrLimitDLinearSpeed.ToString("N2");
 
+            if (posXList.Count > 0)
+            {
+                LabelPosX.Content = posXList.Average().ToString("N2");
+                LabelPosY.Content = posYList.Average().ToString("N2");
+                LabelAngleRadian.Content = angleRadianList.Average().ToString("N2");
+            }
 
             if (corrPXList.Count > 0)
             {
                 LabelCorrPX.Content = corrPXList.Average().ToString("N2");
-                LabelCorrPY.Content = corrPYList.Average().ToString("N2");
                 LabelCorrPTheta.Content = corrPThetaList.Average().ToString("N2");
-                LabelCorrPAngularSpeed.Content = corrPAngularSpeedList.Average().ToString("N2");
-                LabelCorrPLinearSpeed.Content = corrPLinearSpeedList.Average().ToString("N2");
 
                 LabelCorrIX.Content = corrIXList.Average().ToString("N2");
-                LabelCorrIY.Content = corrIYList.Average().ToString("N2");
                 LabelCorrITheta.Content = corrIThetaList.Average().ToString("N2");
-                LabelCorrIAngularSpeed.Content = corrIAngularSpeedList.Average().ToString("N2");
-                LabelCorrILinearSpeed.Content = corrILinearSpeedList.Average().ToString("N2");
 
                 LabelCorrDX.Content = corrDXList.Average().ToString("N2");
-                LabelCorrDY.Content = corrDYList.Average().ToString("N2");
                 LabelCorrDTheta.Content = corrDThetaList.Average().ToString("N2");
-                LabelCorrDAngularSpeed.Content = corrDAngularSpeedList.Average().ToString("N2");
-                LabelCorrDLinearSpeed.Content = corrDLinearSpeedList.Average().ToString("N2");
             }
 
             if (corrPM1List.Count > 0)
@@ -508,75 +433,89 @@ namespace WpfFirstDisplay
         #endregion
 
         #region UpdateValues
-        public void UpdatePolarSpeedConsigneValues(double consigneX, double consigneY, double consigneTheta,
-            double consigneAngularSpeed, double consigneLinearSpeed)
+
+        public void UpdatePositionFromOdometry(object sender, PositionMessageArgs e)
         {
-            consigneXList.Enqueue(consigneX);
-            consigneYList.Enqueue(consigneY);
-            consigneThetaList.Enqueue(consigneTheta);
-            consigneAngularSpeedList.Enqueue(consigneAngularSpeed);
-            consigneLinearSpeedList.Enqueue(consigneLinearSpeed);
+            posXList.Enqueue(e.xPos_a);
+            posYList.Enqueue(e.yPos_a);
+            angleRadianList.Enqueue(e.theta_a);
         }
+
+        #region PolarSpeed
+
+        public void UpdatePolarSpeedOdometryValues(object sender, PolarSpeedOdometryData e)
+        {
+            consigneXList.Enqueue(e.xConsigne_a);
+            consigneThetaList.Enqueue(e.thetaConsigne_a);
+            commandXList.Enqueue(e.xCommand_a);
+            commandThetaList.Enqueue(e.thetaCommand_a);
+            measuredXList.Enqueue(e.xMeasured_a);
+            measuredThetaList.Enqueue(e.thetaMeasured_a);
+            errorXList.Enqueue(e.xError_a);
+            errorThetaList.Enqueue(e.thetaError_a);
+        }
+
+        public void UpdatePolarSpeedCorrectionValues(object sender, PolarSpeedPidData e)
+        {
+            corrPXList.Enqueue(e.Px_a);
+            corrPThetaList.Enqueue(e.Ptheta_a);
+            corrIXList.Enqueue(e.Ix_a);
+            corrIThetaList.Enqueue(e.Itheta_a);
+            corrDXList.Enqueue(e.Dx_a);
+            corrDThetaList.Enqueue(e.Dtheta_a);
+        }
+
+        public void UpdatePolarSpeedCorrectionGains(object sender, PolarSpeedPidData e)
+        {
+            KpX = e.Px_a;
+            KpTheta = e.Ptheta_a;
+            KiX = e.Ix_a;
+            KiTheta = e.Itheta_a;
+            KdX = e.Dx_a;
+            KdTheta = e.Dtheta_a;
+        }
+
+        public void UpdatePolarSpeedCorrectionLimits(object sender, PolarSpeedPidData e)
+        {
+            corrLimitPX = e.Px_a;
+            corrLimitPTheta = e.Ptheta_a;
+            corrLimitIX = e.Ix_a;
+            corrLimitITheta = e.Itheta_a;
+            corrLimitDX = e.Dx_a;
+            corrLimitDTheta = e.Dtheta_a;
+        }
+        #endregion
+
+
+        #region IndependantSpeed
         public void UpdateIndependantSpeedConsigneValues(object receiver, MotorMessageArgs e)
         {
             consigneM1List.Enqueue(e.leftMotor_a);
             consigneM2List.Enqueue(e.rightMotor_a);
         }
 
-        public void UpdatePolarSpeedCommandValues(double commandX, double commandY, double commandTheta,
-            double commandAngularSpeed, double commandLinearSpeed)
-        {
-            commandXList.Enqueue(commandX);
-            commandYList.Enqueue(commandY);
-            commandThetaList.Enqueue(commandTheta);
-            commandAngularSpeedList.Enqueue(commandAngularSpeed);
-            commandLinearSpeedList.Enqueue(commandLinearSpeed);
-        }
+
         public void UpdateIndependantSpeedCommandValues(object receiver, MotorMessageArgs e)
         {
-            commandM1List.Enqueue(e.leftMotor);
-            commandM2List.Enqueue(e.rightMotor);
+            commandM1List.Enqueue(e.leftMotor_a);
+            commandM2List.Enqueue(e.rightMotor_a);
         }
 
-        public void UpdatePolarOdometrySpeed(object sender, PositionMessageArgs e)
-        {
-            measuredXList.Enqueue(e.xPos);
-            measuredYList.Enqueue(e.yPos);
-            measuredThetaList.Enqueue(e.theta);
-            measuredAngularSpeedList.Enqueue(e.angularSpeed);
-            measuredLinearSpeedList.Enqueue(e.linearSpeed);
-        }
         public void UpdateIndependantOdometrySpeed(object sender, MotorMessageArgs e)
         {
-            measuredM1List.Enqueue(e.leftMotor);
-            measuredM2List.Enqueue(e.rightMotor);
+            measuredM1List.Enqueue(e.leftMotor_a);
+            measuredM2List.Enqueue(e.rightMotor_a);
         }
 
-        public void UpdatePolarSpeedErrorValues(double errorX, double errorY, double errorTheta,
-            double errorAngularSpeed, double errorLinearSpeed)
-        {
-            errorXList.Enqueue(errorX);
-            errorYList.Enqueue(errorY);
-            errorThetaList.Enqueue(errorTheta);
-            errorAngularSpeedList.Enqueue(errorAngularSpeed);
-            errorLinearSpeedList.Enqueue(errorLinearSpeed);
-        }
+
         public void UpdateIndependantSpeedErrorValues(object sender, MotorMessageArgs e)
         {
-            errorM1List.Enqueue(e.leftMotor);
-            errorM2List.Enqueue(e.rightMotor);
+            errorM1List.Enqueue(e.leftMotor_a);
+            errorM2List.Enqueue(e.rightMotor_a);
         }
 
-        public void UpdatePolarSpeedCorrectionValues(double corrPX, double corrPTheta, double corrIX,
-            double corrITheta, double corrDX, double corrDTheta)
-        {
-            corrPXList.Enqueue(corrPX);
-            corrPThetaList.Enqueue(corrPTheta);
-            corrIXList.Enqueue(corrIX);
-            corrIThetaList.Enqueue(corrITheta);
-            corrDXList.Enqueue(corrDX);
-            corrDThetaList.Enqueue(corrDTheta);
-        }
+
+        #region Not used
         public void UpdateIndependantSpeedCorrectionValues(double corrPM1, double corrPM2, double corrIM1,
             double corrIM2, double corrDM1, double corrDM2)
         {
@@ -588,16 +527,6 @@ namespace WpfFirstDisplay
             corrDM2List.Enqueue(corrDM2);
         }
 
-        public void UpdatePolarSpeedCorrectionGains(double KpX, double KpTheta, double KiX,
-            double KiTheta, double KdX, double KdTheta)
-        {
-            this.KpX = KpX;
-            this.KpTheta = KpTheta;
-            this.KiX = KiX;
-            this.KiTheta = KiTheta;
-            this.KdX = KdX;
-            this.KdTheta = KdTheta;
-        }
         public void UpdateIndependantSpeedCorrectionGains(double KpM1, double KpM2, double KiM1,
             double KiM2, double KdM1, double KdM2)
         {
@@ -607,17 +536,6 @@ namespace WpfFirstDisplay
             this.KiM2 = KiM2;
             this.KdM1 = KdM1;
             this.KdM2 = KdM2;
-        }
-
-        public void UpdatePolarSpeedCorrectionLimits(double corrLimitPX, double corrLimitPTheta,
-            double corrLimitIX, double corrLimitITheta, double corrLimitDX, double corrLimitDTheta)
-        {
-            this.corrLimitPX = corrLimitPX;
-            this.corrLimitPTheta = corrLimitPTheta;
-            this.corrLimitIX = corrLimitIX;
-            this.corrLimitITheta = corrLimitITheta;
-            this.corrLimitDX = corrLimitDX;
-            this.corrLimitDTheta = corrLimitDTheta;
         }
 
         public void UpdateIndependantSpeedCorrectionLimits(double corrLimitPM1, double corrLimitPM2,
@@ -630,6 +548,9 @@ namespace WpfFirstDisplay
             this.corrLimitDM1 = corrLimitDM1;
             this.corrLimitDM2 = corrLimitDM2;
         }
+        #endregion
+        #endregion
+
         #endregion
 
         #region Update Robot Informations
@@ -670,13 +591,14 @@ namespace WpfFirstDisplay
             LabelRobotState.Content = (((Commands)e.state_a).ToString("N2"));
             timestampList.Enqueue(e.time_a);
         }
+
         public void UpdateManualControl(object receiver, BoolEventArgs e)
         {
             CheckBoxAutoControl.IsChecked = e.Value;
         }
-        public void UpdateTextBoxReception(object receiver, StringEventArgs e)
+        public void UpdateTextBoxReception(object receiver, TextMessageArgs e)
         {
-            TextBoxReception.Text += e.Value;
+            TextBoxReception.Text += e.text_a;
         }
         #endregion
 
@@ -705,23 +627,18 @@ namespace WpfFirstDisplay
             if (CheckBoxLED3.IsChecked != currentLED3State)
                 OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
         }
-        private void OnCheckBoxAutoControlSCheckChange(object sender, EventArgs e)
+        private void OnCheckBoxAutoControlCheckChange(object sender, EventArgs e)
         {
             if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
                 OnSetAutoControlStateFromInterfaceGenerate(!currentAutoControlState);
         }
-        private void OnCheckBoxAutoControlCheckChange(object sender, EventArgs e)
-        {
-            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
-                OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
-        }
 
         private void OnButtonResetClick(object sender, RoutedEventArgs e)
         {
-            OnResetPositionFromInterfaceGenerate();
+            OnResetPositionFromInterfaceGenerate(true);
         }
 
-        private void OnButtonClearClick (object sender, RoutedEventArgs e)
+        private void OnButtonClearClick(object sender, RoutedEventArgs e)
         {
             TextBoxReception.Text = "";
         }
@@ -756,28 +673,27 @@ namespace WpfFirstDisplay
         }
         #endregion
 
-        #region Events
+        #region Output Events
         public event EventHandler<LEDMessageArgs> OnSetLEDStateFromInterfaceGenerateEvent;
-        public void OnSetLEDStateFromInterfaceGenerate(ushort nbLED, bool LEDState)
-           => OnSetLEDStateFromInterfaceGenerateEvent?.Invoke(this, new LEDMessageArgs
+        public void OnSetLEDStateFromInterfaceGenerate(ushort nbLED, bool stateLed)
+            => OnSetLEDStateFromInterfaceGenerateEvent?.Invoke(this, new LEDMessageArgs
             {
-                nbLed_a = nbLED, 
-                stateLed_a = LEDState 
+                nbLed_a = nbLED,
+                stateLed_a = stateLed
             });
 
 
         public EventHandler<BoolEventArgs> OnSetAutoControlStateFromInterfaceGenerateEvent;
         public void OnSetAutoControlStateFromInterfaceGenerate(bool autoControlSet)
-           => OnSetAutoControlStateFromInterfaceGenerateEvent?.Invoke(this, new BoolEventArgs { Value = autoControlSet });
+            => OnSetAutoControlStateFromInterfaceGenerateEvent?.Invoke(this, new BoolEventArgs { Value = autoControlSet });
 
         public event EventHandler<MotorMessageArgs> OnSetMotorSpeedFromInterfaceGenerateEvent;
         public void OnSetMotorSpeedFromInterfaceGenerate(sbyte leftMotor, sbyte rigthMotor)
-            => OnSetMotorSpeedFromInterfaceGenerateEvent?.Invoke(this, new MotorMessageArgs
-            {
-                leftMotor_a = leftMotor,
-                rightMotor_a = rigthMotor
-            });
-
+          => OnSetMotorSpeedFromInterfaceGenerateEvent?.Invoke(this, new MotorMessageArgs
+          {
+              leftMotor_a = leftMotor,
+              rightMotor_a = rigthMotor
+          });
 
         public event EventHandler<UshortEventArgs> OnSetRobotStateFromInterfaceGenerateEvent;
         public void OnSetRobotStateFromInterfaceGenerate(ushort robotState)
@@ -788,24 +704,20 @@ namespace WpfFirstDisplay
 
         public event EventHandler<SetPositionMessageArgs> OnSetPositionFromInterfaceGenrateEvent;
         public void OnSetPositionFromInterfaceGenrate(float xPos, float yPos, float angleRadian)
-            => OnSetPositionFromInterfaceGenrateEvent?.Invoke(this, new SetPositionMessageArgs 
-            { 
-                xPos_a = xPos, 
-                yPos_a =yPos,
+            => OnSetPositionFromInterfaceGenrateEvent?.Invoke(this, new SetPositionMessageArgs
+            {
+                xPos_a = xPos,
+                yPos_a = yPos,
                 angleRadian_a = angleRadian
             });
 
-        public event EventHandler<EventArgs> OnResetPositionFromInterfaceGenerateEvent;
-        public void OnResetPositionFromInterfaceGenerate()
-        {
-            OnResetPositionFromInterfaceGenerateEvent?.Invoke(this, new EventArgs());
-        }
+        public event EventHandler<BoolEventArgs> OnResetPositionFromInterfaceGenerateEvent;
+        public void OnResetPositionFromInterfaceGenerate(bool isResetPos)
+            => OnResetPositionFromInterfaceGenerateEvent?.Invoke(this, new BoolEventArgs { Value = isResetPos });
 
-        public event EventHandler<StringEventArgs> OnSentTextMessageFromInterfaceGenerateEvent;
+        public event EventHandler<TextMessageArgs> OnSentTextMessageFromInterfaceGenerateEvent;
         public void OnSentTextMessageFromInterfaceGenerate(string content)
-        {
-            OnSentTextMessageFromInterfaceGenerateEvent?.Invoke(this, new StringEventArgs { Value = content });
-        }
+           => OnSentTextMessageFromInterfaceGenerateEvent?.Invoke(this, new TextMessageArgs { text_a = content });
         #endregion
 
         #region Test
