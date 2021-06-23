@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Protocol
 {
-    class Class1
+    public static class ConstsProtocol
     {
+        public const byte START_OF_FRAME = 0xFE;
+        public const ushort MAX_MSG_LENGTH = 255;
     }
 }

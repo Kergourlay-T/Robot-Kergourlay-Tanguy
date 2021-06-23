@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6C934AF6-6C11-4F79-AA55-B0B6C5601417}</ProjectGuid>
+    <ProjectGuid>{0CC33D59-4C8C-4A10-83B8-1F93E2D4AFA3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleFormat</RootNamespace>
-    <AssemblyName>ConsoleFormat</AssemblyName>
+    <RootNamespace>SerialAutoConnection</RootNamespace>
+    <AssemblyName>SerialAutoConnection</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsolePrint.cs" />
+    <Compile Include="SerialAutoConnect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventArgsLibrary\EventArgsLibrary.csproj">
       <Project>{65e7065c-16a9-46bf-bab1-c2f6ef7ddf5d}</Project>
       <Name>EventArgsLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExtendedSerialPort\ExtendedSerialPort.csproj">
+      <Project>{0c3255e4-3888-446a-90c2-08d5848798d0}</Project>
+      <Name>ExtendedSerialPort</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

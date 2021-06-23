@@ -1,12 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Protocol
 {
-    public class Class1
+    public enum Commands : ushort
     {
+        CHECK_INSTRUCTION_ROBOT_TO_GUI = 0x0010,
+
+        LED_ROBOT_TO_GUI = 0x0020,
+        LED_GUI_TO_ROBOT = 0x0021,
+
+        TELEMETER_ROBOT_TO_GUI = 0x0030,
+
+        MOTOR_CONSIGNE_ROBOT_TO_GUI = 0x0040,
+        MOTOR_MEASURED_ROBOT_TO_GUI = 0x0041,
+        MOTOR_ERROR_ROBOT_TO_GUI = 0x0042,
+        MOTOR_GUI_TO_ROBOT = 0x0043,
+
+        ROBOT_STATE_ROBOT_TO_GUI = 0x0050,
+        ROBOT_STATE_GUI_TO_ROBOT = 0x0051,
+        MANUAL_CONTROL_ROBOT_TO_GUI = 0x0052,
+        MANUAL_CONTROL_GUI_TO_ROBOT = 0x0053,
+
+        POSITION_DATA_ROBOT_TO_GUI = 0x0060,
+        POSITION_DATA_GUI_TO_ROBOT = 0x0061,
+        RESET_POSITION_GUI_TO_ROBOT = 0x0062,
+
+        MESSAGE_ROBOT_TO_GUI = 0x0080,
+        MESSAGE_GUI_TO_ROBOT = 0x0081,
+
+        SPEED_POLAR_ODOMETRY_ROBOT_TO_GUI = 0x0090,
+        SPEED_POLAR_GAINS_ROBOT_TO_GUI = 0x0091,
+        SPEED_POLAR_CORRECTIONS_ROBOT_TO_GUI = 0x0092,
+        SPEED_POLAR_LIMIT_GAINS_ROBOT_TO_GUI = 0x0093
     }
 }

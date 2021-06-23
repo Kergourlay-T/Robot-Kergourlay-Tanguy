@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("MessageDecoder")]
+[assembly: AssemblyTitle("MessageGenerator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MessageDecoder")]
+[assembly: AssemblyProduct("MessageGenerator")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("108a80fd-6f52-4e17-acaf-1305a02e2594")]
+[assembly: Guid("1c18fa98-dffa-42ea-879a-b7edc1efa24f")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

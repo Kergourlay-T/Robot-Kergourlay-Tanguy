@@ -49,5 +49,43 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleFormat\ConsoleFormat.csproj">
+      <Project>{6c934af6-6c11-4f79-aa55-b0b6c5601417}</Project>
+      <Name>ConsoleFormat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventArgsLibrary\EventArgsLibrary.csproj">
+      <Project>{65e7065c-16a9-46bf-bab1-c2f6ef7ddf5d}</Project>
+      <Name>EventArgsLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageDecoder\MessageDecoder.csproj">
+      <Project>{108a80fd-6f52-4e17-acaf-1305a02e2594}</Project>
+      <Name>MessageDecoder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageEncoder\MessageEncoder.csproj">
+      <Project>{73f475b2-f631-44df-b29c-f5accbe209cf}</Project>
+      <Name>MessageEncoder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageGenerator\MessageGenerator.csproj">
+      <Project>{1c18fa98-dffa-42ea-879a-b7edc1efa24f}</Project>
+      <Name>MessageGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageProcessor\MessageProcessor.csproj">
+      <Project>{b17514c4-599b-4a80-b4c5-4bf6504cf608}</Project>
+      <Name>MessageProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SerialAutoConnection\SerialAutoConnection.csproj">
+      <Project>{0cc33d59-4c8c-4a10-83b8-1f93e2d4afa3}</Project>
+      <Name>SerialAutoConnection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfFirstDisplay\WpfFirstDisplay.csproj">
+      <Project>{73268fad-a8e0-42cc-b6f7-ad743e3c3bab}</Project>
+      <Name>WpfFirstDisplay</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
