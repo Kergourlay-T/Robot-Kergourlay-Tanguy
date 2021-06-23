@@ -68,9 +68,9 @@ namespace MessageGenerator
             OnMessageToRobot((ushort)Commands.RESET_POSITION_GUI_TO_ROBOT, 1, payload);
         }
 
-        public void GenerateMessageTextToRobot(object sender, TextMessageArgs e)
+        public void GenerateMessageTextToRobot(object sender, StringEventArgs e)
         {
-            byte[] payload = Extensions.GetBytes(e.text_a);
+            byte[] payload = Extensions.GetBytes(e.Value);
             OnMessageToRobot((ushort)Commands.MESSAGE_GUI_TO_ROBOT, (ushort)payload.Length, payload);
         }
         #endregion //Input Event

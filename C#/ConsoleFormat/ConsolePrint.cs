@@ -20,30 +20,30 @@ namespace ConsoleFormat
         #endregion
 
         #region Main Methods
-        static public void OnPrintEncodedMessage(string title, ushort msgFunction, ushort msgPayloadLenght, byte[] msgPayload, bool isChecksumCorrect)
+        static public void OnPrintEncodedMessage(object sender, MessageEncodedArgs e)
         {
             ResetConsoleCursorAndConsoleColor();
-            ConvertMessageToByte(msgFunction, msgPayloadLenght);
-            Console.Write("[Decoded" + hex_sender_index++ + "] : ");
+            msgFunctionMSB = e.Msg[0];
+            msgFunctionLSB = e.Msg[1];
+            msgPayloadLenghtMSB = e.Msg[2];
+            msgPayloadLenghtLSB = e.Msg[3];
+            Console.Write("[Encoded : " + hex_sender_index++ + "] : ");
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.Write("0x" + msgFunctionMSB.ToString("2X") + " " + "0x" + msgFunctionLSB.ToString("2X") + " ");
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.Write("0x" + msgPayloadLenghtMSB.ToString("2X") + " 0x" + msgPayloadLenghtLSB.ToString("2X") + " ");
             Console.BackgroundColor = ConsoleColor.White;
-            for (int poss = 0, max = msgPayload.Length - 1; poss < max; poss++)
-                Console.Write("0x" + msgPayload[poss].ToString("2x") + " ");
-            if (isChecksumCorrect)
-                Console.BackgroundColor = ConsoleColor.Green;
-            else
-                Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write("0x" + msgPayload[msgPayload.Length].ToString("2x"));
+            for (int pos = 4, max = e.Msg.Length - 1; pos < max; pos++)
+                Console.Write("0x" + e.Msg[pos].ToString("2x") + " ");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.Write("0x" + e.Msg[e.Msg.Length].ToString("2x"));
         }
 
         static public void OnPrintDecodedMessage(object sender, MessageDecodedArgs e)
         {
             ResetConsoleCursorAndConsoleColor();
             ConvertMessageToByte(e.MsgFunction, e.MsgPayloadLength);
-            Console.Write("[Decoded" + hex_sender_index++ + "] : ");
+            Console.Write("[Decoded : " + hex_receiver_index++ + "] : ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("0x" + msgFunctionMSB.ToString("2X") + " " + "0x" + msgFunctionLSB.ToString("2X") + " ");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -58,13 +58,7 @@ namespace ConsoleFormat
             Console.Write("0x" + e.MsgPayload[e.MsgPayload.Length].ToString("2x"));
         }
 
-        static public void OnPrintEvent(string title, string msg)
-        {
-            ResetConsoleCursorAndConsoleColor();
-            Console.Write("[" + title + "] Event : " + msg);
-        }
-
-        static public void OnPrintEvent2(object sender, StringEventArgs msg)
+        static public void OnPrintEvent(object sender, StringEventArgs msg)
         {
             ResetConsoleCursorAndConsoleColor();
             Console.Write("[" + "] Event : " + msg);

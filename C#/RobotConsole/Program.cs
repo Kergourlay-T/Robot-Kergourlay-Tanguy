@@ -42,7 +42,7 @@ namespace RobotConsole
 
 
             /// Creation of links between modules, except from and to the graphical interface  
-            ConsolePrint.OnPrintEvent("MAIN", "Begin Booting Sequence");
+            Console.Write("[MAIN] Begin Booting Sequence");
 
             /// Creation of link between projects
             msgDecoder.OnMessageDecodedEvent += msgProcessor.ProcessRobotDecodedMessage;
@@ -55,59 +55,21 @@ namespace RobotConsole
             serialPort.OnDataReceivedEvent += msgDecoder.DecodeMsgReceived;
             msgDecoder.OnMessageDecodedEvent += msgProcessor.ProcessRobotDecodedMessage;
 
-
-            serialPort.OnSerialConnectedEvent += ConsolePrint.OnPrintEvent2;
             /// management of messages to be displayed in the console
+            serialPort.OnSerialConnectedEvent += ConsolePrint.OnPrintEvent;
             RegisterConsolePrintEvents();
 
-
-
-            /// Launching of visualization interfaces
+            /// Launching GUI
             if (usingRobotInterface)
                 StartRobotInterface();
 
-            ConsolePrint.OnPrintEvent("MAIN", "End Booting Sequence");
+            Console.Write("[MAIN] End Booting Sequence");
 
             while (!exitSystem)
             {
                 Thread.Sleep(500);
             }
-
         }
-
-
-        /******************************************* Trap app termination ***************************************/
-        #region Gestion Arret Console (Do not Modify)
-        static bool exitSystem = false;
-        [DllImport("Kernel32")]
-        private static extern bool SetConsoleCtrlHandler(EventHandler handler, bool add);
-        enum CtrlType
-        {
-            CTRL_C_EVENT = 0,
-            CTRL_BREAK_EVENT = 1,
-            CTRL_CLOSE_EVENT = 2,
-            CTRL_LOGOFF_EVENT = 3,
-            CTRL_SHUTDOWN_EVENT = 4
-        }
-
-        private delegate bool EventHandler(CtrlType sig);
-        static EventHandler _handler;
-        //Gestion de la terminaison de l'application de manière propre
-        private static bool Handler(CtrlType sig)
-        {
-            Console.WriteLine("Existing on CTRL+C or process kill or shutdown...");
-
-            //Nettoyage des process à faire ici
-            //serialPort1.Close();
-
-            Console.WriteLine("Nettoyage effectué");
-            exitSystem = true;
-
-            //Sortie
-            Environment.Exit(-1);
-            return true;
-        }
-        #endregion
 
         #region RobotInterface
         static Thread t1;
@@ -143,7 +105,6 @@ namespace RobotConsole
             msgProcessor.OnPolarSpeedLimitGainsReceivedEvent += interfaceRobot.UpdatePolarSpeedCorrectionGains;
             msgProcessor.OnPolarSpeedPidGainsDataReceivedEvent += interfaceRobot.UpdatePolarSpeedCorrectionLimits;
 
-
             /// Sending orders from the GUI            
             interfaceRobot.OnSetLEDStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageLEDSetStateConsigneToRobot;
             interfaceRobot.OnSetAutoControlStateFromInterfaceGenerateEvent += msgGenerator.GenerateMessageSetAutoControlStateToRobot;
@@ -156,7 +117,6 @@ namespace RobotConsole
         }
         #endregion
 
-
         static void RegisterConsolePrintEvents()
         {
             /// Error that can occur in msgDecoder
@@ -165,6 +125,7 @@ namespace RobotConsole
             msgDecoder.OnNoPayloadEvent += ConsolePrint.OnPrintCorruptedMessage;
             msgDecoder.OnOverLengthSizeEvent += ConsolePrint.OnPrintCorruptedMessage;
             msgDecoder.OnWrongPayloadLenghtEvent += ConsolePrint.OnPrintCorruptedMessage;
+
             /// Message correctly decoded
             msgDecoder.OnMessageDecodedEvent += ConsolePrint.OnPrintDecodedMessage;
 
@@ -172,5 +133,38 @@ namespace RobotConsole
             msgEncoder.OnMessageEncodedEvent += ConsolePrint.OnPrintEncodedMessage;
         }
 
+
+        /******************************************* Trap app termination ***************************************/
+        #region Gestion Arret Console (Do not Modify)
+        static bool exitSystem = false;
+        [DllImport("Kernel32")]
+        private static extern bool SetConsoleCtrlHandler(EventHandler handler, bool add);
+        enum CtrlType
+        {
+            CTRL_C_EVENT = 0,
+            CTRL_BREAK_EVENT = 1,
+            CTRL_CLOSE_EVENT = 2,
+            CTRL_LOGOFF_EVENT = 3,
+            CTRL_SHUTDOWN_EVENT = 4
+        }
+
+        private delegate bool EventHandler(CtrlType sig);
+        static EventHandler _handler;
+        //Gestion de la terminaison de l'application de manière propre
+        private static bool Handler(CtrlType sig)
+        {
+            Console.WriteLine("Existing on CTRL+C or process kill or shutdown...");
+
+            //Nettoyage des process à faire ici
+            //serialPort1.Close();
+
+            Console.WriteLine("Nettoyage effectué");
+            exitSystem = true;
+
+            //Sortie
+            Environment.Exit(-1);
+            return true;
+        }
+        #endregion
     }
 }

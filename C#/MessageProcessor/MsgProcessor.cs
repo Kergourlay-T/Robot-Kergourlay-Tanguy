@@ -258,9 +258,9 @@ namespace MessageProcessor
                angularSpeed_a = angular
            });
 
-        public event EventHandler<TextMessageArgs> OnTextMessageReceivedEvent;
+        public event EventHandler<StringEventArgs> OnTextMessageReceivedEvent;
         public virtual void OnTextMessageReceived(string text)
-            => OnTextMessageReceivedEvent?.Invoke(this, new TextMessageArgs { text_a = text });
+            => OnTextMessageReceivedEvent?.Invoke(this, new StringEventArgs { Value = text });
 
         public event EventHandler<PolarSpeedOdometryData> OnPolarSpeedOdometryDataReceivedEvent;
         public virtual void OnPolarSpeedOdometryDataReceived(float xConsigne, float thetaConsigne, float xError,

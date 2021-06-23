@@ -596,9 +596,9 @@ namespace WpfFirstDisplay
         {
             CheckBoxAutoControl.IsChecked = e.Value;
         }
-        public void UpdateTextBoxReception(object receiver, TextMessageArgs e)
+        public void UpdateTextBoxReception(object receiver, StringEventArgs e)
         {
-            TextBoxReception.Text += e.text_a;
+            TextBoxReception.Text += e.Value;
         }
         #endregion
 
@@ -715,9 +715,9 @@ namespace WpfFirstDisplay
         public void OnResetPositionFromInterfaceGenerate(bool isResetPos)
             => OnResetPositionFromInterfaceGenerateEvent?.Invoke(this, new BoolEventArgs { Value = isResetPos });
 
-        public event EventHandler<TextMessageArgs> OnSentTextMessageFromInterfaceGenerateEvent;
+        public event EventHandler<StringEventArgs> OnSentTextMessageFromInterfaceGenerateEvent;
         public void OnSentTextMessageFromInterfaceGenerate(string content)
-           => OnSentTextMessageFromInterfaceGenerateEvent?.Invoke(this, new TextMessageArgs { text_a = content });
+           => OnSentTextMessageFromInterfaceGenerateEvent?.Invoke(this, new StringEventArgs { Value = content });
         #endregion
 
         #region Test
