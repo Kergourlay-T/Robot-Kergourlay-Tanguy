@@ -42,7 +42,7 @@ namespace RobotConsole
 
 
             /// Creation of links between modules, except from and to the graphical interface  
-            Console.Write("[MAIN] Begin Booting Sequence");
+            Console.WriteLine("[MAIN] Begin Booting Sequence");
 
             /// Creation of link between projects
             msgDecoder.OnMessageDecodedEvent += msgProcessor.ProcessRobotDecodedMessage;

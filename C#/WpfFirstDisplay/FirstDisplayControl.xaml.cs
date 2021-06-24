@@ -94,6 +94,9 @@ namespace WpfFirstDisplay
         bool currentLED3State;
         bool currentAutoControlState = true;
 
+        ushort informationSent;
+        ushort informationReceived;
+
         private readonly KeyboardHookListener m_KeyboardHookManager;
 
         ActiveMode activeMode = ActiveMode.Disabled;
@@ -205,6 +208,10 @@ namespace WpfFirstDisplay
             switch (activeMode)
             {
                 case ActiveMode.Disabled:
+                    LabelPosX.Visibility = Visibility.Visible;
+                    LabelPosY.Visibility = Visibility.Visible;
+                    LabelAngleRadian.Visibility = Visibility.Visible;
+
                     LabelConsigneX.Visibility = Visibility.Hidden;
                     LabelConsigneTheta.Visibility = Visibility.Hidden;
                     LabelErreurX.Visibility = Visibility.Hidden;
@@ -233,8 +240,6 @@ namespace WpfFirstDisplay
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
 
-                    LabelInformationReceived.Visibility = Visibility.Visible;
-                    LabelInformationSent.Visibility = Visibility.Visible;
                     LabelIRLeftEnd.Visibility = Visibility.Visible;
                     LabelIRLeft.Visibility = Visibility.Visible;
                     LabelIRCenter.Visibility = Visibility.Visible;
@@ -242,9 +247,13 @@ namespace WpfFirstDisplay
                     LabelIRRigthEnd.Visibility = Visibility.Visible;
                     LabelTimestamp.Visibility = Visibility.Visible;
                     LabelRobotState.Visibility = Visibility.Visible;
-
                     break;
+
                 case ActiveMode.Polar:
+                    LabelPosX.Visibility = Visibility.Visible;
+                    LabelPosY.Visibility = Visibility.Visible;
+                    LabelAngleRadian.Visibility = Visibility.Visible;
+
                     LabelConsigneX.Visibility = Visibility.Visible;
                     LabelConsigneTheta.Visibility = Visibility.Visible;
                     LabelErreurX.Visibility = Visibility.Visible;
@@ -273,8 +282,6 @@ namespace WpfFirstDisplay
                     LabelCorrDM1.Visibility = Visibility.Hidden;
                     LabelCorrDM2.Visibility = Visibility.Hidden;
 
-                    LabelInformationReceived.Visibility = Visibility.Visible;
-                    LabelInformationSent.Visibility = Visibility.Visible;
                     LabelIRLeftEnd.Visibility = Visibility.Visible;
                     LabelIRLeft.Visibility = Visibility.Visible;
                     LabelIRCenter.Visibility = Visibility.Visible;
@@ -283,7 +290,12 @@ namespace WpfFirstDisplay
                     LabelTimestamp.Visibility = Visibility.Visible;
                     LabelRobotState.Visibility = Visibility.Visible;
                     break;
+
                 case ActiveMode.Independant:
+                    LabelPosX.Visibility = Visibility.Visible;
+                    LabelPosY.Visibility = Visibility.Visible;
+                    LabelAngleRadian.Visibility = Visibility.Visible;
+
                     LabelConsigneX.Visibility = Visibility.Hidden;
                     LabelConsigneTheta.Visibility = Visibility.Hidden;
                     LabelErreurX.Visibility = Visibility.Hidden;
@@ -312,8 +324,6 @@ namespace WpfFirstDisplay
                     LabelCorrDM1.Visibility = Visibility.Visible;
                     LabelCorrDM2.Visibility = Visibility.Visible;
 
-                    LabelInformationReceived.Visibility = Visibility.Visible;
-                    LabelInformationSent.Visibility = Visibility.Visible;
                     LabelIRLeftEnd.Visibility = Visibility.Visible;
                     LabelIRLeft.Visibility = Visibility.Visible;
                     LabelIRCenter.Visibility = Visibility.Visible;
@@ -556,7 +566,9 @@ namespace WpfFirstDisplay
         #region Update Robot Informations
         public void UpdateCheckInstruction(object receiver, MessageDecodedArgs e)
         {
-            LabelInformationReceived.Content = (((Commands)e.MsgFunction).ToString("N2"));
+            informationReceived = ((ushort)(Commands)e.MsgFunction);
+            if(informationReceived != informationSent)
+                TextBoxReception.Text += "/!\\ WARNING : Information Sent Corrupted /!\\";
         }
 
         public void UpdateTelematersValues(object receiver, IRMessageArgs e)
@@ -594,7 +606,7 @@ namespace WpfFirstDisplay
 
         public void UpdateManualControl(object receiver, BoolEventArgs e)
         {
-            CheckBoxAutoControl.IsChecked = e.Value;
+            CheckBoxIsAuto.IsChecked = e.Value;
         }
         public void UpdateTextBoxReception(object receiver, StringEventArgs e)
         {
@@ -627,9 +639,9 @@ namespace WpfFirstDisplay
             if (CheckBoxLED3.IsChecked != currentLED3State)
                 OnSetLEDStateFromInterfaceGenerate(3, !currentLED3State);
         }
-        private void OnCheckBoxAutoControlCheckChange(object sender, EventArgs e)
+        private void OnCheckBoxIsAutoCheckChange(object sender, EventArgs e)
         {
-            if (CheckBoxAutoControl.IsChecked != currentAutoControlState)
+            if (CheckBoxIsAuto.IsChecked != currentAutoControlState)
                 OnSetAutoControlStateFromInterfaceGenerate(!currentAutoControlState);
         }
 
@@ -698,7 +710,7 @@ namespace WpfFirstDisplay
         public event EventHandler<UshortEventArgs> OnSetRobotStateFromInterfaceGenerateEvent;
         public void OnSetRobotStateFromInterfaceGenerate(ushort robotState)
         {
-            LabelInformationSent.Content = (((Commands)robotState).ToString("N2"));
+            informationSent = (ushort)(Commands)robotState;
             OnSetRobotStateFromInterfaceGenerateEvent?.Invoke(this, new UshortEventArgs { Value = robotState });
         }
 
