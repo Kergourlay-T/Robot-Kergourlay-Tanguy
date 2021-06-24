@@ -78,7 +78,7 @@ namespace ConsoleFormat
         {
             // The sender have make a mistake 
             ResetConsoleCursorAndConsoleColor();
-            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.Write("/!\\ WARNING : " + errorMsg + "/!\\");
         }
         #endregion
